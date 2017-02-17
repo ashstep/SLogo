@@ -1,21 +1,21 @@
-1. When does parsing need to take place and what does it need to start properly?
+* When does parsing need to take place and what does it need to start properly?
 
 Pass the input string to the backend
 
-2. What is the result of parsing and who receives it?
+* What is the result of parsing and who receives it?
 
 MVC, split command into verb-object structures (what is it doing/how much, and what is being acted upon)
 Objects representing command abstractions - determines if the given command is valid/supported by the program
 
-3. When are errors detected and how are they reported?
+* When are errors detected and how are they reported?
 
 Invalid string input, exception thrown. Pass string to backend, backend will try to match the command to a structure it recognizes, if it cannot do so it throws an exception
 
-4. What do commands know, when do they know it, and how do they get it?
+* What do commands know, when do they know it, and how do they get it?
 
 Strings passed to processor that will turn them into command object sequence, which is then passed to turtle, which calls methods on itself based on the information it receives
 
-5. How is the GUI updated after a command has completed execution?
+* How is the GUI updated after a command has completed execution?
 
 Check turtle position, check if draw is on or off, (line object with parameters?) , check stamp on/off, update frames and use a consistent animation.
 
