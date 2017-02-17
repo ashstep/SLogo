@@ -1,5 +1,7 @@
 #APIs
 
+Vishnu Gottiparthy (vtg4), Harry Liu (hkl6), Christian Martindale (cam119), and Ashka Stephen (aas74)
+
 1. Internal simulation - Cell subclasses with specific fields for each simulation such as 
 GOLCell, etc.
     Also includes State enum subclasses with specific updateneighbors overrides and States.
