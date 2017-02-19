@@ -7,7 +7,7 @@ This program will allow a user to control a turtle object through simple text co
 ## Design Overview
 Our design goal for this project is to properly use interfaces, abstract classes, and encapsulated methods to keep each component of the project independent of each other. To do this, we will design the structure off of the Model-View-Controller design pattern. The front-end and back-end components will only interact with the controller. In other words, the controller package will be the “middleman”. It will be functionally similar to the main class (see diagram below).
 
-![Design Diagram](slogo_design.jpg "Design Diagram")
+![Design Diagram](slogo_design.png "Design Diagram")
 
 The internal back-end API will control the turtle, parse commands, and update the turtle state. The external back-end API will be used to receive commands from the front-end, return command errors to the front-end, and communicate turtle state changes to the front-end. The internal front-end API will control all of the visual elements of the program, and will also provide access to the help page and command history. The external front-end API will communicate commands to the back-end, listen for turtle state updates, and listen for command errors.
 
@@ -131,5 +131,7 @@ We are assuming that the input will be in one of the languages specified (but ar
 
 ## Team Responsibilities
 Back-end developers: Ashka Stephen, Vishnu Gottiparthy
+
 Front-end Developers: Harry Liu, Christian Martindale
+
 Roles are not strictly defined and everyone will help each other out where needed. The back-end is a lot more work.
