@@ -1,0 +1,25 @@
+/**
+ * This is the CSS file which contains styling rules for the UI/GUI. 
+ * 
+ **/
+ 
+ .button {
+	-fx-font-size:20px;
+    -fx-text-fill:black;
+    -fx-font-family:"Helvetica";
+    -fx-background-color: #FFCE00;
+    -fx-pref-width: 275;
+}
+
+.button:hover{
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-pane{
+	-fx-background-color: #262228;
+	-fx-padding: 15px;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
