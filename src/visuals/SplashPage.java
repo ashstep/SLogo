@@ -52,7 +52,6 @@ public class SplashPage {
 		
 		theStage.setScene(theScene);
 		theStage.show();
-		
 	}
 	
 	private void handleButton(){
