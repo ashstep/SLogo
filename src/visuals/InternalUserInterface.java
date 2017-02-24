@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public interface InternalUserInterface {
 
-	public void displayTurtleMovements(List turtleStates); // takes in List of
+	public void displayTurtleState(List turtleStates); // takes in List of
 															// turtle States,
 															// operates on its
 															// own Scene
