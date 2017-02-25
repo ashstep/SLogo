@@ -1,11 +1,16 @@
 package visuals;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -38,19 +43,37 @@ public class View implements ExternalUserInterface {
 		theStage.show();
 	}
 	
-	public VBox initializeMenu(){
-		VBox Menu = new VBox(10);
+	public StackPane initializeMenu(){
+		StackPane Menu = new StackPane();
+		Menu.setMinHeight(WIDTH/4);
+		
 		
 		Button submit = new Button("Submit");
-
-		TextField userInput = new TextField ();
+		StackPane.setAlignment(submit, Pos.BOTTOM_CENTER);
+		submit.setMaxWidth(WIDTH/3);
+		
+		
+		TextArea userInput = new TextArea();
+		userInput.setMaxSize(WIDTH/3, WIDTH/4);
+		StackPane.setMargin(userInput, new Insets(WIDTH/100,WIDTH/100,WIDTH/100,WIDTH/100));
+		
+		
 		userInput.setPromptText("Enter Your Command");
 		
 		Menu.getChildren().addAll(userInput, submit);
 		
+		
 		return Menu;
 	}
 
+	private VBox createHistory(){
+		VBox history = new VBox();
+		
+		
+		
+		return history;
+	}
+	
 	@Override
 	public void passString(String input) {
 		// TODO Auto-generated method stub
