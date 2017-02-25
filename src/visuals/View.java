@@ -1,17 +1,17 @@
 package visuals;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * This is the class which controls the display of the GUI. 
+ * This is the class which controls the display of the GUI. It puts together all the components
+ * that make up the screen.
  * 
+ * @author Harry Liu, Christian Martindale
  **/
 
 public class View implements ExternalUserInterface {
@@ -22,14 +22,20 @@ public class View implements ExternalUserInterface {
 	private Stage theStage;
 	private int WIDTH = 800;
 	private int HEIGHT = 600;
+	private InputView inputView;
+	
 	
 	public View(Stage myStage) {
+		
+		inputView = new InputView(WIDTH, HEIGHT);
 		
 		theStage = myStage;
 		BP = new BorderPane();
 		SP = new ScrollPane();
-		SP.setContent(initializeMenu());
+		SP.setContent(initializeRightMenu());
 		SP.setHbarPolicy(ScrollBarPolicy.NEVER);
+		SP.setFitToWidth(true);
+		
 		BP.setRight(SP);
 		
 		theScene = new Scene(BP, WIDTH, HEIGHT);
@@ -38,18 +44,12 @@ public class View implements ExternalUserInterface {
 		theStage.show();
 	}
 	
-	public VBox initializeMenu(){
-		VBox Menu = new VBox(10);
-		
-		Button submit = new Button("Submit");
-
-		TextField userInput = new TextField ();
-		userInput.setPromptText("Enter Your Command");
-		
-		Menu.getChildren().addAll(userInput, submit);
-		
-		return Menu;
+	private VBox initializeRightMenu(){
+		VBox RightMenu = new VBox();
+		RightMenu.getChildren().addAll(inputView.initializeTextArea());
+		return RightMenu;
 	}
+	
 
 	@Override
 	public void passString(String input) {

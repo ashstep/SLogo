@@ -1,0 +1,54 @@
+#API Review for Team 12
+
+##Part I
+1. We can create a new class for any command the designer wants to have implemented,
+and the command parser just checks all command classes to match the user input
+to a command. Most classes are implemented as interfaces, providing easy implementation
+of classes that implement the GUI (for example) but change its appearance.
+
+2. We have a read-eval-print loop class (Controller) that passes all data between
+the frontend and backend through it. The turtle and command parser do not communicate
+with each other or with the frontend.
+
+3. The only way an error could be thrown in this program is incorrect user input - either 
+choosing a file that is not an image for the Turtle or inputting incorrectly formatted
+input. The command parser will catch these incorrect inputs by failing to match the input
+to a built-in command, and will tell Controller to tell UI to make a pop-up saying 
+"error: invalid input". If a non-image file is selected, the UI will handle the exception
+immediately. For the most part the backend will be dealing with these errors
+
+4. Good APIs are encapsulated, easily extendable, and easily modified.
+Our API fits these criteria because the frontend does not communicate directly with the backend
+and the classes implement the API interfaces. 
+
+##Part II
+1. The entire program is structured around MVC with the read-eval-print loop being the Controller.
+
+2. Generic commands will help the backend deal with commands that deal with multiple
+argument types. Observable type will also allow us to create connections between
+the front end and the backend without breaking encapsulation.
+
+3. I am most excited to work on the command parsing because it is challenging and will
+require using many new techniques that we have learned since the last project.
+
+4. I am worried about working on the Controller because it has so much responsibility,
+so factoring classes out of it to make it readable will be difficult, and errors in info
+passing will be catastrophic to the program.
+
+Use case 1: The user inputs "blah". The string is passed to the Controller, which passes it to
+the command parser. The command parser tries to match "blah" to one of its command enums and fails, 
+since "blah" is not an implemented command. The command parser then handles the error by telling Controller
+to tell UI to make a popup saying "error: invalid input". 
+
+Use case 2: The user selects a pdf document for the turtle image in settings. The changeImage method in UI sees that the file extension
+is not one of the recognized image types like .jpg or .tff, and immediately makes a popup saying "error: please select a valid image"
+
+Use case 3: User selects "Chinese" from the select language menu in the splash screen. The UI tells the Controller to change its Resource bundle
+field to Resources/Chinese. UI then uses this resource bundle to change its button names and directions, and command parser uses it to change
+what its valid command inputs are.
+
+Use case 4: User clicks on a command visible in the History text box. The History text box event handler matches this click to the string 
+contained in its clickable area, e.g. fd 50, and pastes this command in the user input text box. The user can then click sumbit to run this command.
+
+Use case 5: User goes to settings and chooses a new background image from his file directory. The UI calls its private setBackground method
+with parameter imageName and sets the Scene's background to this image.

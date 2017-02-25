@@ -9,6 +9,13 @@
     -fx-font-family:"Helvetica";
     -fx-background-color: #FFCE00;
     -fx-pref-width: 275;
+    -fx-alignment: center;
+}
+
+#title {
+    -fx-font: 90px Krungthep;
+    -fx-fill: white;
+    -fx-stroke-width: 1;
 }
 
 .button:hover{
