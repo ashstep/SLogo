@@ -6,9 +6,16 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
+
 
 public class CommandParser {
 
+	private Node treeNode;
+	private Node myListTree;
+
+	
 	
     private List<String> commandList;
     
@@ -16,7 +23,6 @@ public class CommandParser {
     private List<Entry<String, Pattern>> regexCommmandList;
 
     
-    private String detectLanguage = "resources/languages";
     
     
     
@@ -32,14 +38,12 @@ public class CommandParser {
     
     
     //in case of a conditional statement :
+    private Boolean isConditional;
     
 
     //in case of another language
     private ResourceBundle getLang;
     private String language;
-
-    //		ResourceBundle rb = ResourceBundle.getBundle("test.bundletest.mybundle");
-
 
 
     
@@ -48,10 +52,6 @@ public class CommandParser {
 	 * 
 	 * not sure:
 	 * want command parser to always be listening  -> how to implement? another class prob
-	 * 
-	 * 
-	 * 
-	 * 
 	 * 
 	 * 
 	 * 
@@ -78,6 +78,44 @@ public class CommandParser {
 
 		}
 	}
+	
+	
+	
+	
+	/**
+	 * Traverses the tree and returns the deepest (most nested) command.
+	 * 
+	 * @return Node
+	 */
+
+	private Node getCommandNode() {
+		Node current = treeNode;
+		while (current != null) {
+			if (current.hasChildren() && current.getChild1().isLeaf()) {
+				if (current.getChild2() != null
+						&& !current.getChild2().isLeaf()) {
+					current = current.getChild2();
+				} else {
+					return current;
+				}
+			} else if (!current.hasChildren()) {
+				return current;
+			} else {
+				current = current.getChild1();
+			}
+		}
+		return null;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//in case of a command loop
