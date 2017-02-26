@@ -7,17 +7,15 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.Node;
-
-
+/**
+ * Parses inputted commands -> calls relevant commands
+ * @author Ashka Stephen
+ */
 public class CommandParser {
 
 	private Node treeNode;
-	private Node myListTree;
-
-	
-	
     private List<String> commandList;
+    
     
     //regex command list -> unsure if needed?
     private List<Entry<String, Pattern>> regexCommmandList;
@@ -83,34 +81,42 @@ public class CommandParser {
 	
 	
 	/**
-	 * Traverses the tree and returns the deepest (most nested) command.
+	 * Traverses command/node tree
 	 * 
 	 * @return Node
 	 */
 
-	private Node getCommandNode() {
+	private Node getCurrentNode() {
 		Node current = treeNode;
 		while (current != null) {
-			if (current.hasChildren() && current.getChild1().isLeaf()) {
-				if (current.getChild2() != null
-						&& !current.getChild2().isLeaf()) {
-					current = current.getChild2();
-				} else {
-					return current;
-				}
-			} else if (!current.hasChildren()) {
+
+			//if its a leaf node -> return itself
+			if (current.isLeafNode()){
 				return current;
-			} else {
-				current = current.getChild1();
 			}
+
+			//if it has two children, but first a leaf node and second is not -> go to second
+			else if ((current.numChildren() == 2) && (current.getChild1().isLeafNode()) && (!current.getChild2().isLeafNode())){
+				current = current.getChild2();
+			}
+
+			//if it has one child which is the second-> move to that child
+			//would this even ever happen?
+			else if ((current.numChildren() == 1) && (current.hasChildTwo())){
+				current = current.getChild2();
+			}
+			// DEFAULT CASE -> go to the leftmost node
+			else{
+				current = current.getChild1();
+			}	
 		}
 		return null;
 	}
 
-	
-	
-	
-	
+
+
+
+
 	
 	
 	
@@ -151,7 +157,6 @@ public class CommandParser {
     	language = lang;
         setTranslationMap();
     }
-
 
 	/**
 	 * Creating a translation mapping in case other language is inputted
