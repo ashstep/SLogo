@@ -1,6 +1,6 @@
 package processing;
-
 import javafx.scene.paint.Color;
+import turtle.TurtleState;
 
 public interface ExternalBackendAPI {
 		
@@ -26,7 +26,7 @@ public interface ExternalBackendAPI {
 	 * Gets the next turtle state if changed
 	 * @return
 	 */
-	public State getTurtleStates();
+	public TurtleState getTurtleStates();
 	
 	/**
 	 * Gets an error message if thrown
