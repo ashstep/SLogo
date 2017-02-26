@@ -1,5 +1,5 @@
 /**
- * Exceptions.
+ * General Throwable Exception
  * @author Ashka Stephen
  *
  */

@@ -62,17 +62,32 @@ public class CommandParser {
 	}
     
 	/**
-	 * create arraylist of command
+	 * create arraylist of commands inputted
+	 * initial creation 
 	 * note: int values will be strings initially
+	 * @return list of the commands ->
+	 * given an inputted string, generate a list of commands -> make a tree from that list
 	 */
-	public CommandParser(String s) {
-		commandList = new ArrayList<>();
-		String[] split = s.split("");
-		for(int i = 0; i < split.length; i+=2){
+	public List<String> parseInputtedCommand(String commandLineInput){
+		commandList = new ArrayList<String>();
+		String[] split = commandLineInput.split("");
+		for(int i = 0; i < split.length; i++){
 			commandList.add(split[i]);
-
 		}
+		return commandList;
 	}
+	
+	/**
+	 * Build tree from the list of commands
+	 */
+	private void buildTree(List<String> commandsandItemsList){
+		f
+		
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -82,6 +97,8 @@ public class CommandParser {
 	 * @return Node
 	 */
 
+	
+	//in exectution
 	private Node getCurrentNode() {
 		Node current = treeNode;
 		while (current != null) {
@@ -108,8 +125,22 @@ public class CommandParser {
 		}
 		return null;
 	}
-
-
+	
+	
+	//got to bottom -> execute the action and replace the parent node with the result of the children nodes
+	private void replaceParentonAction(){
+		
+	}
+	
+	
+	
+	
+	//tree to list => list mapped to the commands
+	
+	private Node getCommandTreeToList(Node current){
+		return current;
+		
+	}
 
 
 
