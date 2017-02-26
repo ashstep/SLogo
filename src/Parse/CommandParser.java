@@ -22,16 +22,13 @@ public class CommandParser {
 
     
     
-    
-    
-    
     //in case of a loop statement:
     private HashMap<String, Integer> loopCommandInfo = new HashMap<>();
     private Boolean isLoop;
     private Integer loopStart = 1;
     private Integer loopEnd = 2;
     private Integer loopIncrement = 1;
-    private String loopVariable = ""; //how to use this???? needed or not?
+    private String loopVariable = ""; // needed or not?
     //similar thing for procedures and procedures/parameters
     
     
@@ -76,7 +73,6 @@ public class CommandParser {
 
 		}
 	}
-	
 	
 	
 	
