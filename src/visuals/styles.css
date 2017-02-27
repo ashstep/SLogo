@@ -1,22 +1,27 @@
 /**
  * This is the CSS file which contains styling rules for the UI/GUI. 
- * 
+ *
  **/
  
  .button {
-	-fx-font-size:20px;
+	-fx-font-size:20.0px;
     -fx-text-fill:black;
     -fx-font-family:"Helvetica";
     -fx-background-color: #FFCE00;
-    -fx-pref-width: 275;
     -fx-alignment: center;
+    -fx-pref-height:45.0;
 }
 
-#title {
-    -fx-font: 90px Krungthep;
-    -fx-fill: white;
-    -fx-stroke-width: 1;
+.label {
+	 -fx-text-fill: white;
 }
+
+.color-picker {
+	-fx-font-size:20.0px;
+    -fx-background-color: #FFCE00;
+    -fx-pref-height:45.0;
+    }
+
 
 .button:hover{
     -fx-background-color: #FFFFFF;
@@ -24,9 +29,15 @@
 
 .scroll-pane{
 	-fx-background-color: #262228;
-	-fx-padding: 15px;
+	-fx-padding: 15.0px;
 }
 
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
+}
+
+#title {
+    -fx-font: 90.0px Krungthep;
+    -fx-fill: white;
+    -fx-stroke-width: 1.0;
 }

@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import visuals.SplashPage;
-import visuals.View;
 
 public class Main extends Application {
 
