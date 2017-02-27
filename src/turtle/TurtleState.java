@@ -19,7 +19,7 @@ public class TurtleState {
 		return y;
 	}
 	
-	public double angle(){
+	public double getAngle(){
 		return angle;
 	}
 }

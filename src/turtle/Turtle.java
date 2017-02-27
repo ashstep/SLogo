@@ -1,5 +1,6 @@
 package turtle;
-import commands.Command;
+import commands.TurtleCommand;
+import commands.MathCommand;
 
 public class Turtle {
 	
@@ -9,8 +10,12 @@ public class Turtle {
 		state = new TurtleState(0, 0, 0);
 	}
 	
-	public void execute(Command c){
+	public void execute(TurtleCommand c){
 		state = c.run(state);
+	}
+	
+	public double evaluate(MathCommand c){
+		return c.calculate();
 	}
 	
 	public TurtleState getState(){
