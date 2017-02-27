@@ -68,6 +68,10 @@ public class InputView implements IInputView {
 		return userInput.getText();
 	}
 
+	/**
+	 * Method that creates a color picker.
+	 * @return colorPicker
+	 */
 	public ColorPicker initializeColorPicker() {
 		colorPicker = new ColorPicker();
 		colorPicker.setMaxWidth(WIDTH * (0.4));
@@ -75,6 +79,11 @@ public class InputView implements IInputView {
 		return colorPicker;
 	}
 
+	/**
+	 * Method that changes the color of the background based off of the selected color from the color picker
+	 * @param backgroundColorChooser
+	 * @param root
+	 */
 	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {
 		backgroundColorChooser.setOnAction(e -> {
 			Paint fill = backgroundColorChooser.getValue();
@@ -84,6 +93,11 @@ public class InputView implements IInputView {
 		});
 	}
 
+	/**
+	 * Method that changes the stroke color based off of the selected color from the color picker
+	 * @param strokeColorChooser
+	 * @param gc
+	 */
 	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
 		strokeColorChooser.setOnAction(e -> {
 			Paint fill = strokeColorChooser.getValue();

@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
@@ -57,28 +58,44 @@ public class View implements ExternalUserInterface {
 		theStage.show();
 	}
 
+	/**
+	 * Initialize the right side which has all the controls for the GUI
+	 * @return
+	 */
 	private VBox initializeRightMenu() {
 		VBox RightMenu = new VBox(SPACING);
-		Text backgroundLabel = new Text("Change the Background Color!"); //Change to ResourceBundle Later
-		backgroundLabel.setId("text");
+		
+		Label backgroundLabel = new Label("Change the Background Color!"); //Change to ResourceBundle Later
+		Label lineColorLabel = new Label ("Change the color of the line");
+
 		backgroundColorChooser = inputView.initializeColorPicker();
-		strokeColorChooser = inputView.initializeColorPicker();		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(), backgroundLabel, backgroundColorChooser, strokeColorChooser);
+		strokeColorChooser = inputView.initializeColorPicker();	
+		
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
 		return RightMenu;
 	}
-
+	
+	/**
+	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
+	 * @return TurtleView
+	 */
 	private Canvas initializeGraphicContent() {
 		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
 		gc = TurtleView.getGraphicsContext2D();
 		return TurtleView;
 	}
 	
+	/**
+	 * Filler method just to test if the line is displayed properly
+	 * NOT ACTUALLY GOING TO BE USED THIS WAY.
+	 * @param x
+	 * @param y
+	 */
 	private void moveline(double x, double y){
 		gc.moveTo(50, 50);
 		gc.lineTo(x, y);
 		gc.stroke();
 	}
-	
 	
 	@Override
 	public void passString(String input) {

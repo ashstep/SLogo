@@ -12,8 +12,8 @@
     -fx-pref-height:45.0;
 }
 
-#text{
-	 -fx-fill: white;
+.label {
+	 -fx-text-fill: white;
 }
 
 .color-picker {
