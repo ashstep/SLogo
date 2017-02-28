@@ -16,6 +16,11 @@ public class CommandParser {
 	private Node treeNode;
     private List<String> commandList;
     
+    //adding different variables and storing them with values
+    private HashMap<String, Integer> variablesinCurrentCommand = new HashMap<>();
+    
+    
+    
     
     //regex command list -> unsure if needed?
     private List<Entry<String, Pattern>> regexCommmandList;
@@ -41,7 +46,8 @@ public class CommandParser {
     private String language;
 
 
-    
+    //map of the variables created to the values made with
+    private HashMap<String, Double> variable = new HashMap<>();
     
 	/**
 	 * 
@@ -81,13 +87,41 @@ public class CommandParser {
 	 * Build tree from the list of commands
 	 */
 	private void buildTree(List<String> commandsandItemsList){
-		f
+		int treeDepth = 0;
+		for(int i = 0; i < commandsandItemsList.size(); i++){
+			
+		}
 		
 	}
-	
-	
-	
-	
+
+
+	/**
+	 * Checks if inputted string is a variable; checks for the ":"
+	 * input: a string
+	 * output: T/F depending on whether its a variable name or not
+	 * @return Node
+	 */
+	private boolean checkifVariable(String string){
+		//error check
+		System.out.println("Inputted String: " + string);
+		System.out.println("boolean returned: " + string.startsWith(":"));
+
+		return string.startsWith(":");
+	}
+
+
+	/**
+	 * input: two arraylist indexes -> string name (including the colon) and INTEGER value to be added
+	 * NOTE: Must convert the value to an integer before its able to be added by this function
+	 * output: T/F depending on whether its a variable name or not
+	 * @return Node
+	 */
+	private void addVariableNameandValueToHashmap(String variableNameWithColon, Integer valuetobeAdded){
+		
+		
+		
+		
+	}
 	
 	
 	
@@ -96,8 +130,6 @@ public class CommandParser {
 	 * 
 	 * @return Node
 	 */
-
-	
 	//in exectution
 	private Node getCurrentNode() {
 		Node current = treeNode;
