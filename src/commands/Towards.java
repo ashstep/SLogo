@@ -1,5 +1,4 @@
 package commands;
-
 import turtle.TurtleState;
 
 public class Towards extends TurtleCommand {
@@ -11,7 +10,7 @@ public class Towards extends TurtleCommand {
 		double y = args[1] - state.getY();
 		double angle = Math.atan(y/x);
 		setReturnVal(angle - state.getAngle());
-		return new TurtleState(state.getX(), state.getY(), angle);
+		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
 	}
 
 }

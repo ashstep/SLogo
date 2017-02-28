@@ -9,6 +9,6 @@ public class Back extends TurtleCommand {
 		setReturnVal(args[0]);
 		return new TurtleState(state.getX() - Math.cos(state.getAngle())*args[0], 
 				state.getY() - Math.sin(state.getAngle())*args[0], 
-				state.getAngle());
+				state.getAngle(), state.isPenDown(), state.isVisible());
 	}
 }

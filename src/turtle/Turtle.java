@@ -8,7 +8,7 @@ public class Turtle {
 	private double returnVal;
 	
 	public Turtle(){
-		state = new TurtleState(0, 0, 0);
+		state = new TurtleState(0, 0, 0, false, true);
 	}
 	
 	public void execute(TurtleCommand c){
