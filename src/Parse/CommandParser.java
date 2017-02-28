@@ -94,32 +94,61 @@ public class CommandParser {
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+
+	///NEXT 4 METHODS ARE TO DO WITH VARIABLE MAPPING AND RETURNING
 
 	/**
-	 * Checks if inputted string is a variable; checks for the ":"
-	 * input: a string
-	 * output: T/F depending on whether its a variable name or not
-	 * @return Node
+	 * Checks if inputted string is a variable
+	 * checks for the ":"
+	 * @param a string
+	 * @return: T/F depending on whether its a variable namE
 	 */
-	private boolean checkifVariable(String string){
-		//error check
+	private boolean isVariable(String string){
+		//error check -> delete afterwards
 		System.out.println("Inputted String: " + string);
 		System.out.println("boolean returned: " + string.startsWith(":"));
-
 		return string.startsWith(":");
 	}
-
+	
+	private boolean isVariableinMap(String string, HashMap<String, Integer> variablesinCurrentCommand){
+		if( variablesinCurrentCommand.get(string) != null){
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * input: two arraylist indexes -> string name (including the colon) and INTEGER value to be added
 	 * NOTE: Must convert the value to an integer before its able to be added by this function
 	 * output: T/F depending on whether its a variable name or not
+	 * 
+	 * 
+	 * overall process:
+	 * check if its a variable 
+	 * 		if TRUE check if in map
+	 * 				if TRUE return value
+	 * 				if FALSE add to map
+	 * 
+	 * if its not there -> added
+	 * if its there -> go to the method that returns the valu
 	 */
-	private void addVariableNameandValueToHashmap(String variableNameWithColon, Integer valuetobeAdded){		
+	private void addVariableToHashmap(String variableNameWithColon, Integer valuetobeAdded){		
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
 			//would we need to have a way to update the variable holding?
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 			}
+	}
+	
+	private Integer returnStoredVal(String string){
+		return variablesinCurrentCommand.get(string);		
 	}
 	
 	
