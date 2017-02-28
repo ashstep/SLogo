@@ -8,6 +8,7 @@ public class Node {
 	String myVal;
 	Node child1;
 	Node child2;
+	Boolean hasbeenxecuted;
 	
 	//command to INSERT a child node given a command string? needed or not?
 	
@@ -30,6 +31,25 @@ public class Node {
 	public String getValue() {
 		return myVal;
 	}
+	
+/*	
+	*//**
+	 * Getter for nth child
+	 *//*
+	public Node getNthChild(Node parentNode, Integer n){
+		int count = 0;
+		while (count != n){
+			Node child = Node.
+			
+			count++;
+		}
+		return ;
+	}
+
+	*/
+	
+	
+	
 	
 	/**
 	 * Left Child Getter
@@ -65,7 +85,13 @@ public class Node {
 	public Boolean hasChildTwo(){
 		return (child2!=null);
 	}
-	
+
+	/**
+	 * has command node been executed -> check if its false before executing
+	 */
+	public Boolean hasBeenExectued(){
+		return hasbeenxecuted;
+	}
 	/**
 	 * Add child to first available space -> if both children exists, nothing happens -> edit to check???
 	 */
@@ -97,6 +123,14 @@ public class Node {
 	 */
 	public Boolean isLeafNode(){
 		return ((child1==null) && (child2 == null));
+	}
+	
+	
+	/**
+	 * Call if children are all executed -> sets as true
+	 */
+	public void setHasBeenExecuted(){
+		hasbeenxecuted = true;
 	}
 
 	

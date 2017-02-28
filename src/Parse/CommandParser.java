@@ -10,6 +10,14 @@ import javafx.beans.property.ObjectProperty;
 /**
  * Parses inputted commands -> calls relevant commands
  * @author Ashka Stephen
+ * 
+ * 
+ * 
+ * TODO:
+ * deal with regex
+ * different languages -> handling that
+ * extract valid command map -> map command to how many arguments it takes
+ * 
  */
 public class CommandParser {
 
@@ -19,13 +27,14 @@ public class CommandParser {
     //adding different variables and storing them with values
     private HashMap<String, Integer> variablesinCurrentCommand = new HashMap<>();
     
-    
-    
-    
+    //list of existing commands that are VALID
+    //TODO EXTRACT THIS to another class
+    //IMPORTANT: command mapped to the number of arguments it takes
+    private HashMap<String, Integer> validCommands = new HashMap<>();
+
     //regex command list -> unsure if needed?
     private List<Entry<String, Pattern>> regexCommmandList;
 
-    
     
     //in case of a loop statement:
     private HashMap<String, Integer> loopCommandInfo = new HashMap<>();
@@ -54,13 +63,11 @@ public class CommandParser {
 	 * not sure:
 	 * want command parser to always be listening  -> how to implement? another class prob
 	 * 
-	 * 
-	 * 
 	 * TO DO
 	 * Listener that checks to see if an instance variable in View changes and then running the command parsing if it has changed
 	 * steps:1. User inputs string and presses submit
-2. View's getText() method returns the String from the user Input and sets the View's CURRENTCOMMAND field to the String
-3. The listener in Controller sees that CURRENTCOMMAND has changed and grabs the String and passes it to Command Parser, starting the whole update process
+	 * 2. View's getText() method returns the String from the user Input and sets the View's CURRENTCOMMAND field to the String
+	 * 3. The listener in Controller sees that CURRENTCOMMAND has changed and grabs the String and passes it to Command Parser, starting the whole update process
 	 * 
 	 */
 	public CommandParser() {
@@ -69,9 +76,8 @@ public class CommandParser {
     
 	/**
 	 * create arraylist of commands inputted
-	 * initial creation 
 	 * note: int values will be strings initially
-	 * @return list of the commands ->
+	 * @return list of the commands 
 	 * given an inputted string, generate a list of commands -> make a tree from that list
 	 */
 	public List<String> parseInputtedCommand(String commandLineInput){
@@ -191,6 +197,20 @@ public class CommandParser {
 	private void replaceParentonAction(){
 		
 	}
+	
+	
+	
+	//loop through all children -> if all have "true" tag -> return true
+/*	private Boolean checkIfNodeExecuted(Node n){
+		for(int i = 0; i< n.numChildren(); i++){
+			if(!n.hasBeenExectued()){
+				return false;
+				n.
+			}
+		}
+		return true;
+	}
+	*/
 	
 	
 	
