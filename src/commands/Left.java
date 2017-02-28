@@ -6,9 +6,7 @@ public class Left extends TurtleCommand {
 
 	@Override
 	public TurtleState run(TurtleState state, double... args) {
-		if(args.length != 1){
-			throw new IllegalArgumentException("Got "+args.length+" arguments, expected 1");
-		}
+		checkArgs(1, args);
 		setReturnVal(args[0]);
 		return new TurtleState(state.getX(), state.getY(), state.getAngle() - args[0]);
 	}
