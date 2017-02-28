@@ -1,15 +1,19 @@
 package visuals;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -29,10 +33,12 @@ public class View implements ExternalUserInterface {
 	private int HEIGHT = 600;
 	private int SPACING = 10;
 	private InputView inputView;
+	private Button help;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
 	private Canvas TurtleView;
 	private GraphicsContext gc;
+	private String helpUrl = "http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
 
 	public View(Stage myStage) {
 
@@ -65,13 +71,17 @@ public class View implements ExternalUserInterface {
 	private VBox initializeRightMenu() {
 		VBox RightMenu = new VBox(SPACING);
 		
+		help = new Button("Help!");
+		help.setOnAction(e->{
+			displayHelpPage();
+		});
 		Label backgroundLabel = new Label("Change the Background Color!"); //Change to ResourceBundle Later
 		Label lineColorLabel = new Label ("Change the color of the line");
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser, help);
 		return RightMenu;
 	}
 	
@@ -95,6 +105,18 @@ public class View implements ExternalUserInterface {
 		gc.moveTo(50, 50);
 		gc.lineTo(x, y);
 		gc.stroke();
+	}
+	
+	private void displayHelpPage(){
+		try{
+			Desktop.getDesktop().browse(new URI(helpUrl));
+		}
+		catch (IOException e){
+			System.out.println("This is a filler notification for an error");
+		}
+		catch (URISyntaxException e){
+			System.out.println("This is a filler notification for an error");
+		}
 	}
 	
 	@Override
