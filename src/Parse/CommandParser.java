@@ -114,13 +114,12 @@ public class CommandParser {
 	 * input: two arraylist indexes -> string name (including the colon) and INTEGER value to be added
 	 * NOTE: Must convert the value to an integer before its able to be added by this function
 	 * output: T/F depending on whether its a variable name or not
-	 * @return Node
 	 */
-	private void addVariableNameandValueToHashmap(String variableNameWithColon, Integer valuetobeAdded){
-		
-		
-		
-		
+	private void addVariableNameandValueToHashmap(String variableNameWithColon, Integer valuetobeAdded){		
+		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
+			//would we need to have a way to update the variable holding?
+			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
+			}
 	}
 	
 	
