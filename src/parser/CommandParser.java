@@ -79,7 +79,10 @@ public class CommandParser {
 	protected Node initNewNode(String commandString) {
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
-		created.setCommandObject(theCommand.getCommandObj(commandString));
+		String a = theCommand.getCommandString(commandString);
+		//theCommand.getCommandObj(a);
+		created.setCommandObject(theCommand.getCommandObj(a));
+		//created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
 	}
 
