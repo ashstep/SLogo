@@ -54,7 +54,7 @@ public class Turtle {
 	 * Queries the <code>Turtle</code> regarding its state
 	 * @param q <code>TurtleQuery</code> to ask
 	 */
-	private void query(TurtleQuery q){
+	private void query(TurtleQuery q) throws ArgumentNumberException {
 		returnVal = q.run(state);
 	}
 	

@@ -11,7 +11,7 @@ public class Towards extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		double x = args[0] - state.getX();
 		double y = args[1] - state.getY();
 		double angle = Math.atan(y/x);

@@ -7,7 +7,7 @@ public class Forward extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		setReturnVal(args[0]);
 		double x = state.getX() + Math.cos(state.getAngle())*args[0];
 		double y = state.getY() + Math.sin(state.getAngle())*args[0];

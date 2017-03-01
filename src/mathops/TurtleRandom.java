@@ -6,7 +6,7 @@ public class TurtleRandom extends MathCommand {
 	
 	@Override
 	public double calculate(double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		return Math.random()*args[0];
 	}
 }

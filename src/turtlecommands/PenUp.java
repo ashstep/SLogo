@@ -7,7 +7,7 @@ public class PenUp extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		setReturnVal(0);
 		return new TurtleState(state.getX(), state.getY(), state.getAngle(), false, state.isVisible());
 	}

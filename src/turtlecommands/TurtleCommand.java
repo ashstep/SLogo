@@ -13,7 +13,8 @@ public abstract class TurtleCommand extends Command {
 	
 	private double returnVal;
 	
-	public TurtleCommand(){
+	public TurtleCommand(double... args){
+		super(args);
 		setNumArgs(1);
 	}
 	
@@ -28,7 +29,7 @@ public abstract class TurtleCommand extends Command {
 	 * Sets the return value of the command
 	 * @param val Value to set as return value
 	 */
-	public void setReturnVal(double val){
+	protected void setReturnVal(double val){
 		returnVal = val;
 	}
 	

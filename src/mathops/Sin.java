@@ -6,7 +6,7 @@ public class Sin extends MathCommand {
 	
 	@Override
 	public double calculate(double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		return Math.sin(args[0]);
 	}
 }

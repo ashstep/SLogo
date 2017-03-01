@@ -10,7 +10,8 @@ import turtle.ArgumentNumberException;
  */
 public abstract class MathCommand extends Command {
 	
-	public MathCommand(){
+	public MathCommand(double... args){
+		super(args);
 		setNumArgs(1);
 	}
 	

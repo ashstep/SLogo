@@ -7,24 +7,37 @@ package turtle;
  */
 public class Command {
 	
+	private double[] args;
 	private int numArgs;
+	
+	public Command(double... args) {
+		this.args = args;
+	}
 	
 	/**
 	 * Checks if the allowed number of arguments is supplied
 	 * @param allowed Number of allowed arguments
 	 * @param args Array of arguments
 	 */
-	protected void checkArgs(double[] args) throws ArgumentNumberException {
+	protected void checkArgs() throws ArgumentNumberException {
 		if(args.length != numArgs){
 			throw new ArgumentNumberException("Got "+args.length+" arguments, expected " + numArgs);
 		}
 	}
 	
 	/**
-	 * Sets the allowed number of arguments for the <code>Command</code>
-	 * @param num Number of allowed arguments
+	 * Gets the arguments list of this <code>Command</code>
+	 * @return The arguments list
 	 */
-	protected void setNumArgs(int num){
+	public double[] getArgs(){
+		return args;
+	}
+	
+	/**
+	 * Sets the number of allowed arguments
+	 * The number of allowed arguments
+	 */
+	public void setNumArgs(int num){
 		numArgs = num;
 	}
 	

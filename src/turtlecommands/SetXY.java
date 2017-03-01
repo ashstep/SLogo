@@ -11,7 +11,7 @@ public class SetXY extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
-		checkArgs(args);
+		checkArgs();
 		double x = state.getX() - args[0];
 		double y = state.getY() - args[1];
 		double dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
