@@ -121,7 +121,18 @@ public class Node {
 	public Node getSpecificChild(int n){
 		return children.get(n);
 	}
-
+	
+	
+	/**
+	 * @return getting the childnode at a specific part of the arraylist
+	 * "nth child"
+	 */
+	public void setChildren(ArrayList<Node> settingChildren){
+		for (int i = 0; i < settingChildren.size(); i++){
+			children.add(i, settingChildren.get(i));
+		}
+	}
+	
 	/**
 	 * @return adding a child node to the arraylist
 	 */

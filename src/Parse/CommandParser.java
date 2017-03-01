@@ -40,6 +40,7 @@ public class CommandParser {
 
     
     //in case of a loop statement:
+    //currently not used
     private HashMap<String, Integer> loopCommandInfo = new HashMap<>();
     private Boolean isLoop;
     private Integer loopStart = 1;
@@ -73,9 +74,7 @@ public class CommandParser {
 	 * 3. The listener in Controller sees that CURRENTCOMMAND has changed and grabs the String and passes it to Command Parser, starting the whole update process
 	 * 
 	 */
-	public CommandParser() {
-		commandList = new ArrayList<>();
-	}
+
     
 	/**
 	 * create arraylist of commands inputted
@@ -100,7 +99,7 @@ public class CommandParser {
     protected Node initNewNode(String commandString) {
         Node created = new Node(commandString);
         created.setCommand(commandString);
-        //created.setCommandObj(commandClassname.getcommandobject(commandString))
+        //created.setCommandObjName(commandClassname.getcommandobject(commandString))
         return created;
     }
 
@@ -112,10 +111,12 @@ public class CommandParser {
 	 * @return root of the new tree
 	 */
 	private Node buildTree(List<String> commandList){
+		Node rootNodeofTree = initNewNode(commandList.get(0));
+		//TODO implement check if null break
 		for(int i = 0; i < commandList.size(); i++){
 			String currCommand = commandList.get(i);
 			
-			//CASE: if the word is make or set
+			//CASE1: if the word is make or set
 			if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")){
 				i++;
 				String newVariable = commandList.get(i);
@@ -123,86 +124,34 @@ public class CommandParser {
 				Double valuetoAdd = Double.parseDouble(commandList.get(i));
 				//check if its a variable and that it's NOT in map -> add it
 				if ((isVariable(newVariable))){
-					if(variablesinCurrentCommand.get(newVariable) == null){
-						variablesinCurrentCommand.put(newVariable, valuetoAdd );
+					if(!isVariableinMap(newVariable)){
+						addVariableToHashmap(newVariable, valuetoAdd);
 					}
 				}
 			}
 			
-			/*
-			 * if its a recognized command 
-			 * need to edit so that the hashmap has all commandds
-			 */
-			if(){
-				
+			//DEFAULT CASE:
+			Node currCommandNode = initNewNode(currCommand);	
+			
+			if(validCommands.containsKey(currCommand)){
+				i++;
+				//move to the next command / value to add
+				String nextCommand = commandList.get(i);
+				Node nextCommandNode = initNewNode(nextCommand);
+				currCommandNode.addChild(nextCommandNode);
 			}
+			i++;
 			
 			
 			
-			
-			
-			//CASE checking if its a variable -> create node with the variable value
-			//not correct completely
-			if(isVariable(currCommand)){
-				Node currCommandNode = initNewNode(currCommand);
-
-			}
-			
-			
-			
-			
-			
-			
-
-			
-			
-			
-			//if it recognizes the command:
-			Node currCommandNode = initNewNode(currCommand);
-			
-			
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-\	        checkifDefiningMethod(newChild);
-	        if (newChild.getNumChildren() == 0) return newChild; // base case, no more commands to add to the tree
-	        for (int i = 0; i < newChild.getCommandObj().numArguments(); i++) { // create all children
+/*			//implement to get nesting to work completely:
+			//create all children recursively
+	        for (int i = 0; i < newchildnode.getCommandObjectName().numArgumentsmethodname(); i++) { 
 	            myCommandIndex++;
-	            newChild.addChild(buildParseTree());
-	        }
-	        myMethodCaller.clearMethodBeingDefined(); // no longer defining method
-	        return newChild;
-	    
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//create all children recursively
-        for (int i = 0; i < newChild.getCommandObj().numArguments(); i++) { // create all children
-            myCommandIndex++;
-            newChild.addChild(buildParseTree());
-        }
-
-		
+	            newchildnode.addChild(buildTree());
+	        }*/			
+		}
+		return rootNodeofTree;
 	}
 
 	
@@ -250,14 +199,14 @@ public class CommandParser {
 	 * if its not there -> added
 	 * if its there -> go to the method that returns the valu
 	 */
-	private void addVariableToHashmap(String variableNameWithColon, Integer valuetobeAdded){		
+	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded){		
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
 			//would we need to have a way to update the variable holding?
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 			}
 	}
 	
-	private Integer returnStoredVal(String string){
+	private Double returnStoredVal(String string){
 		return variablesinCurrentCommand.get(string);		
 	}
 	
