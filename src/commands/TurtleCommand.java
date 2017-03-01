@@ -31,6 +31,10 @@ public abstract class TurtleCommand {
 		}
 	}
 	
+	/**
+	 * Gets the value to return from the command running
+	 * @return The return value
+	 */
 	public double getReturnVal(){
 		return returnVal;
 	}

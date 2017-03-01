@@ -1,4 +1,4 @@
-package commands;
+package mathops;
 
 public interface MathCommand {
 	
