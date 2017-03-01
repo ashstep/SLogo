@@ -16,6 +16,7 @@ import javafx.beans.property.ObjectProperty;
  * TODO:
  * deal with regex
  * different languages -> handling that
+ * 			no hardcoded strings -> call from resources 
  * extract valid command map -> map command to how many arguments it takes
  * 
  */
@@ -30,6 +31,7 @@ public class CommandParser {
     //list of existing commands that are VALID
     //TODO EXTRACT THIS to another class
     //IMPORTANT: command mapped to the number of arguments it takes
+    //this is in the command ->> command does error parsing
     private HashMap<String, Integer> validCommands = new HashMap<>();
 
     //regex command list -> unsure if needed?
@@ -53,7 +55,7 @@ public class CommandParser {
     //in case of another language
     private ResourceBundle getLang;
     private String language;
-
+    // to get commandsResourceBundle resources = ResourceBundle.getBundle(syntax);
 
     //map of the variables created to the values made with
     private HashMap<String, Double> variable = new HashMap<>();
@@ -98,6 +100,18 @@ public class CommandParser {
 			
 		}
 		
+		
+		
+		
+		
+		
+		//create all children recursively
+        for (int i = 0; i < newChild.getCommandObj().numArguments(); i++) { // create all children
+            myCommandIndex++;
+            newChild.addChild(buildParseTree());
+        }
+
+		
 	}
 
 	
@@ -110,7 +124,6 @@ public class CommandParser {
 	
 
 	///NEXT 4 METHODS ARE TO DO WITH VARIABLE MAPPING AND RETURNING
-
 	/**
 	 * Checks if inputted string is a variable
 	 * checks for the ":"
@@ -124,8 +137,8 @@ public class CommandParser {
 		return string.startsWith(":");
 	}
 	
-	private boolean isVariableinMap(String string, HashMap<String, Integer> variablesinCurrentCommand){
-		if( variablesinCurrentCommand.get(string) != null){
+	private boolean isVariableinMap(String string){
+		if(variablesinCurrentCommand.get(string) != null){
 			return true;
 		}
 		return false;
@@ -161,11 +174,12 @@ public class CommandParser {
 	
 	/**
 	 * Traverses command/node tree
+	 * returns most nested node
 	 * 
 	 * @return Node
 	 */
-	//in exectution
-	private Node getCurrentNode() {
+	//in execution
+	private Node getDeepestNode() {
 		Node current = treeNode;
 		while (current != null) {
 
@@ -298,14 +312,15 @@ public class CommandParser {
     
     //regex !!!!! from in class
     //not sure if any of the following is needed:
+    //CURRENTLY DOES NOT WORK
+/*    
     
-    
-    /**
+    *//**
      * Determine a string's type if it's a regex
      *
      * @param command string to find mapping of
      * @return the error or command type
-     */
+     *//*
     public String getSymbol (String command) {
         final String ERROR = "ERROR, no regex match found";
         for (Entry<String, Pattern> mapRegex : commandList) {
@@ -319,16 +334,16 @@ public class CommandParser {
     
     
     
-    /**
+    *//**
      * Matches a String to a regular expression
      *
      * @param command is the String to be matched with a regex
      * @param regex is the regular expression val
      * @return true if commandType satisfies the regular expression, else it's false
-     */
+     *//*
     private boolean isMatch(String command, Pattern regex) {
         return regex.matcher(command).matches();   //KEY LINE
-    }
+    }*/
 
  
     
