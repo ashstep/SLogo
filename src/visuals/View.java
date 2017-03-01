@@ -3,7 +3,10 @@ package visuals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -49,6 +52,7 @@ public class View implements ExternalUserInterface {
 		
 		
 		Button submit = new Button("Submit");
+		submit.setDefaultButton(true);
 		StackPane.setAlignment(submit, Pos.BOTTOM_CENTER);
 		submit.setMaxWidth(WIDTH/3);
 		
@@ -66,13 +70,12 @@ public class View implements ExternalUserInterface {
 		return Menu;
 	}
 
-	private VBox createHistory(){
-		VBox history = new VBox();
-		
-		
-		
-		return history;
-	}
+	/**
+	 * shows an error message popup
+	 * @param errorMsg the message that will be displayed in the error popup
+	 */
+
+	
 	
 	@Override
 	public void passString(String input) {
@@ -80,6 +83,10 @@ public class View implements ExternalUserInterface {
 		
 	}
 
+	private void updateTurtle(TurtleState turtle){
+		
+	}
+	
 	@Override
 	public void newTurtleState() {
 		// TODO Auto-generated method stub
@@ -88,7 +95,8 @@ public class View implements ExternalUserInterface {
 
 	@Override
 	public void createErrorMessage(String whatHappened) {
-		// TODO Auto-generated method stub
+		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
+		alert.showAndWait();
 		
 	}
 
