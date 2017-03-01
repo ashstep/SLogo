@@ -16,11 +16,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import turtle.Turtle;
+import turtle.TurtleState;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
@@ -43,6 +47,12 @@ public class View implements ExternalUserInterface {
 	private ColorPicker strokeColorChooser;
 	private Canvas TurtleView;
 	private GraphicsContext gc;
+	private GraphicsContext myTurtleDrawer;
+	private Image myTurtleImage;
+	private ImageView myTurtle;
+	private double turtleXPos;
+	private double turtleYPos;
+	private double turtleAngle;
 
 	public View(Stage myStage) {
 
@@ -59,7 +69,6 @@ public class View implements ExternalUserInterface {
 		BP.setRight(SP);
 		TurtleView = initializeGraphicContent();
 		inputView.setStroke(strokeColorChooser, gc);
-		moveline(200,200);
 		BP.setLeft(TurtleView);
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
@@ -123,7 +132,12 @@ public class View implements ExternalUserInterface {
 	 */
 	private Canvas initializeGraphicContent() {
 		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
-		gc = TurtleView.getGraphicsContext2D();
+		myTurtleDrawer = TurtleView.getGraphicsContext2D();
+		turtleXPos = WIDTH/4;
+		turtleYPos = HEIGHT/2;
+		turtleAngle = 0;
+		
+		myTurtle = new ImageView(myTurtleImage);
 		return TurtleView;
 	}
 	
@@ -133,10 +147,12 @@ public class View implements ExternalUserInterface {
 	 * @param x
 	 * @param y
 	 */
-	private void moveline(double x, double y){
-		gc.moveTo(50, 50);
-		gc.lineTo(x, y);
-		gc.stroke();
+	private void drawTurtlePath(double x, double y, boolean pen){
+		myTurtleDrawer.moveTo(x,y);
+		if(pen) {
+			myTurtleDrawer.lineTo(x, y);		
+			myTurtleDrawer.stroke();
+		}
 	}
 	
 	@Override
@@ -145,8 +161,18 @@ public class View implements ExternalUserInterface {
 
 	}
 
-	private void updateTurtle(TurtleState turtle){
-		System.out.print("Hello");
+	
+	
+	private void updateTurtle(TurtleState newTurtle){
+		turtleXPos = newTurtle.getX();
+		turtleYPos = newTurtle.getY();
+		turtleAngle = newTurtle.getAngle();
+		myTurtle.setX(turtleXPos);
+		myTurtle.setY(turtleYPos);
+		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
+		
+		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
+		
 	}
 	
 	@Override
