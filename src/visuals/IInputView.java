@@ -1,5 +1,7 @@
 package visuals;
 
+import java.util.ResourceBundle;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
@@ -11,7 +13,7 @@ public interface IInputView {
 	 * create TextArea for userInput and Submit Button (placed in a VBox)
 	 * 
 	 */
-	VBox initializeTextArea(Button submit);
+	VBox initializeTextArea(Button submit, ResourceBundle myResourceBundle);
 	
 	
 	//External 
