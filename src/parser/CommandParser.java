@@ -42,14 +42,6 @@ public class CommandParser {
 	private HashMap<String, Integer> validCommands = new HashMap<>();
 
 	// in case of a loop statement:
-	// currently not used
-	private HashMap<String, Integer> loopCommandInfo = new HashMap<>();
-	private Boolean isLoop;
-	private Integer loopStart = 1;
-	private Integer loopEnd = 2;
-	private Integer loopIncrement = 1;
-	private String loopVariable = ""; // needed or not?
-	// similar thing for procedures and procedures/parameters
 
 	// in case of a conditional statement :
 	private Boolean isConditional;
@@ -222,38 +214,6 @@ public class CommandParser {
 	 * 
 	 */
 
-	// loop through all children -> if all have "true" tag -> return true
-	/*
-	 * private Boolean checkIfNodeExecuted(Node n){ for(int i = 0; i<
-	 * n.numChildren(); i++){ if(!n.hasBeenExectued()){ return false; n. } }
-	 * return true; }
-	 */
-
-	// tree to list => list mapped to the commands
-	// need or nah
-	private Node getCommandTreeToList(Node current) {
-		return current;
-	}
-
-	// in case of a command loop
-	/**
-	 * How is it used: access these values in map if loop encountered -> use
-	 * boolean to lead to this
-	 */
-	protected void loopInformation() {
-		loopCommandInfo = new HashMap<>();
-		loopCommandInfo.put("loopStart", loopStart);
-		loopCommandInfo.put("loopEnd", loopEnd);
-		loopCommandInfo.put("loopIncrement", loopIncrement);
-	}
-
-	/**
-	 * Set true is loop encountered -> need to update map in
-	 * createCommandValues() -- "loopCommandInfo"
-	 */
-	protected boolean isLoop() {
-		return isLoop;
-	}
 
 	// in case given a different language
 	// has not been implemented
@@ -271,34 +231,5 @@ public class CommandParser {
 	private void setTranslationMap() {
 		getLang = ResourceBundle.getBundle("resources.languages/" + language);
 	}
-
-	// regex from in class:
-	/*    
-	*//**
-		 * Determine a string's type if it's a regex
-		 *
-		 * @param command
-		 *            string to find mapping of
-		 * @return the error or command type
-		 */
-	/*
-	 * public String getSymbol (String command) { final String ERROR =
-	 * "ERROR, no regex match found"; for (Entry<String, Pattern> mapRegex :
-	 * commandList) { if (isMatch(command, mapRegex.getValue())) { return
-	 * mapRegex.getKey(); } } return ERROR; }
-	 * 
-	 *//**
-		 * Matches a String to a regular expression
-		 *
-		 * @param command
-		 *            is the String to be matched with a regex
-		 * @param regex
-		 *            is the regular expression val
-		 * @return true if commandType satisfies the regular expression, else
-		 *         it's false
-		 *//*
-		 * private boolean isMatch(String command, Pattern regex) { return
-		 * regex.matcher(command).matches(); //KEY LINE }
-		 */
 
 }
