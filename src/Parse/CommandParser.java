@@ -24,9 +24,10 @@ public class CommandParser {
 
 	private Node treeNode;
     private List<String> commandList;
+    private int indexofCommand;
     
     //adding different variables and storing them with values
-    private HashMap<String, Integer> variablesinCurrentCommand = new HashMap<>();
+    private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
     
     //list of existing commands that are VALID
     //TODO EXTRACT THIS to another class
@@ -91,14 +92,104 @@ public class CommandParser {
 		return commandList;
 	}
 	
+	
+    /**
+     * @param string for the new node's command
+     * @return new created Node
+     */
+    protected Node initNewNode(String commandString) {
+        Node created = new Node(commandString);
+        created.setCommand(commandString);
+        //created.setCommandObj(commandClassname.getcommandobject(commandString))
+        return created;
+    }
+
+	
+	
+	
 	/**
 	 * Build tree from the list of commands
+	 * @return root of the new tree
 	 */
-	private void buildTree(List<String> commandsandItemsList){
-		int treeDepth = 0;
-		for(int i = 0; i < commandsandItemsList.size(); i++){
+	private Node buildTree(List<String> commandList){
+		for(int i = 0; i < commandList.size(); i++){
+			String currCommand = commandList.get(i);
+			
+			//CASE: if the word is make or set
+			if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")){
+				i++;
+				String newVariable = commandList.get(i);
+				i++;
+				Double valuetoAdd = Double.parseDouble(commandList.get(i));
+				//check if its a variable and that it's NOT in map -> add it
+				if ((isVariable(newVariable))){
+					if(variablesinCurrentCommand.get(newVariable) == null){
+						variablesinCurrentCommand.put(newVariable, valuetoAdd );
+					}
+				}
+			}
+			
+			/*
+			 * if its a recognized command 
+			 * need to edit so that the hashmap has all commandds
+			 */
+			if(){
+				
+			}
+			
+			
+			
+			
+			
+			//CASE checking if its a variable -> create node with the variable value
+			//not correct completely
+			if(isVariable(currCommand)){
+				Node currCommandNode = initNewNode(currCommand);
+
+			}
+			
+			
+			
+			
+			
+			
+
+			
+			
+			
+			//if it recognizes the command:
+			Node currCommandNode = initNewNode(currCommand);
+			
+			
+			
+			
+			
+			
+			
 			
 		}
+		
+		
+		
+\	        checkifDefiningMethod(newChild);
+	        if (newChild.getNumChildren() == 0) return newChild; // base case, no more commands to add to the tree
+	        for (int i = 0; i < newChild.getCommandObj().numArguments(); i++) { // create all children
+	            myCommandIndex++;
+	            newChild.addChild(buildParseTree());
+	        }
+	        myMethodCaller.clearMethodBeingDefined(); // no longer defining method
+	        return newChild;
+	    
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
