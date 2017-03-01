@@ -3,10 +3,12 @@ package visuals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
@@ -65,6 +67,7 @@ public class View implements ExternalUserInterface {
 		theStage.setScene(theScene);
 		theStage.show();
 	}
+
 	
 	public StackPane initializeMenu(){
 		StackPane Menu = new StackPane();
@@ -94,6 +97,7 @@ public class View implements ExternalUserInterface {
 	 * shows an error message popup
 	 * @param errorMsg the message that will be displayed in the error popup
 	 */
+
 
 
 	/**
