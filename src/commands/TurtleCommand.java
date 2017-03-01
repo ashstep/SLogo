@@ -1,4 +1,5 @@
 package commands;
+
 import turtle.TurtleState;
 
 public abstract class TurtleCommand {

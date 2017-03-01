@@ -1,4 +1,5 @@
 package queries;
+
 import turtle.TurtleState;
 
 public abstract class TurtleQuery {
