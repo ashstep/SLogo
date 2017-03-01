@@ -28,64 +28,24 @@ import turtle.Command;
  */
 
 public class CommandTypeMap {
-	private final String LANG = "resources/language/";
 
-	//for REGEX
+	//for ALL
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
-	private ResourceBundle getLang;
-	private String language;
+	private final String LANG = "resources/language/";
 	// to get commandsResourceBundle resources =
 	// ResourceBundle.getBundle(syntax);
 
-
+	//constructor
 	public CommandTypeMap(String commandInputAnyLanguage) {
 		mySymbols = new ArrayList<>();
 		//getting the right language for mapping:
-		addResource(LANG + language);
+		addResource(LANG + commandInputAnyLanguage);
 	}
 	
 	
 	
-	
-
-
-	
-	
-	
-	/**
-	 * Using reflection properties to get command object
-	 */    
-
-	
-    public Command getCommandObj(String command) {
-        ResourceBundle resources = ResourceBundle.getBundle("resources/FILL THIS IN TBD");
-        String getCommand = getCommandString(command);
-        
-        try {
-        	//getting the class for the command object -> we get the specific one
-            Class<?> commandObjectClazz = Class.forName(resources.getString(getCommand)); 
-            try {
-            	
-                Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor();
-                //creat instance of the class we just got
-                Object commandObject = commandObjConstructor.newInstance();
-                //error check print statement, remove
-                System.out.println("Printing: " + commandObject);
-                return (Command) commandObject;
-            } 
-            catch(Exception e) {
-                e.printStackTrace();
-                }
-            } 
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
     //taking any mapping and getting object
     /**
      * @return the language's type associated with the given text if one exists
@@ -100,10 +60,41 @@ public class CommandTypeMap {
     	}
     	return ERROR;
     }
+	
+	
+	/**
+	 * Using reflection properties to get command object
+	 */  
+    public Command getCommandObj(String command) {
+    	ResourceBundle resources = ResourceBundle.getBundle("resources/FILL THIS IN TBD");
+    	String getCommand = getCommandString(command);
+
+    	try {
+    		//getting the class 
+    		Class<?> commandObjectClazz = Class.forName(resources.getString(getCommand)); 
+    		try {
+    			//getting the constructor
+    			Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor();
+    			//create instance
+    			Object commandObject = commandObjConstructor.newInstance();
+    			//error check print statement, remove
+    			System.out.println("commandObject: " + commandObject);
+    			return (Command) commandObject;
+    		} 
+    		catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	} 
+    	catch(Exception f) {
+    		f.printStackTrace();
+    	}
+    	return null;
+    }
+
 
     
 	/**
-	 * REGEX
+	 * REGEX  =========================
 	 */    
 
     /**
@@ -117,10 +108,8 @@ public class CommandTypeMap {
 
 
     /**
-     * LANGUAGES
+     * LANGUAGES =========================
      */
-
-
 
     /**
      * Adds the given resource file to this language's recognized types
