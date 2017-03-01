@@ -7,16 +7,23 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import turtle.Command;
+
 /**
- * Parses inputted commands -> calls relevant commands
+ * Parses inputted commands and calls relevant commands
  * 
  * @author Ashka Stephen
  * 
  * 
+ * TODO for me: 
+ * deal with regex 
+ * different languages
+ * handling that on hardcoded strings -> call from resources extract valid command map ->
+ * map command to how many arguments it takes
  * 
- *         TODO for me: deal with regex different languages -> handling that no
- *         hardcoded strings -> call from resources extract valid command map ->
- *         map command to how many arguments it takes
+ * 
+ * 
+ * getNumArgs
  * 
  */
 public class CommandParser {
@@ -24,15 +31,15 @@ public class CommandParser {
 	private List<String> commandList;
 	private int indexofCommand;
 
+	
+	//detect commands:
+	CommandTypeMap theCommand;
 	// adding different variables and storing them with values
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 
 	// list of existing commands that are VALID
 	// TODO EXTRACT THIS to another class
 	private HashMap<String, Integer> validCommands = new HashMap<>();
-
-	// regex command list -> unsure if needed?
-	private List<Entry<String, Pattern>> regexCommmandList;
 
 	// in case of a loop statement:
 	// currently not used
@@ -47,21 +54,15 @@ public class CommandParser {
 	// in case of a conditional statement :
 	private Boolean isConditional;
 
-	// in case of another language
-	private ResourceBundle getLang;
-	private String language;
-	// to get commandsResourceBundle resources =
-	// ResourceBundle.getBundle(syntax);
 
 	// map of the variables created to the values made with
 	private HashMap<String, Double> variable = new HashMap<>();
 
 	/**
-	 * create arraylist of commands inputted note: int values will be strings
-	 * initially
-	 * 
-	 * @return list of the commands given an inputted string, generate a list of
-	 *         commands -> make a tree from that list
+	 * Create List of commands (String) based on input
+	 * @param raw command line String input 
+	 * @return list of Strings 
+	 * NOTE: Integer/Double values will be Strings
 	 */
 	public List<String> parseInputtedCommand(String commandLineInput) {
 		commandList = new ArrayList<String>();
@@ -72,22 +73,36 @@ public class CommandParser {
 		return commandList;
 	}
 
-	private String nthItemOfList(List<String> commandList, int n) {
-		return commandList.get(n);
-
+	/**
+	 * Get Nth value from list of commands
+	 * @param commandList of Strings and value n 
+	 * @return specified item on the inputted list of commands 
+	 */
+	private String nthItemOfList(List<String> currCommandList, int n) {
+		return currCommandList.get(n);
 	}
 
 	/**
-	 * @param string
-	 *            for the new node's command
-	 * @return new created Node
+	 * Initialize a new node
+	 * @param command String for the new Node
+	 * @return newly created Node
 	 */
 	protected Node initNewNode(String commandString) {
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
+		//setting the command object, take into account the language and regex mappings
+		//not sure if works yet
+		Command currCommObj = theCommand.getCommandObj(commandString);
+		created.setCommandObject(currCommObj);
 		return created;
 	}
 
+	
+	
+	
+	//need another class
+	//given a string -> __.get object (string)
+	//returns the command object
 	/**
 	 * Build tree from the list of commands
 	 * 
