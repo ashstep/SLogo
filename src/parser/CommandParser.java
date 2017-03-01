@@ -100,7 +100,7 @@ public class CommandParser {
 	 * 
 	 * @return root of the new tree
 	 */
-	private Node buildTree() {
+	public Node buildTree() {
 		String currCommand = nthItemOfList(commandList, 0);
 		commandList.remove(0);
 		Node rootNodeofTree = initNewNode(currCommand);
@@ -221,7 +221,7 @@ public class CommandParser {
 	 * Set Language -> how to detect in the first place??
 	 */
 	public void setLanguage(String lang) {
-		language = lang;
+		//language = lang;
 		setTranslationMap();
 	}
 
@@ -229,7 +229,7 @@ public class CommandParser {
 	 * Creating a translation mapping in case other language is inputted
 	 */
 	private void setTranslationMap() {
-		getLang = ResourceBundle.getBundle("resources.languages/" + language);
+		//getLang = ResourceBundle.getBundle("resources.languages/" + language);
 	}
 
 }
