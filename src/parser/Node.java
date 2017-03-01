@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import turtle.Command;
 
 /**
- * Node class will be used to parse commands.
- * Stores the string from input, the command object itself, a boolean to return whether or not it has been executed, list of children
- * arraylists hold nodes which hold commands
- * 
- * 
+ * Node class will be used to hold parsed commands.
  * @author Ashka Stephen
  *
  */
@@ -17,8 +13,8 @@ public class Node {
 	ArrayList<Node> children;
 	Boolean hasbeenxecuted;
 	int numChildren;
-    Command commandObject;	
-	
+	Command commandObject;	
+
 	/**
 	 * Default constructor
 	 * @param value held in node
@@ -43,28 +39,28 @@ public class Node {
 	public String getCommand() {
 		return myVal;
 	}
-		
+
 	/**
 	 * has command node been executed -> check if its false before executing
 	 */
 	public Boolean hasBeenExectued(){
 		return hasbeenxecuted;
 	}
-			
+
 	/**
 	 * Call if children are all executed -> sets as true
 	 */
 	public void setHasBeenExecuted(){
 		hasbeenxecuted = true;
 	}
-	
+
 	/**
 	 * Getter to see if it has been executde
 	 */
 	public boolean getHasBeenExecuted(){
 		return hasbeenxecuted;
 	}
-	
+
 	/**
 	 * NOTE will return error until the correct class is named
 	 */
@@ -96,25 +92,24 @@ public class Node {
 	}
 
 	/**
-	 * @return getting the childnode at a specific part of the arraylist
+	 * @return getting the child Node at a specific part of the ArrayList
 	 * "nth child"
 	 */
 	public Node getSpecificChild(int n){
 		return children.get(n);
 	}
-	
+
 	/**
-	 * @return getting the childnode at a specific part of the arraylist
-	 * "nth child"
+	 * Setting children ArrayList for a Node
 	 */
 	public void setChildren(ArrayList<Node> settingChildren){
 		for (int i = 0; i < settingChildren.size(); i++){
 			children.add(i, settingChildren.get(i));
 		}
 	}
-	
+
 	/**
-	 * @return adding a child node to the arraylist
+	 * @return adding a child node to the ArrayList
 	 */
 	public void addChild(Node newChild) {
 		children.add(newChild);
