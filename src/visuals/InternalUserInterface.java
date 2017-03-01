@@ -1,13 +1,12 @@
 package visuals;
 
 import java.util.List;
-
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
+import turtle.TurtleState;
 
 public interface InternalUserInterface {
 
-	public void displayTurtleState(List turtleStates); // takes in List of
+	public void displayTurtleState(List<TurtleState> turtleStates); // takes in List of
 															// turtle States,
 															// operates on its
 															// own Scene

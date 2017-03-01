@@ -64,7 +64,7 @@ public class History {
 	 * updates the History class when a command is input
 	 * @param userInput user-input String
 	 */
-	private void updateHistory(String userInput){
+	public void updateHistory(String userInput){
 		Button newCommand = createHistoryButton(userInput);
 		addButtonToHistory(newCommand);
 	}

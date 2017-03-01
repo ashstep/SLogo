@@ -12,12 +12,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class SplashPage {
 	
 	private Scene theScene;
-	private Stage theStage;
 	private Button start;
 	private Text title;
 	private BorderPane root;
@@ -26,12 +24,8 @@ public class SplashPage {
 	private int HEIGHT = 600;
 	private int SPACING = 10;
 	
-	public SplashPage(Stage myStage){
-		
-		theStage = myStage;
-		start = new Button("START");
-		start.setOnAction(event ->handleButton());
-		
+	public SplashPage(Button startButton){
+		start = startButton;
 		title = new Text ("sLogo");
 		title.setId("title");
 		
@@ -40,7 +34,8 @@ public class SplashPage {
 		vbox.setAlignment(Pos.CENTER);
 		
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(BACKGROUND));
-		BackgroundImage bgimg = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+		BackgroundImage bgimg = new BackgroundImage(image, BackgroundRepeat.REPEAT, 
+				BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		Background bg = new Background (bgimg);
 		
 		root = new BorderPane();
@@ -49,13 +44,13 @@ public class SplashPage {
 		
 		theScene = new Scene(root, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(SplashPage.class.getResource("styles.css").toExternalForm());
-		
-		theStage.setScene(theScene);
-		theStage.show();
 	}
 	
-	private void handleButton(){
-		new View(theStage);
+	/**
+	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
+	 * @return The <code>Scene</code> for the <code>SplashPage</code>
+	 */
+	public Scene getScene(){
+		return theScene;
 	}
-	
 }
