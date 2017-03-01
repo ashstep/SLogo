@@ -22,16 +22,9 @@ import javafx.scene.paint.Paint;
 
 public class InputView implements IInputView {
 
-	private int WIDTH;
-	private int HEIGHT;
 	private TextArea userInput;
 	private ColorPicker colorPicker;
 	private Background background;
-
-	public InputView(int WIDTH, int HEIGHT) {
-		this.WIDTH = WIDTH;
-		this.HEIGHT = HEIGHT;
-	}
 
 	private int SPACING = 10;
 
@@ -40,17 +33,13 @@ public class InputView implements IInputView {
 	 * 
 	 * @return Menu;
 	 */
-	public VBox initializeTextArea() {
+	public VBox initializeTextArea(Button submit) {
 		VBox Menu = new VBox(SPACING);
-
-		Button submit = new Button("Submit");
-		submit.setMaxWidth(WIDTH / 2);
-		submit.setOnAction(e -> getCommandString());
 
 		userInput = new TextArea();
 		userInput.setPromptText("Enter Your Command");
 		userInput.setWrapText(true);
-		userInput.setMaxWidth(WIDTH * (0.4));
+		userInput.setMaxWidth(View.WIDTH * (0.4));
 
 		Menu.getChildren().addAll(userInput, submit);
 		Menu.setAlignment(Pos.CENTER);
@@ -74,7 +63,7 @@ public class InputView implements IInputView {
 	 */
 	public ColorPicker initializeColorPicker() {
 		colorPicker = new ColorPicker();
-		colorPicker.setMaxWidth(WIDTH * (0.4));
+		colorPicker.setMaxWidth(View.WIDTH * (0.4));
 		colorPicker.setPromptText("Change the Background Color");
 		return colorPicker;
 	}

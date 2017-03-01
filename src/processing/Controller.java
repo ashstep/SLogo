@@ -20,7 +20,13 @@ public class Controller {
 	}
 	
 	private void makeView(){
-		theView = new View();
+		
+		Button submit = new Button("Submit");
+		submit.setMaxWidth(View.WIDTH / 2);
+		submit.setOnAction(e -> System.out.println(theView.getCommandString())); //TODO: Replace with controller's main method
+
+		theView = new View(submit);
+
 		theStage.setScene(theView.getScene());
 	}
 }

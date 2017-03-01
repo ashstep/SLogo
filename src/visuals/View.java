@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -25,22 +26,22 @@ public class View implements ExternalUserInterface {
 	private BorderPane BP;
 	private ScrollPane SP;
 	private Scene theScene;
-	private int WIDTH = 800;
-	private int HEIGHT = 600;
-	private int SPACING = 10;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
+	private final int SPACING = 10;
 	private InputView inputView;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
 	private Canvas TurtleView;
 	private GraphicsContext gc;
 
-	public View() {
+	public View(Button submit) {
 
-		inputView = new InputView(WIDTH, HEIGHT);
+		inputView = new InputView();
 
 		BP = new BorderPane();
 		SP = new ScrollPane();
-		SP.setContent(initializeRightMenu());
+		SP.setContent(initializeRightMenu(submit));
 		SP.setHbarPolicy(ScrollBarPolicy.NEVER);
 		SP.setFitToWidth(true);
 
@@ -64,10 +65,18 @@ public class View implements ExternalUserInterface {
 	}
 	
 	/**
+	 * Gets the command string from the <code>InputView</code>
+	 * @return The command string
+	 */
+	public String getCommandString(){
+		return inputView.getCommandString();
+	}
+	
+	/**
 	 * Initialize the right side which has all the controls for the GUI
 	 * @return
 	 */
-	private VBox initializeRightMenu() {
+	private VBox initializeRightMenu(Button submit) {
 		VBox RightMenu = new VBox(SPACING);
 		
 		Label backgroundLabel = new Label("Change the Background Color!"); //Change to ResourceBundle Later
@@ -76,7 +85,7 @@ public class View implements ExternalUserInterface {
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
 		return RightMenu;
 	}
 	
