@@ -1,9 +1,14 @@
 package turtle;
 
-import commands.TurtleCommand;
 import mathops.MathCommand;
 import queries.TurtleQuery;
+import turtlecommands.TurtleCommand;
 
+/**
+ * Object that holds state of on-screen turtle and processes <code>Command</code> objects
+ * @author Vishnu Gottiparthy
+ *
+ */
 public class Turtle {
 	
 	private TurtleState state;
@@ -13,20 +18,35 @@ public class Turtle {
 		state = new TurtleState(0, 0, 0, false, true);
 	}
 	
+	public void process(Command c) throws CommandProcessException, ArgumentNumberException{
+		if(c instanceof TurtleCommand){
+			execute((TurtleCommand) c);
+		} 
+		else if(c instanceof MathCommand){
+			evaluate((MathCommand) c);
+		} 
+		else if(c instanceof TurtleQuery){
+			query((TurtleQuery) c);
+		}
+		else{
+			throw new CommandProcessException("Unrecognized command " + c.getClass().toString());
+		}
+	}
+	
 	/**
 	 * Runs a <code>TurtleCommand</code> that can update the state of the <code>Turtle</code>
 	 * @param c <code>TurtleCommand</code> to run
 	 */
-	public void execute(TurtleCommand c){
-		state = c.run(state);
-		returnVal = c.getReturnVal();
+	private void execute(TurtleCommand t) throws ArgumentNumberException{
+		state = t.run(state);
+		returnVal = t.getReturnVal();
 	}
 	
 	/**
 	 * Performs a math operation
 	 * @param c <code>MathCommand</code> to perform
 	 */
-	public void evaluate(MathCommand m){
+	private void evaluate(MathCommand m) throws ArgumentNumberException{
 		returnVal = m.calculate();
 	}
 	
@@ -34,7 +54,7 @@ public class Turtle {
 	 * Queries the <code>Turtle</code> regarding its state
 	 * @param q <code>TurtleQuery</code> to ask
 	 */
-	public void query(TurtleQuery q){
+	private void query(TurtleQuery q){
 		returnVal = q.run(state);
 	}
 	

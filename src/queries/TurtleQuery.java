@@ -1,8 +1,13 @@
 package queries;
 
 import turtle.TurtleState;
+import turtle.Command;
 
-public abstract class TurtleQuery {
+public abstract class TurtleQuery extends Command {
+	
+	public TurtleQuery(){
+		setNumArgs(0);
+	}
 	
 	/**
 	 * Asks the turtle for a part of its state

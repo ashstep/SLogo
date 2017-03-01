@@ -1,12 +1,13 @@
-package commands;
+package turtlecommands;
 
+import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class Back extends TurtleCommand {
 	
 	@Override
-	public TurtleState run(TurtleState state, double... args) {
-		checkArgs(1, args);
+	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
+		checkArgs(args);
 		setReturnVal(args[0]);
 		return new TurtleState(state.getX() - Math.cos(state.getAngle())*args[0], 
 				state.getY() - Math.sin(state.getAngle())*args[0], 

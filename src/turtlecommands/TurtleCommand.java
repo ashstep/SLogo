@@ -1,17 +1,28 @@
-package commands;
+package turtlecommands;
 
 import turtle.TurtleState;
+import turtle.ArgumentNumberException;
+import turtle.Command;
 
-public abstract class TurtleCommand {
+/**
+ * Command to modify the state of a <code>Turtle</code>
+ * @author Vishnu Gottiparthy
+ *
+ */
+public abstract class TurtleCommand extends Command {
 	
 	private double returnVal;
+	
+	public TurtleCommand(){
+		setNumArgs(1);
+	}
 	
 	/**
 	 * Takes in current <code>TurtleState</code> and finds new one
 	 * @param state Current state of <code>Turtle</code>
 	 * @return Next <code>TurtleState</code>
 	 */
-	public abstract TurtleState run(TurtleState state, double... args);
+	public abstract TurtleState run(TurtleState state, double... args) throws ArgumentNumberException;
 	
 	/**
 	 * Sets the return value of the command
@@ -19,17 +30,6 @@ public abstract class TurtleCommand {
 	 */
 	public void setReturnVal(double val){
 		returnVal = val;
-	}
-	
-	/**
-	 * Checks if the allowed number of arguments is supplied
-	 * @param allowed Number of allowed arguments
-	 * @param args Array of arguments
-	 */
-	protected void checkArgs(int allowed, double[] args){
-		if(args.length != allowed){
-			throw new IllegalArgumentException("Got "+args.length+" arguments, expected " + allowed);
-		}
 	}
 	
 	/**

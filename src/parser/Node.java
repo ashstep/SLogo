@@ -1,6 +1,7 @@
-package Parse;
+package parser;
 
 import java.util.ArrayList;
+import turtle.Command;
 
 /**
  * Node class will be used to parse commands.
@@ -8,8 +9,6 @@ import java.util.ArrayList;
  * arraylists hold nodes which hold commands
  * 
  * 
- * 
- * NOTE TO COMMANDCLASS: errors in 3 commands bcs need the correct name for the Command Object class and getNumArguments method
  * @author Ashka Stephen
  *
  */
@@ -18,7 +17,7 @@ public class Node {
 	ArrayList<Node> children;
 	Boolean hasbeenxecuted;
 	int numChildren;
-   CommandObjectName commandObj;	
+    Command commandObject;	
 	
 	/**
 	 * Default constructor
@@ -31,7 +30,6 @@ public class Node {
 		children = new ArrayList<Node>();
 	}
 
-	
 	/**
 	 * Value setter
 	 */
@@ -39,15 +37,13 @@ public class Node {
 		myVal = s;
 	}
 
-	
 	/**
 	 * Value getter
 	 */
 	public String getCommand() {
 		return myVal;
 	}
-	
-	
+		
 	/**
 	 * has command node been executed -> check if its false before executing
 	 */
@@ -69,22 +65,10 @@ public class Node {
 		return hasbeenxecuted;
 	}
 	
-
-	
-	/**
-	 * executes command associated with the node storing it
-	 * @return a value returned
-	 * NOTE will return error until the correct class is named
-	 */
-
-	public double executeCommand(Node node) {
-		return insertGeneralCommandObjectHere.NameofMethodtoExecutetheCommand(node);	    
-	}
-	
 	/**
 	 * NOTE will return error until the correct class is named
 	 */
-	public CommandObjectName getCommandObject(){
+	public Command getCommandObject(){
 		return commandObject;
 	}
 
@@ -92,10 +76,9 @@ public class Node {
 	 * NOTE will return error until the correct command class and methods are named
 	 * also sets the number of children that the command has
 	 */
-	public void setCommandObject(CommandObjectName newCommandObject){
+	public void setCommandObject(Command newCommandObject){
 		commandObject = newCommandObject;
-		numChildren = commandObject.getNumberofArgumentsNameinCommandMethod();
-
+		numChildren = commandObject.getNumArgs();
 	}
 
 	/**
@@ -105,14 +88,12 @@ public class Node {
 		return children;
 	}
 
-
 	/**
 	 * @return number of children a command has
 	 */
 	public int getNumberofChildren(){
 		return numChildren;
 	}
-
 
 	/**
 	 * @return getting the childnode at a specific part of the arraylist
@@ -121,7 +102,6 @@ public class Node {
 	public Node getSpecificChild(int n){
 		return children.get(n);
 	}
-	
 	
 	/**
 	 * @return getting the childnode at a specific part of the arraylist
@@ -139,7 +119,4 @@ public class Node {
 	public void addChild(Node newChild) {
 		children.add(newChild);
 	}
-
-	
-
 }

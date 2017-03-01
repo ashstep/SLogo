@@ -1,10 +1,12 @@
 package mathops;
 
-public class Sin extends MathCommand {
+import turtle.ArgumentNumberException;
 
+public class Sin extends MathCommand {
+	
 	@Override
-	public double calculate(double... args) {
-		checkArgs(1, args);
+	public double calculate(double... args) throws ArgumentNumberException {
+		checkArgs(args);
 		return Math.sin(args[0]);
 	}
 }
