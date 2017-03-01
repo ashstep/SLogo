@@ -9,9 +9,8 @@ import turtle.Command;
  *
  */
 public class Node {
-	String myVal;
+	String myNodeCommandString;
 	ArrayList<Node> children;
-	Boolean hasbeenxecuted;
 	int numChildren;
 	Command commandObject;	
 
@@ -22,7 +21,7 @@ public class Node {
 	 * @param right child
 	 */
 	public Node(String value) {
-		myVal = value;
+		myNodeCommandString = value;
 		children = new ArrayList<Node>();
 	}
 
@@ -30,35 +29,14 @@ public class Node {
 	 * Value setter
 	 */
 	public void setCommand(String s) {
-		myVal = s;
+		myNodeCommandString = s;
 	}
 
 	/**
 	 * Value getter
 	 */
 	public String getCommand() {
-		return myVal;
-	}
-
-	/**
-	 * has command node been executed -> check if its false before executing
-	 */
-	public Boolean hasBeenExectued(){
-		return hasbeenxecuted;
-	}
-
-	/**
-	 * Call if children are all executed -> sets as true
-	 */
-	public void setHasBeenExecuted(){
-		hasbeenxecuted = true;
-	}
-
-	/**
-	 * Getter to see if it has been executde
-	 */
-	public boolean getHasBeenExecuted(){
-		return hasbeenxecuted;
+		return myNodeCommandString;
 	}
 
 	/**

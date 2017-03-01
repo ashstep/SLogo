@@ -1,6 +1,9 @@
 package processing;
 
 import visuals.View;
+
+import java.util.ResourceBundle;
+
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import parser.CommandParser;
@@ -15,6 +18,9 @@ import visuals.SplashPage;
 public class Controller {
 	private Stage theStage;
 	private View theView;
+	private ResourceBundle myResourceBundle;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+	private String language = "Spanish";
 	private CommandParser parser;
 	private Turtle turtle;
 	
@@ -23,7 +29,8 @@ public class Controller {
 		parser = new CommandParser();
 		turtle = new Turtle();
 		
-		Button start = new Button("START");
+		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
 		SplashPage splash = new SplashPage(start);
 		
@@ -33,11 +40,10 @@ public class Controller {
 	
 	private void makeView(){
 		
-		Button submit = new Button("Submit");
+		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));
-
-		theView = new View(submit);
+		theView = new View(submit, myResourceBundle);
 		theStage.setScene(theView.getScene());
 	}
 	
