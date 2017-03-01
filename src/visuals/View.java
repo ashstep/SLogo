@@ -103,6 +103,10 @@ public class View implements ExternalUserInterface {
 
 	}
 
+	private void updateTurtle(TurtleState turtle){
+		
+	}
+	
 	@Override
 	public void newTurtleState() {
 		// TODO Auto-generated method stub
@@ -111,8 +115,9 @@ public class View implements ExternalUserInterface {
 
 	@Override
 	public void createErrorMessage(String whatHappened) {
-		// TODO Auto-generated method stub
-
+		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
+		alert.showAndWait();
+		
 	}
 
 }
