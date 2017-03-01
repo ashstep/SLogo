@@ -30,13 +30,10 @@ public class CommandTypeMap {
 	/**
 	 * Default constructor
 	 * @param String for input
-	 * @param left child
-	 * @param right child
 	 */
 	public CommandTypeMap(String commandInputAnyLanguage) {
 		mySymbols = new ArrayList<>();
-		//getting the right language for mapping:
-		addResource(LANG + commandInputAnyLanguage);
+		addResource(LANG + commandInputAnyLanguage);  //getting the right language for mapping:
 	}
 
 	/**

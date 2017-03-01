@@ -3,9 +3,6 @@ package parser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 import turtle.Command;
 
@@ -15,15 +12,15 @@ import turtle.Command;
  * @author Ashka Stephen
  * 
  * 
- * TODO for me: 
- * deal with regex 
- * different languages
- * handling that on hardcoded strings -> call from resources extract valid command map ->
- * map command to how many arguments it takes
  * 
  * 
  * 
- * getNumArgs
+ * 
+ * 
+ * 
+ * TODO
+ *  MAKE SPECIFIC COMMAND OBJECTS
+ *  which method needs to be called and it just runs automatially
  * 
  */
 public class CommandParser {
@@ -32,20 +29,19 @@ public class CommandParser {
 	private int indexofCommand;
 
 	private String language;
-	
+
 	//detect commands:
 	CommandTypeMap theCommand;
 	// adding different variables and storing them with values
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 
-	// list of existing commands that are VALID
 	// TODO EXTRACT THIS to another class
 	private HashMap<String, Integer> validCommands = new HashMap<>();
 
 	// in case of a loop statement:
 
 	// in case of a conditional statement :
-	private Boolean isConditional;
+	//private Boolean isConditional;
 
 
 	// map of the variables created to the values made with
@@ -83,16 +79,13 @@ public class CommandParser {
 	protected Node initNewNode(String commandString) {
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
-		//setting the command object, take into account the language and regex mappings
-		//not sure if works yet
-		Command currCommObj = theCommand.getCommandObj(commandString);
-		created.setCommandObject(currCommObj);
+		created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
 	}
 
-	
-	
-	
+
+
+
 	//need another class
 	//given a string -> __.get object (string)
 	//returns the command object
@@ -101,7 +94,7 @@ public class CommandParser {
 	 * 
 	 * @return root of the new tree
 	 */
-	private Node buildTree() {
+	public Node buildTree() {
 		String currCommand = nthItemOfList(commandList, 0);
 		commandList.remove(0);
 		Node rootNodeofTree = initNewNode(currCommand);
@@ -109,7 +102,7 @@ public class CommandParser {
 		// for(int i = 0; i < commandList.size(); i++){
 		// String currCommand = commandList.get(i);
 
-		// CASE1: if the word is make or set
+		// CASE1: if the word is MAKE or SET
 		if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")) {
 			String newVariable = commandList.get(1);
 			Double valuetoAdd = Double.parseDouble(commandList.get(2));
@@ -126,22 +119,17 @@ public class CommandParser {
 		// DEFAULT CASE:
 		Node currCommandNode = initNewNode(currCommand);
 		// Base case
-		if (currCommandNode.getNumberofChildren() == 0) {
+		if (currCommandNode.getCommandObject().getNumArgs() == 0) {
 			return currCommandNode;
 		}
-		for (int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
-			indexofCommand++;
+		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
+			//indexofCommand++;
+			i++;
 			currCommandNode.addChild(buildTree());
+			
+			
 		}
-
-		// keeping in case recursive method implementation fails:
-		/*
-		 * if(validCommands.containsKey(currCommand)){ i++; Node nextCommandNode
-		 * = initNewNode(commandList.get(i));
-		 * currCommandNode.addChild(nextCommandNode); } i++;
-		 */
-		return rootNodeofTree;
-	}
+		return rootNodeofTree;	}
 
 	/**
 	 * Checks if String command is a variable
@@ -155,9 +143,9 @@ public class CommandParser {
 	private boolean isVariableinMap(String string) {
 		if (variablesinCurrentCommand.get(string) != null) {
 			return true;
-			}
-		return false;
 		}
+		return false;
+	}
 
 	/**
 	 * input: two arraylist indexes -> string name (including the colon) and
@@ -209,8 +197,8 @@ public class CommandParser {
 	 * 
 	 */
 
-//not sure if i need to delete
-/*	*//**
+	//not sure if i need to delete
+	/*	*//**
 	 * Set Language -> how to detect in the first place??
 	 *//*
 	public void setLanguage(String lang) {
@@ -218,13 +206,34 @@ public class CommandParser {
 		setTranslationMap();
 	}
 
-	*//**
-	 * Creating a translation mapping in case other language is inputted
-	 *//*
+	  *//**
+	  * Creating a translation mapping in case other language is inputted
+	  *//*
 	private void setTranslationMap() {
 		getLang = ResourceBundle.getBundle("resources.languages/" + language);
 		commandLang = new CommandTypeMap(insertlangstring);
 	}*/
+
+
+
+
+	/**
+	 * NOTES:
+	 * 
+	 * 
+	 * in case recursive implementation of the tree does not work
+	 * 
+	 * 		// keeping in case recursive method implementation fails:
+		/*
+	 * if(validCommands.containsKey(currCommand)){ i++; 
+	 * Node nextCommandNode = initNewNode(commandList.get(i));
+	 * currCommandNode.addChild(nextCommandNode); } i++;
+	 */
+
+
+
+
+
 
 
 }
