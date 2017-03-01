@@ -31,6 +31,7 @@ public class CommandParser {
 	private List<String> commandList;
 	private int indexofCommand;
 
+	private String language;
 	
 	//detect commands:
 	CommandTypeMap theCommand;
@@ -143,25 +144,20 @@ public class CommandParser {
 	}
 
 	/**
-	 * Checks if inputted string is a variable checks for the ":"
-	 * 
-	 * @param a
-	 *            string
-	 * @return: T/F depending on whether its a variable namE
+	 * Checks if String command is a variable
+	 * @param String command input
+	 * @return: Boolean saying if variable
 	 */
 	private boolean isVariable(String string) {
-		// error check -> delete afterwards
-		System.out.println("Inputted String: " + string);
-		System.out.println("boolean returned: " + string.startsWith(":"));
 		return string.startsWith(":");
 	}
 
 	private boolean isVariableinMap(String string) {
 		if (variablesinCurrentCommand.get(string) != null) {
 			return true;
-		}
+			}
 		return false;
-	}
+		}
 
 	/**
 	 * input: two arraylist indexes -> string name (including the colon) and
@@ -176,12 +172,11 @@ public class CommandParser {
 	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
 			// would we need to have a way to update the variable holding? check
-			// on site
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 		}
 	}
 
-	// TODO: implement fully
+	// TODO: implement fully in the tree
 	private Double returnStoredVal(String string) {
 		return variablesinCurrentCommand.get(string);
 	}
@@ -214,22 +209,22 @@ public class CommandParser {
 	 * 
 	 */
 
-
-	// in case given a different language
-	// has not been implemented
-	/**
+//not sure if i need to delete
+/*	*//**
 	 * Set Language -> how to detect in the first place??
-	 */
+	 *//*
 	public void setLanguage(String lang) {
 		language = lang;
 		setTranslationMap();
 	}
 
-	/**
+	*//**
 	 * Creating a translation mapping in case other language is inputted
-	 */
+	 *//*
 	private void setTranslationMap() {
 		getLang = ResourceBundle.getBundle("resources.languages/" + language);
-	}
+		commandLang = new CommandTypeMap(insertlangstring);
+	}*/
+
 
 }
