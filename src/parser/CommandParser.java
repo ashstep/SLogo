@@ -96,6 +96,15 @@ public class CommandParser {
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
 	}
+	
+	
+	protected Node initNewArgumentNode(String value) {
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(value);
+		created.setisNOTaCommand(); ///makes is have a false tag
+		return created;
+	}
+
 
 
 
@@ -160,12 +169,33 @@ public class CommandParser {
 
 			//get the children items -> add to child list
 			String toAdd = commandList.get(i+1);
-			Node addingChildArg = initNewNode(toAdd);
-			//what if its not a
-			currCommandNode.addChild(addingChildArg);
-			//increment starting point
-			starting++;
+
 			
+			//if double, make node
+			if(isValidDouble(toAdd)){
+				Node doubleChild = initNewArgumentNode(toAdd);
+				currCommandNode.addChild(doubleChild);
+				starting++;
+				System.out.println("was valid double, child node added:");
+				System.out.println(doubleChild.getCommand());
+
+				
+
+			}
+			else{
+				Node argChild = initNewNode(toAdd);
+				currCommandNode.addChild(argChild);
+				starting++;
+				System.out.println("was a command , child node added:");
+				System.out.println(argChild.getCommand());
+
+			}
+			
+			starting++;
+			System.out.println("starting is now:");
+			System.out.println(starting);
+
+
 			
 			
 			//a aommand arg has been dealt with, can decrease
@@ -174,8 +204,10 @@ public class CommandParser {
 			System.out.println(indexofCommand);
 			
 			//check if its end of list or out of bounds
-			if (starting >= commandList.size()-1){
+			if (starting > commandList.size()-1){
 				System.out.println("return currCommandNode bcs end of list reached: ");
+				System.out.println(currCommandNode.getCommand());
+
 				return currCommandNode;
 			}
 			
@@ -186,7 +218,7 @@ public class CommandParser {
 
 		}
 		return null;	
-		}
+	}
 
 
 	private boolean isValidDouble(String string) {

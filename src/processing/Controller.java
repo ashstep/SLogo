@@ -70,13 +70,13 @@ public class Controller {
 		Node node = parser.buildTree();
 		
 		System.out.println("node is : " );
-		System.out.println(node );
+		System.out.println(node.getCommand() );
 		
 		Command command = node.getCommandObject();
-		//PenUp p = (PenUp) command;
+		PenUp p = (PenUp) command;
 		//PenDown p = (PenDown) command;
 		//Forward p = (Forward) command;
-		Right p = (Right) command;
+		//Right p = (Right) command;
 
 
 		System.out.println(turtle.getState().isPenDown());

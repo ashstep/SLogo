@@ -13,6 +13,7 @@ public class Node {
 	ArrayList<Node> children;
 	int numChildren;
 	Command commandObject;	
+	Boolean isCommand;
 
 	/**
 	 * Default constructor
@@ -63,12 +64,30 @@ public class Node {
 	}
 
 	/**
+	 * @return 
+	 */
+	public void setisNOTaCommand(){
+		isCommand = false;
+	}
+
+	
+	
+	/**
+	 * @return 
+	 */
+	public boolean checkifCommand(){
+		return isCommand;
+	}
+	
+	/**
 	 * @return number of children a command has
 	 */
 	public int getNumberofChildren(){
 		return numChildren;
 	}
-
+	
+	
+	
 	/**
 	 * @return getting the child Node at a specific part of the ArrayList
 	 * "nth child"
