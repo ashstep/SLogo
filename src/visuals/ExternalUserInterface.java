@@ -3,10 +3,7 @@ package visuals;
 public interface ExternalUserInterface {
 
 	
-	/**
-	 * gets Text from input box and passes the String to Controller
-	 */
-	public void passString(String input);
+	
 	
 	/**
 	 * calls method in Controller that returns the new TurtleState

@@ -28,7 +28,7 @@ public class CommandParser {
 	private List<String> commandList;
 	private int indexofCommand;
 
-	private String language;
+	private String language = "English";
 
 	//detect commands:
 	CommandTypeMap theCommandMapObject;
@@ -81,7 +81,7 @@ public class CommandParser {
 	 * @return newly created Node
 	 */
 	protected Node initNewNode(String commandString) {
-		CommandTypeMap theCommandMapObject = new CommandTypeMap(language);
+		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
 		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
@@ -208,7 +208,7 @@ public class CommandParser {
 	 * Set Language -> how to detect in the first place??
 	 *//*
 	public void setLanguage(String lang) {
-		language = lang;
+		//language = lang;
 		setTranslationMap();
 	}
 
@@ -235,11 +235,4 @@ public class CommandParser {
 	 * Node nextCommandNode = initNewNode(commandList.get(i));
 	 * currCommandNode.addChild(nextCommandNode); } i++;
 	 */
-
-
-
-
-
-
-
 }
