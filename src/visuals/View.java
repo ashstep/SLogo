@@ -170,10 +170,7 @@ public class View implements ExternalUserInterface {
 		}
 	}
 	
-	@Override
-	public void passString(String input) {
-		// TODO Auto-generated method stub
-	}
+
 
 	private void updateTurtle(TurtleState newTurtle){
 		turtleXPos = newTurtle.getX();
