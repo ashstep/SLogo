@@ -57,6 +57,7 @@ public class Controller {
 		submit.setMaxWidth(View.WIDTH / 2);
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));
 		theView = new View(submit, myResourceBundle);
+		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
 	}
 	
@@ -68,28 +69,21 @@ public class Controller {
 	private void parseCommands(String cmd){
 		parser.parseInputtedCommand(cmd);
 		Node node = parser.buildTree();
-		
-		System.out.println("node is : " );
-		System.out.println(node.getCommand() );
-		
+				
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 		Command command = node.getCommandObject();
-		//PenUp p = (PenUp) command;
-		//PenDown p = (PenDown) command;
-		Forward p = (Forward) command;
-		//Right p = (Right) command;
-
-
-		System.out.println(turtle.getState().isPenDown());
-		System.out.println(turtle.getState().isPenDown());
-
+		
 		try {
-			p.treeArgs(node);
-			turtle.process(p);
+			command.treeArgs(node);
+			turtle.process(command);
 		} catch (CommandProcessException e) {
 			e.printStackTrace();
 		} catch (ArgumentNumberException e) {
 			e.printStackTrace();
 		}
-		System.out.println(turtle.getState().isPenDown());
+		
+		theView.updateTurtle(turtle.getState());
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
+
 	}
 }

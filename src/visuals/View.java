@@ -18,7 +18,10 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import turtle.TurtleState;
 
 /**
@@ -51,6 +54,8 @@ public class View implements ExternalUserInterface {
 	private double turtleYPos;
 	private double turtleAngle;
 	private ResourceBundle myResourceBundle;
+	private Rectangle r;
+	private StackPane stack;
 	
 	public View(Button submit, ResourceBundle myResourceBundle) {
 
@@ -67,7 +72,13 @@ public class View implements ExternalUserInterface {
 		BP.setRight(SP);
 		TurtleView = initializeGraphicContent();
 		inputView.setStroke(strokeColorChooser, gc);
-		BP.setLeft(TurtleView);
+		
+		r = new Rectangle(turtleXPos, turtleYPos, 50, 50);
+		r.setFill(Color.RED);
+		
+		stack = new StackPane();
+		stack.getChildren().addAll(TurtleView, r);
+		BP.setLeft(stack);
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
@@ -105,7 +116,7 @@ public class View implements ExternalUserInterface {
 		turtleXPos = WIDTH/4;
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
-		
+				
 		myTurtle = new ImageView(myTurtleImage);
 		return TurtleView;
 	}
@@ -146,8 +157,15 @@ public class View implements ExternalUserInterface {
 		myTurtle.setY(turtleYPos);
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 		
-		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
+		System.out.println(r.getBoundsInParent());
+		stack.getChildren().remove(r);
+		r.setX(turtleXPos);
+		r.setY(turtleYPos);
+		stack.getChildren().add(r);
+		System.out.println(r.getBoundsInParent());
+		BP.setLeft(stack);
 		
+		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 	}
 	
 	/**
@@ -164,12 +182,6 @@ public class View implements ExternalUserInterface {
 	 */
 	public String getCommandString(){
 		return inputView.getCommandString();
-	}
-	
-	@Override
-	public void newTurtleState() {
-		// TODO Auto-generated method stub
-
 	}
 	
 	/**
