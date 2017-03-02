@@ -55,12 +55,16 @@ public class View implements ExternalUserInterface {
 	private double turtleAngle;
 	private ResourceBundle myResourceBundle;
 	private Rectangle r;
+	private Rectangle updated;
 	private StackPane stack;
 	
 	public View(Button submit, ResourceBundle myResourceBundle) {
+		System.out.println("start view");
 
 		inputView = new InputView();
 		this.myResourceBundle = myResourceBundle;
+		
+		//System.out.println("reached here 3");
 		
 		BP = new BorderPane();
 		SP = new ScrollPane();
@@ -70,15 +74,27 @@ public class View implements ExternalUserInterface {
 
 		inputView.setBackground(backgroundColorChooser, BP);
 		BP.setRight(SP);
+		
+		//moved up
+		stack = new StackPane();
+		//System.out.println("stackchild is " + stack.getChildren());
+		System.out.println("reached here 4");
+		System.out.println("stack is " + stack);
+		
 		TurtleView = initializeGraphicContent();
 		inputView.setStroke(strokeColorChooser, gc);
+		stack.getChildren().addAll(TurtleView);
 		
-		r = new Rectangle(turtleXPos, turtleYPos, 50, 50);
-		r.setFill(Color.RED);
+		System.out.println("stackchild is " + stack.getChildren());
 		
-		stack = new StackPane();
-		stack.getChildren().addAll(TurtleView, r);
+		System.out.println("stack is INITIAL"+ stack);
+		
 		BP.setLeft(stack);
+
+		
+		//TurtleView = initializeGraphicContent();
+		
+		
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
@@ -117,7 +133,13 @@ public class View implements ExternalUserInterface {
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 				
-		myTurtle = new ImageView(myTurtleImage);
+		//myTurtle = new ImageView(myTurtleImage);
+		myTurtle = new ImageView("unknown.png");
+		System.out.println("stack is" + stack);
+		System.out.println("myTurtle is" + myTurtle);
+
+		stack.getChildren().add(myTurtle);
+
 		return TurtleView;
 	}
 	
@@ -150,22 +172,50 @@ public class View implements ExternalUserInterface {
 	}
 
 	public void updateTurtle(TurtleState newTurtle){
+		System.out.println("updateTurtle called");
+		
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
+		System.out.println("turtleXPos:" + turtleXPos);
+		System.out.println("turtleYPos:" + turtleYPos);
+
 		turtleAngle = newTurtle.getAngle();
+		
+		//setting our turtle info
 		myTurtle.setX(turtleXPos);
 		myTurtle.setY(turtleYPos);
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
+
+		stack.getChildren().add(myTurtle);
+
+		//System.out.println(r.getBoundsInParent());
+		//stack.getChildren().remove(r);
+		//stack.getChildren().removeAll(r, TurtleView);
 		
+		
+		
+		
+		/*
+		stack.getChildren().add(updated);
+		System.out.println("got here");
 		System.out.println(r.getBoundsInParent());
-		stack.getChildren().remove(r);
-		r.setX(turtleXPos);
+		System.out.println(updated.getBoundsInParent());
+		System.out.println("got here2");*/
+
+
+
+		//originally here:
+		/*r.setX(turtleXPos);
 		r.setY(turtleYPos);
-		stack.getChildren().add(r);
-		System.out.println(r.getBoundsInParent());
-		BP.setLeft(stack);
+		stack.getChildren().add(r);*/
+		//.getChildren().addAll(r, TurtleView);
+
+		//System.out.println(r.getBoundsInParent());
+		//BP.setLeft(stack);
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
+		System.out.println("end of updateTurtle ");
+
 	}
 	
 	/**
