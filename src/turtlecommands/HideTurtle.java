@@ -5,6 +5,11 @@ import turtle.TurtleState;
 
 public class HideTurtle extends TurtleCommand {
 	
+	public HideTurtle(double...args){
+		super(args);
+		setNumArgs(0);
+	}
+	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
 		checkArgs();
