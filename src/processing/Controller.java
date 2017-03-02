@@ -57,9 +57,9 @@ public class Controller {
 		System.out.println(node );
 		
 		Command command = node.getCommandObject();
-		PenUp p = (PenUp) command;
+		//PenUp p = (PenUp) command;
 		//PenDown p = (PenDown) command;
-		//Forward p = (Forward) command;
+		Forward p = (Forward) command;
 
 		System.out.println(turtle.getState().isPenDown());
 		System.out.println(turtle.getState().isPenDown());
