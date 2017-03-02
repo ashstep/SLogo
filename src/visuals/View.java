@@ -5,31 +5,20 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import turtle.Turtle;
 import turtle.TurtleState;
 
 /**
@@ -169,13 +158,8 @@ public class View implements ExternalUserInterface {
 			System.out.println(myResourceBundle.getString("NotificationError"));
 		}
 	}
-	
-	
-	public void passString(String input) {
-		// TODO Auto-generated method stub
-	}
 
-	private void updateTurtle(TurtleState newTurtle){
+	public void updateTurtle(TurtleState newTurtle){
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
 		turtleAngle = newTurtle.getAngle();

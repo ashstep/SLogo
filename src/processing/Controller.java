@@ -20,9 +20,9 @@ public class Controller {
 	private View theView;
 	private ResourceBundle myResourceBundle;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-	private String language = "English";
 	private CommandParser parser;
 	private Turtle turtle;
+	private String language = "English";
 	
 	public Controller(Stage s){
 		theStage = s;
