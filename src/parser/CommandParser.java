@@ -84,7 +84,9 @@ public class CommandParser {
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
-		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
+		String a = theCommand.getCommandString(commandString);
+		//theCommand.getCommandObj(a);
+		created.setCommandObject(theCommand.getCommandObj(a));
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
 	}
@@ -101,8 +103,13 @@ public class CommandParser {
 	 * @return root of the new tree
 	 */
 	public Node buildTree() {
-		String currCommand = nthItemOfList(commandList, 0);
-		commandList.remove(0);
+		int cur = 0;
+		//String currCommand = nthItemOfList(commandList, 0);
+		String currCommand = commandList.get(cur);
+		System.out.println("String command for node in build tree is:");
+		System.out.println(currCommand);
+
+		//commandList.remove(0);
 		Node rootNodeofTree = initNewNode(currCommand);
 		// keeping code in case recursion doesnt fully work
 		// for(int i = 0; i < commandList.size(); i++){

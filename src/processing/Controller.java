@@ -50,6 +50,10 @@ public class Controller {
 	private void parseCommands(String cmd){
 		parser.parseInputtedCommand(cmd);
 		Node node = parser.buildTree();
+		
+		System.out.println("node is : " );
+		System.out.println(node );
+		
 		Command command = node.getCommandObject();
 		PenUp p = (PenUp) command;
 		System.out.println(turtle.getState().isPenDown());
