@@ -168,10 +168,7 @@ public class View implements ExternalUserInterface {
 		}
 	}
 	
-	@Override
-	public void passString(String input) {
-		// TODO Auto-generated method stub
-	}
+
 
 	private void updateTurtle(TurtleState newTurtle){
 		turtleXPos = newTurtle.getX();
@@ -190,7 +187,11 @@ public class View implements ExternalUserInterface {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * shows an error message popup
+	 * @param whatHappened the message that will be displayed in the error popup
+	 */
 	@Override
 	public void createErrorMessage(String whatHappened) {
 		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
