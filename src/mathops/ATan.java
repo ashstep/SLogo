@@ -1,5 +1,6 @@
 package mathops;
 
+import java.util.List;
 import turtle.ArgumentNumberException;
 
 public class ATan extends MathCommand {
@@ -7,8 +8,8 @@ public class ATan extends MathCommand {
 	@Override
 	public double calculate() throws ArgumentNumberException {
 		checkArgs();
-		double[] args = getArgs();
-		return Math.atan(args[0]);
+		List<Double> args = getArgs();
+		return Math.atan(args.get(0));
 	}
 
 	@Override

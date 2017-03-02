@@ -1,5 +1,10 @@
 package turtle;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import parser.Node;
+
 /**
  * Generic command class
  * @author Vishnu Gottiparthy
@@ -7,7 +12,7 @@ package turtle;
  */
 public abstract class Command {
 	
-	private double[] args;
+	private List<Double> args;
 	
 	/**
 	 * Checks if the allowed number of arguments is supplied
@@ -15,8 +20,8 @@ public abstract class Command {
 	 * @param args Array of arguments
 	 */
 	protected void checkArgs() throws ArgumentNumberException {
-		if(args.length != getNumArgs()){
-			throw new ArgumentNumberException("Got "+args.length+" arguments, expected " + getNumArgs());
+		if(args.size() != getNumArgs()){
+			throw new ArgumentNumberException("Got "+args.size()+" arguments, expected " + getNumArgs());
 		}
 	}
 	
@@ -24,12 +29,24 @@ public abstract class Command {
 	 * Gets the arguments list of this <code>Command</code>
 	 * @return The arguments list
 	 */
-	public double[] getArgs(){
+	public List<Double> getArgs(){
 		return args;
 	}
 	
-	public void setArgs(double[] inputs){
-		args = inputs;
+	public void treeArgs(Node node){
+		ArrayList<Node> children = node.getChildren();
+		for(Node n : children){
+			if(!n.checkifCommand()){
+				node.getCommandObject().addArg(Double.parseDouble(n.getCommand()));
+			}
+			else{
+				treeArgs(n);
+			}
+		}
+	}
+	
+	public void addArg(double input){
+		args.add(input);
 	}
 	
 	/**

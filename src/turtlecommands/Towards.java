@@ -1,6 +1,7 @@
 package turtlecommands;
 
 import turtle.ArgumentNumberException;
+import java.util.List;
 import turtle.TurtleState;
 
 public class Towards extends TurtleCommand {
@@ -8,9 +9,9 @@ public class Towards extends TurtleCommand {
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
-		double[] args = getArgs();
-		double x = args[0] - state.getX();
-		double y = args[1] - state.getY();
+		List<Double> args = getArgs();
+		double x = args.get(0) - state.getX();
+		double y = args.get(1) - state.getY();
 		double angle = Math.atan(y/x);
 		setReturnVal(angle - state.getAngle());
 		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
