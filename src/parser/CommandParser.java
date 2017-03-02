@@ -149,12 +149,12 @@ public class CommandParser {
 
 		// Base case for this command
 		if (indexofCommand == 0) {
-			System.out.println("base case of tree MET -> indexofCommand is 0");
+			System.out.println("base case of tree  -> indexofCommand is 0");
 			return currCommandNode;
 		}
 		
 		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
-			System.out.println("inside the tree building root");
+			System.out.println("has at least 1 child");
 			System.out.println("i IS");
 			System.out.println(i);
 
@@ -168,15 +168,14 @@ public class CommandParser {
 			
 			
 			
-			//a aommand has been dealt with can decrease
+			//a aommand arg has been dealt with, can decrease
 			indexofCommand--;
 			System.out.println("indexofCommand-- >> now:");
 			System.out.println(indexofCommand);
 			
 			//check if its end of list or out of bounds
-			if (starting > commandList.size()-1){
-				System.out.println("return null because starting is now: ");
-				System.out.println(starting);
+			if (starting >= commandList.size()-1){
+				System.out.println("return currCommandNode bcs end of list reached: ");
 				return currCommandNode;
 			}
 			
@@ -186,7 +185,8 @@ public class CommandParser {
 
 
 		}
-		return null;	}
+		return null;	
+		}
 
 
 	private boolean isValidDouble(String string) {
