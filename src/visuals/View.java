@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -88,7 +87,6 @@ public class View implements ExternalUserInterface {
 	 * shows an error message popup
 	 * @param errorMsg the message that will be displayed in the error popup
 	 */
-
 
 
 	/**
