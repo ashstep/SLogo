@@ -26,7 +26,10 @@ import turtle.Command;
 public class CommandParser {
 
 	private List<String> commandList;
-	private int indexofCommand;
+	private int indexofCommand = 0;
+	private int starting = 0;
+
+	private Boolean hasbeenset = false;
 
 	private String language = "English";
 
@@ -103,40 +106,56 @@ public class CommandParser {
 	 * @return root of the new tree
 	 */
 	public Node buildTree() {
-		int cur = 0;
-		//String currCommand = nthItemOfList(commandList, 0);
-		String currCommand = commandList.get(cur);
+		String currCommand = commandList.get(starting);
 		System.out.println("String command for node in build tree is:");
 		System.out.println(currCommand);
+		System.out.println("starting index is : ");
+		System.out.println(starting);
 
-		//commandList.remove(0);
+
 		Node rootNodeofTree = initNewNode(currCommand);
-		// keeping code in case recursion doesnt fully work
-		// for(int i = 0; i < commandList.size(); i++){
-		// String currCommand = commandList.get(i);
 
 		// CASE1: if the word is MAKE or SET
 		if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")) {
-			String newVariable = commandList.get(1);
-			Double valuetoAdd = Double.parseDouble(commandList.get(2));
+			starting++;
+
+			String newVariable = commandList.get(starting);
+			starting++;
+			Double valuetoAdd = Double.parseDouble(commandList.get(starting));
 			// check if its a variable and that it's NOT in map -> add it
 			if ((isVariable(newVariable))) {
 				if (!isVariableinMap(newVariable)) {
 					addVariableToHashmap(newVariable, valuetoAdd);
 				}
 			}
-			commandList.remove(1);
-			commandList.remove(2);
 		}
 
 		// DEFAULT CASE:
 		Node currCommandNode = initNewNode(currCommand);
 		// Base case
-		if (currCommandNode.getCommandObject().getNumArgs() == 0) {
+		if ((currCommandNode.getCommandObject().getNumArgs()!= 0) && (hasbeenset==false)){
+			indexofCommand = currCommandNode.getCommandObject().getNumArgs();
+			hasbeenset=true;
+		}
+
+		
+		if (indexofCommand == 0) {
+			System.out.println("base case of tree MET -> indexofCommand is 0");
 			return currCommandNode;
 		}
+		System.out.println("currCommandNode.getCommandObject().getNumArgs() IS");
+		System.out.println(currCommandNode.getCommandObject().getNumArgs());
+
 		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
-			indexofCommand++;
+			System.out.println("inside the tree building root");
+			System.out.println("i IS");
+			System.out.println(i);
+
+
+			indexofCommand--;
+			System.out.println("indexofCommand changed is:");
+			System.out.println(indexofCommand);
+			starting++;
 			i++;
 			currCommandNode.addChild(buildTree());
 			

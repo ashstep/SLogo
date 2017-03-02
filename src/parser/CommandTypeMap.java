@@ -78,8 +78,8 @@ public class CommandTypeMap {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		} catch(Exception f) {
-			f.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
