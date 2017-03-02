@@ -29,7 +29,7 @@ public class CommandParser {
 	private int indexofCommand = 0;
 	private int starting = 0;
 
-	private Boolean hasbeenset = false;
+	private Boolean indexhasbeenset = false;
 
 	private String language = "English";
 
@@ -62,6 +62,9 @@ public class CommandParser {
 		for (int i = 0; i < split.length; i++) {
 			commandList.add(split[i]);
 		}
+		System.out.println("the command list is:");
+		System.out.println(commandList);
+
 		return commandList;
 	}
 
@@ -109,7 +112,7 @@ public class CommandParser {
 		
 		
 		String currCommand = commandList.get(starting);
-		System.out.println("String command for node in build tree is:");
+		System.out.println("current string command for node (build tree):");
 		System.out.println(currCommand);
 		System.out.println("starting index is : ");
 		System.out.println(starting);
@@ -137,46 +140,69 @@ public class CommandParser {
 		System.out.println("node initialized");
 
 		
-		if ((currCommandNode.getCommandObject().getNumArgs()!= 0) && (hasbeenset==false)){
+		if ((currCommandNode.getCommandObject().getNumArgs()!= 0) && (indexhasbeenset==false)){
 			indexofCommand = currCommandNode.getCommandObject().getNumArgs();
-			System.out.println("reaching this point");
-			hasbeenset=true;
+			System.out.println("indexhasbeenset as:");
+			System.out.println(indexofCommand);
+			indexhasbeenset=true;
 		}
 
-		// Base case
+		// Base case for this command
 		if (indexofCommand == 0) {
 			System.out.println("base case of tree MET -> indexofCommand is 0");
 			return currCommandNode;
 		}
-		System.out.println("currCommandNode.getCommandObject().getNumArgs() IS");
-		System.out.println(currCommandNode.getCommandObject().getNumArgs());
-
+		
 		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
 			System.out.println("inside the tree building root");
 			System.out.println("i IS");
 			System.out.println(i);
 
-
-			indexofCommand--;
-			System.out.println("indexofCommand changed is:");
-			System.out.println(indexofCommand);
+			//get the children items -> add to child list
+			String toAdd = commandList.get(i+1);
+			Node addingChildArg = initNewNode(toAdd);
+			//what if its not a
+			currCommandNode.addChild(addingChildArg);
+			//increment starting point
 			starting++;
-			i++;
 			
+			
+			
+			//a aommand has been dealt with can decrease
+			indexofCommand--;
+			System.out.println("indexofCommand-- >> now:");
+			System.out.println(indexofCommand);
+			
+			//check if its end of list or out of bounds
 			if (starting > commandList.size()-1){
 				System.out.println("return null because starting is now: ");
 				System.out.println(starting);
-
 				return currCommandNode;
 			}
+			
 			//otherwise keep going
 			currCommandNode.addChild(buildTree());
 
-			
-			
+
+
 		}
 		return null;	}
 
+
+	private boolean isValidDouble(String string) {
+		boolean isValid = true;
+		try{
+			double d = Double.parseDouble(string);
+			isValid = true;
+		}
+		catch(NumberFormatException nfe){
+			//do something here if the string is bad
+			isValid = false;
+		}
+		return isValid;
+	}
+
+	
 	/**
 	 * Checks if String command is a variable
 	 * @param String command input

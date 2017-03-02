@@ -17,6 +17,7 @@ import turtle.Turtle;
 import turtlecommands.Forward;
 import turtlecommands.PenDown;
 import turtlecommands.PenUp;
+import turtlecommands.Right;
 import visuals.SplashPage;
 
 public class Controller {
@@ -74,7 +75,9 @@ public class Controller {
 		Command command = node.getCommandObject();
 		//PenUp p = (PenUp) command;
 		//PenDown p = (PenDown) command;
-		Forward p = (Forward) command;
+		//Forward p = (Forward) command;
+		Right p = (Right) command;
+
 
 		System.out.println(turtle.getState().isPenDown());
 		System.out.println(turtle.getState().isPenDown());

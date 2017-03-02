@@ -63,7 +63,8 @@ public class CommandTypeMap {
 			//Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
 			System.out.println("command being called for class is:");
 			System.out.println(command);
-			Class<?> commandObjectClazz = Class.forName("turtlecommands." + command); //getting the class
+			//"turtlecommands."
+			Class<?> commandObjectClazz = Class.forName( command); //getting the class
 			System.out.println("class found");
 
 
@@ -76,6 +77,8 @@ public class CommandTypeMap {
 
 				return (Command) commandObject;
 			} catch(Exception e) {
+				System.out.println("constructor / obj  NOT found");
+
 				e.printStackTrace();
 			}
 		} catch(Exception e) {
