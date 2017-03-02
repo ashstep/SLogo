@@ -60,16 +60,26 @@ public class CommandTypeMap {
 		ResourceBundle resources = ResourceBundle.getBundle(SYNTAX);
 		String getCommand = getCommandString(command);
 		try {
-			Class<?> commandObjectClazz = Class.forName("turtlecommands." + getCommand); //getting the class
+			//Class<?> commandObjectClazz = Class.forName("turtlecommands." + getCommand); //getting the class
+			System.out.println("command being called for class is:");
+			System.out.println(command);
+			Class<?> commandObjectClazz = Class.forName("turtlecommands." + command); //getting the class
+			System.out.println("class found");
+
+
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
+				System.out.println("constructor found");
+
 				Object commandObject = commandObjConstructor.newInstance(); //create instance
+				System.out.println("obj about to be made");
+
 				return (Command) commandObject;
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		} catch(Exception f) {
-			f.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
