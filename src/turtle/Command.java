@@ -21,6 +21,9 @@ public abstract class Command {
 	 */
 	protected void checkArgs() throws ArgumentNumberException {
 		if(args.size() != getNumArgs()){
+			System.out.println(args.size());
+			System.out.println(getNumArgs());
+
 			throw new ArgumentNumberException("Got "+args.size()+" arguments, expected " + getNumArgs());
 		}
 	}
