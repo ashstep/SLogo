@@ -72,29 +72,6 @@ public class View implements ExternalUserInterface {
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
 	}
-
-	/**
-	 * shows an error message popup
-	 * @param errorMsg the message that will be displayed in the error popup
-	 */
-
-
-
-	/**
-	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
-	 * @return The <code>Scene</code> for the <code>View</code>
-	 */
-	public Scene getScene(){
-		return theScene;
-	}
-	
-	/**
-	 * Gets the command string from the <code>InputView</code>
-	 * @return The command string
-	 */
-	public String getCommandString(){
-		return inputView.getCommandString();
-	}
 	
 	/**
 	 * Initialize the right side which has all the controls for the GUI
@@ -135,7 +112,6 @@ public class View implements ExternalUserInterface {
 	
 	/**
 	 * Filler method just to test if the line is displayed properly
-	 * NOT ACTUALLY GOING TO BE USED THIS WAY.
 	 * @param x
 	 * @param y
 	 */
@@ -147,6 +123,9 @@ public class View implements ExternalUserInterface {
 		}
 	}
 	
+	/**
+	 * Opens up the help page in a web browser. If there are errors, display error message
+	 */
 	private void displayHelpPage(){
 		try{
 			Desktop.getDesktop().browse(new URI(helpUrl));
@@ -171,6 +150,22 @@ public class View implements ExternalUserInterface {
 		
 	}
 	
+	/**
+	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
+	 * @return The <code>Scene</code> for the <code>View</code>
+	 */
+	public Scene getScene(){
+		return theScene;
+	}
+	
+	/**
+	 * Gets the command string from the <code>InputView</code>
+	 * @return The command string
+	 */
+	public String getCommandString(){
+		return inputView.getCommandString();
+	}
+	
 	@Override
 	public void newTurtleState() {
 		// TODO Auto-generated method stub
@@ -185,7 +180,6 @@ public class View implements ExternalUserInterface {
 	public void createErrorMessage(String whatHappened) {
 		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
 		alert.showAndWait();
-
 	}
 
 }
