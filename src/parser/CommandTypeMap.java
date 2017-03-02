@@ -60,7 +60,7 @@ public class CommandTypeMap {
 		ResourceBundle resources = ResourceBundle.getBundle(SYNTAX);
 		String getCommand = getCommandString(command);
 		try {
-			//Class<?> commandObjectClazz = Class.forName("turtlecommands." + getCommand); //getting the class
+			//Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
 			System.out.println("command being called for class is:");
 			System.out.println(command);
 			Class<?> commandObjectClazz = Class.forName("turtlecommands." + command); //getting the class
