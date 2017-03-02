@@ -106,6 +106,8 @@ public class CommandParser {
 	 * @return root of the new tree
 	 */
 	public Node buildTree() {
+		
+		
 		String currCommand = commandList.get(starting);
 		System.out.println("String command for node in build tree is:");
 		System.out.println(currCommand);
@@ -113,7 +115,7 @@ public class CommandParser {
 		System.out.println(starting);
 
 
-		Node rootNodeofTree = initNewNode(currCommand);
+		//Node rootNodeofTree = initNewNode(currCommand);
 
 		// CASE1: if the word is MAKE or SET
 		if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")) {
@@ -132,13 +134,16 @@ public class CommandParser {
 
 		// DEFAULT CASE:
 		Node currCommandNode = initNewNode(currCommand);
-		// Base case
+		System.out.println("node initialized");
+
+		
 		if ((currCommandNode.getCommandObject().getNumArgs()!= 0) && (hasbeenset==false)){
 			indexofCommand = currCommandNode.getCommandObject().getNumArgs();
+			System.out.println("reaching this point");
 			hasbeenset=true;
 		}
 
-		
+		// Base case
 		if (indexofCommand == 0) {
 			System.out.println("base case of tree MET -> indexofCommand is 0");
 			return currCommandNode;
@@ -157,11 +162,20 @@ public class CommandParser {
 			System.out.println(indexofCommand);
 			starting++;
 			i++;
+			
+			if (starting > commandList.size()-1){
+				System.out.println("return null because starting is now: ");
+				System.out.println(starting);
+
+				return currCommandNode;
+			}
+			//otherwise keep going
 			currCommandNode.addChild(buildTree());
+
 			
 			
 		}
-		return rootNodeofTree;	}
+		return null;	}
 
 	/**
 	 * Checks if String command is a variable
