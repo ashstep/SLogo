@@ -5,8 +5,14 @@ import turtle.ArgumentNumberException;
 public class ATan extends MathCommand {
 	
 	@Override
-	public double calculate(double... args) throws ArgumentNumberException {
+	public double calculate() throws ArgumentNumberException {
 		checkArgs();
+		double[] args = getArgs();
 		return Math.atan(args[0]);
+	}
+
+	@Override
+	public int getNumArgs() {
+		return 1;
 	}
 }

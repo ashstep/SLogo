@@ -4,12 +4,13 @@ import turtle.TurtleState;
 
 public class Home extends TurtleCommand {
 	
-	public Home(){
-		setNumArgs(0);
-	}
-	
 	@Override
-	public TurtleState run(TurtleState state, double... args){
+	public TurtleState run(TurtleState state){
 		return new TurtleState(0, 0, 0, false, true);
+	}
+
+	@Override
+	public int getNumArgs() {
+		return 0;
 	}
 }
