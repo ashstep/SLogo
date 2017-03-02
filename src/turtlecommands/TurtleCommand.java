@@ -12,18 +12,13 @@ import turtle.Command;
 public abstract class TurtleCommand extends Command {
 	
 	private double returnVal;
-	
-	public TurtleCommand(double... args){
-		super(args);
-		setNumArgs(1);
-	}
-	
+
 	/**
 	 * Takes in current <code>TurtleState</code> and finds new one
 	 * @param state Current state of <code>Turtle</code>
 	 * @return Next <code>TurtleState</code>
 	 */
-	public abstract TurtleState run(TurtleState state, double... args) throws ArgumentNumberException;
+	public abstract TurtleState run(TurtleState state) throws ArgumentNumberException;
 	
 	/**
 	 * Sets the return value of the command

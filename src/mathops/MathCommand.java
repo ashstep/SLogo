@@ -10,14 +10,9 @@ import turtle.ArgumentNumberException;
  */
 public abstract class MathCommand extends Command {
 	
-	public MathCommand(double... args){
-		super(args);
-		setNumArgs(1);
-	}
-	
 	/**
 	 * Runs a math operation for a math command
 	 * @return Result of calculation
 	 */
-	public abstract double calculate(double... args) throws ArgumentNumberException;
+	public abstract double calculate() throws ArgumentNumberException;
 }
