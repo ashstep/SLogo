@@ -5,12 +5,6 @@ import turtle.TurtleState;
 
 public class Forward extends TurtleCommand {
 	
-	public Forward(double...args){
-		super(args);
-		setNumArgs(1);
-	}
-
-	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
 		checkArgs();

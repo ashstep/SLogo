@@ -4,13 +4,10 @@ import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class SetXY extends TurtleCommand {
-
-	public SetXY(){
-		setNumArgs(2);
-	}
 	
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
+		setNumArgs(2);
 		checkArgs();
 		double x = state.getX() - args[0];
 		double y = state.getY() - args[1];
