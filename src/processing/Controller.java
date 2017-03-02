@@ -56,7 +56,10 @@ public class Controller {
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));
+		System.out.println("reached here");
 		theView = new View(submit, myResourceBundle);
+		System.out.println("reached post-view constructor");
+
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
 	}
@@ -72,7 +75,7 @@ public class Controller {
 				
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 		Command command = node.getCommandObject();
-		
+
 		try {
 			command.treeArgs(node);
 			turtle.process(command);
