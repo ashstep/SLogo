@@ -1,5 +1,7 @@
 package visuals;
 
+import java.util.ResourceBundle;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,11 +35,11 @@ public class InputView implements IInputView {
 	 * 
 	 * @return Menu;
 	 */
-	public VBox initializeTextArea(Button submit) {
+	public VBox initializeTextArea(Button submit, ResourceBundle myResourceBundle) {
 		VBox Menu = new VBox(SPACING);
 
 		userInput = new TextArea();
-		userInput.setPromptText("Enter Your Command");
+		userInput.setPromptText(myResourceBundle.getString("EnterCommandPrompt"));
 		userInput.setWrapText(true);
 		userInput.setMaxWidth(View.WIDTH * (0.4));
 
@@ -64,7 +66,6 @@ public class InputView implements IInputView {
 	public ColorPicker initializeColorPicker() {
 		colorPicker = new ColorPicker();
 		colorPicker.setMaxWidth(View.WIDTH * (0.4));
-		colorPicker.setPromptText("Change the Background Color");
 		return colorPicker;
 	}
 

@@ -25,7 +25,8 @@ public class CommandTypeMap {
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
-	private final String LANG = "resources.language/";
+	private static final String LANG = "resources.languages/English";
+	private static final String SYNTAX = "resources.languages/Syntax";
 
 	/**
 	 * Default constructor
@@ -33,7 +34,7 @@ public class CommandTypeMap {
 	 */
 	public CommandTypeMap(String commandInputAnyLanguage) {
 		mySymbols = new ArrayList<>();
-		addResource(LANG + commandInputAnyLanguage);  //getting the right language for mapping:
+		addResource("");  //getting the right language for mapping:
 	}
 
 	/**
@@ -56,11 +57,10 @@ public class CommandTypeMap {
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		//ResourceBundle resources = ResourceBundle.getBundle("resources/syntax.properties");
+		ResourceBundle resources = ResourceBundle.getBundle(SYNTAX);
 		String getCommand = getCommandString(command);
 		try {
-			Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
-
+			Class<?> commandObjectClazz = Class.forName("turtlecommands." + getCommand); //getting the class
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
 				Object commandObject = commandObjConstructor.newInstance(); //create instance
@@ -97,8 +97,8 @@ public class CommandTypeMap {
 	 * @param String for the path of the properties file to add
 	 * Resource: In class, Duvall
 	 */
-	public void addResource(String syntax) {
-		ResourceBundle resources = ResourceBundle.getBundle(syntax);
+	public void addResource(String lang) {
+		ResourceBundle resources = ResourceBundle.getBundle(LANG);
 		Enumeration<String> iter = resources.getKeys();
 		while (iter.hasMoreElements()) {
 			String key = iter.nextElement();

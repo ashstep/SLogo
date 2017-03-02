@@ -1,32 +1,24 @@
 package visuals;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import turtle.Turtle;
 import turtle.TurtleState;
 
 /**
@@ -45,21 +37,26 @@ public class View implements ExternalUserInterface {
 	public static final int HEIGHT = 600;
 	private final int SPACING = 10;
 	private InputView inputView;
+	private Button help;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
 	private Canvas TurtleView;
 	private GraphicsContext gc;
+	private String helpUrl = 
+			"http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
 	private GraphicsContext myTurtleDrawer;
 	private Image myTurtleImage;
 	private ImageView myTurtle;
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
-
-	public View(Button submit) {
+	private ResourceBundle myResourceBundle;
+	
+	public View(Button submit, ResourceBundle myResourceBundle) {
 
 		inputView = new InputView();
-
+		this.myResourceBundle = myResourceBundle;
+		
 		BP = new BorderPane();
 		SP = new ScrollPane();
 		SP.setContent(initializeRightMenu(submit));
@@ -74,31 +71,6 @@ public class View implements ExternalUserInterface {
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
-	}
-
-	
-	public StackPane initializeMenu(){
-		StackPane Menu = new StackPane();
-		Menu.setMinHeight(WIDTH/4);
-		
-		
-		Button submit = new Button("Submit");
-		submit.setDefaultButton(true);
-		StackPane.setAlignment(submit, Pos.BOTTOM_CENTER);
-		submit.setMaxWidth(WIDTH/3);
-		
-		
-		TextArea userInput = new TextArea();
-		userInput.setMaxSize(WIDTH/3, WIDTH/4);
-		StackPane.setMargin(userInput, new Insets(WIDTH/100,WIDTH/100,WIDTH/100,WIDTH/100));
-		
-		
-		userInput.setPromptText("Enter Your Command");
-		
-		Menu.getChildren().addAll(userInput, submit);
-		
-		
-		return Menu;
 	}
 
 	/**
@@ -131,13 +103,18 @@ public class View implements ExternalUserInterface {
 	private VBox initializeRightMenu(Button submit) {
 		VBox RightMenu = new VBox(SPACING);
 		
-		Label backgroundLabel = new Label("Change the Background Color!"); //Change to ResourceBundle Later
-		Label lineColorLabel = new Label ("Change the color of the line");
+		help = new Button(myResourceBundle.getString("HelpPrompt"));
+		help.setOnAction(e->{
+			displayHelpPage();
+		});
+		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
+		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
+		Label helpLabel = new Label(myResourceBundle.getString("HelpButtonPrompt"));
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser, helpLabel, help);
 		return RightMenu;
 	}
 	
@@ -162,23 +139,27 @@ public class View implements ExternalUserInterface {
 	 * @param x
 	 * @param y
 	 */
-	private void drawTurtlePath(double x, double y, boolean pen){
-		myTurtleDrawer.moveTo(x,y);
+	private void drawTurtlePath(double xPosition, double yPosition, boolean pen){
+		myTurtleDrawer.moveTo(xPosition,yPosition);
 		if(pen) {
-			myTurtleDrawer.lineTo(x, y);		
+			myTurtleDrawer.lineTo(xPosition, yPosition);		
 			myTurtleDrawer.stroke();
 		}
 	}
 	
-	@Override
-	public void passString(String input) {
-		// TODO Auto-generated method stub
-
+	private void displayHelpPage(){
+		try{
+			Desktop.getDesktop().browse(new URI(helpUrl));
+		}
+		catch (IOException e){
+			System.out.println(myResourceBundle.getString("NotificationError"));
+		}
+		catch (URISyntaxException e){
+			System.out.println(myResourceBundle.getString("NotificationError"));
+		}
 	}
 
-	
-	
-	private void updateTurtle(TurtleState newTurtle){
+	public void updateTurtle(TurtleState newTurtle){
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
 		turtleAngle = newTurtle.getAngle();
@@ -195,7 +176,11 @@ public class View implements ExternalUserInterface {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * shows an error message popup
+	 * @param whatHappened the message that will be displayed in the error popup
+	 */
 	@Override
 	public void createErrorMessage(String whatHappened) {
 		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
