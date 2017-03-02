@@ -83,12 +83,11 @@ public class Controller {
 		System.out.println(turtle.getState().isPenDown());
 
 		try {
+			p.treeArgs(node);
 			turtle.process(p);
 		} catch (CommandProcessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ArgumentNumberException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(turtle.getState().isPenDown());

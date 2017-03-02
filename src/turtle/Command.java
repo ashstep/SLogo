@@ -20,6 +20,9 @@ public abstract class Command {
 	 * @param args Array of arguments
 	 */
 	protected void checkArgs() throws ArgumentNumberException {
+		if(args == null){
+			args = new ArrayList<Double>();
+		}
 		if(args.size() != getNumArgs()){
 			System.out.println(args.size());
 			System.out.println(getNumArgs());
@@ -49,6 +52,9 @@ public abstract class Command {
 	}
 	
 	public void addArg(double input){
+		if(args == null){
+			args = new ArrayList<Double>();
+		}
 		args.add(input);
 	}
 	
