@@ -25,7 +25,7 @@ public class CommandTypeMap {
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
-	private final String LANG = "resources/language/";
+	private final String LANG = "resources.language/";
 
 	/**
 	 * Default constructor
@@ -56,10 +56,11 @@ public class CommandTypeMap {
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		ResourceBundle resources = ResourceBundle.getBundle("resources/FILL THIS IN TBD");
+		//ResourceBundle resources = ResourceBundle.getBundle("resources/syntax.properties");
 		String getCommand = getCommandString(command);
 		try {
-			Class<?> commandObjectClazz = Class.forName(resources.getString(getCommand)); //getting the class
+			Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
+
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
 				Object commandObject = commandObjConstructor.newInstance(); //create instance
