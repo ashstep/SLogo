@@ -129,7 +129,7 @@ public class CommandParser {
 			return currCommandNode;
 		}
 		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
-			//indexofCommand++;
+			indexofCommand++;
 			i++;
 			currCommandNode.addChild(buildTree());
 			
