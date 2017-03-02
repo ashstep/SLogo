@@ -2,9 +2,7 @@ package processing;
 
 import visuals.View;
 
-import java.lang.reflect.Array;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -62,6 +60,7 @@ public class Controller {
 	private void changeResourceBundle(String newLanguage){
 		language = newLanguage;
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+	}
 
 	private void parseCommands(String cmd){
 		parser.parseInputtedCommand(cmd);

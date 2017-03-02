@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-=======
->>>>>>> master
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -77,28 +72,6 @@ public class View implements ExternalUserInterface {
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
 	}
-
-	/**
-	 * shows an error message popup
-	 * @param errorMsg the message that will be displayed in the error popup
-	 */
-
-
-	/**
-	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
-	 * @return The <code>Scene</code> for the <code>View</code>
-	 */
-	public Scene getScene(){
-		return theScene;
-	}
-	
-	/**
-	 * Gets the command string from the <code>InputView</code>
-	 * @return The command string
-	 */
-	public String getCommandString(){
-		return inputView.getCommandString();
-	}
 	
 	/**
 	 * Initialize the right side which has all the controls for the GUI
@@ -139,7 +112,6 @@ public class View implements ExternalUserInterface {
 	
 	/**
 	 * Filler method just to test if the line is displayed properly
-	 * NOT ACTUALLY GOING TO BE USED THIS WAY.
 	 * @param x
 	 * @param y
 	 */
@@ -151,6 +123,9 @@ public class View implements ExternalUserInterface {
 		}
 	}
 	
+	/**
+	 * Opens up the help page in a web browser. If there are errors, display error message
+	 */
 	private void displayHelpPage(){
 		try{
 			Desktop.getDesktop().browse(new URI(helpUrl));
@@ -162,13 +137,8 @@ public class View implements ExternalUserInterface {
 			System.out.println(myResourceBundle.getString("NotificationError"));
 		}
 	}
-<<<<<<< HEAD
-	
-	private void updateTurtle(TurtleState newTurtle){
-=======
 
 	public void updateTurtle(TurtleState newTurtle){
->>>>>>> master
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
 		turtleAngle = newTurtle.getAngle();
@@ -178,6 +148,22 @@ public class View implements ExternalUserInterface {
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 		
+	}
+	
+	/**
+	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
+	 * @return The <code>Scene</code> for the <code>View</code>
+	 */
+	public Scene getScene(){
+		return theScene;
+	}
+	
+	/**
+	 * Gets the command string from the <code>InputView</code>
+	 * @return The command string
+	 */
+	public String getCommandString(){
+		return inputView.getCommandString();
 	}
 	
 	@Override
@@ -194,7 +180,6 @@ public class View implements ExternalUserInterface {
 	public void createErrorMessage(String whatHappened) {
 		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
 		alert.showAndWait();
-
 	}
 
 }

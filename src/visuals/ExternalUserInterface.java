@@ -3,8 +3,6 @@ package visuals;
 public interface ExternalUserInterface {
 
 	
-	
-	
 	/**
 	 * calls method in Controller that returns the new TurtleState
 	 */
