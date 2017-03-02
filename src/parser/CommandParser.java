@@ -31,7 +31,7 @@ public class CommandParser {
 	private String language = "English";
 
 	//detect commands:
-	CommandTypeMap theCommand;
+	CommandTypeMap theCommandMapObject;
 	// adding different variables and storing them with values
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 
@@ -70,6 +70,10 @@ public class CommandParser {
 	private String nthItemOfList(List<String> currCommandList, int n) {
 		return currCommandList.get(n);
 	}
+	
+	
+	
+	
 
 	/**
 	 * Initialize a new node
@@ -80,9 +84,7 @@ public class CommandParser {
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
-		String a = theCommand.getCommandString(commandString);
-		//theCommand.getCommandObj(a);
-		created.setCommandObject(theCommand.getCommandObj(a));
+		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
 	}
