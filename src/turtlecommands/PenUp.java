@@ -4,12 +4,7 @@ import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class PenUp extends TurtleCommand {
-	
-	public PenUp(double...args){
-		super(args);
-		setNumArgs(0);
-	}
-	
+
 	@Override
 	public TurtleState run(TurtleState state, double... args) throws ArgumentNumberException {
 		checkArgs();
