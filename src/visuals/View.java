@@ -186,23 +186,16 @@ public class View implements ExternalUserInterface {
 		myTurtle.setY(turtleYPos);
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
-		stack.getChildren().add(myTurtle);
-
 		//System.out.println(r.getBoundsInParent());
 		//stack.getChildren().remove(r);
 		//stack.getChildren().removeAll(r, TurtleView);
-		
-		
-		
-		
+
 		/*
 		stack.getChildren().add(updated);
 		System.out.println("got here");
 		System.out.println(r.getBoundsInParent());
 		System.out.println(updated.getBoundsInParent());
 		System.out.println("got here2");*/
-
-
 
 		//originally here:
 		/*r.setX(turtleXPos);
