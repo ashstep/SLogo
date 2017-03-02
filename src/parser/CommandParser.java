@@ -297,7 +297,7 @@ public class CommandParser {
 	 * this even ever happen? else if ((current.numChildren() == 1) &&
 	 * (current.hasChildTwo())){ current = current.getChild2(); } // DEFAULT
 	 * CASE -> go to the leftmost node else{ current = current.getChild1(); } }
-	 * return null; }
+	 * return null; }````````````````````````````````````
 	 * 
 	 */
 

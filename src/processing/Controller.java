@@ -73,8 +73,8 @@ public class Controller {
 		System.out.println(node.getCommand() );
 		
 		Command command = node.getCommandObject();
-		PenUp p = (PenUp) command;
-		//PenDown p = (PenDown) command;
+		//PenUp p = (PenUp) command;
+		PenDown p = (PenDown) command;
 		//Forward p = (Forward) command;
 		//Right p = (Right) command;
 
