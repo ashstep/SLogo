@@ -168,8 +168,6 @@ public class View implements ExternalUserInterface {
 		}
 	}
 	
-
-
 	private void updateTurtle(TurtleState newTurtle){
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();

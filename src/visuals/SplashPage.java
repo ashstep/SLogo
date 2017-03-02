@@ -3,6 +3,7 @@ package visuals;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -24,13 +25,13 @@ public class SplashPage {
 	private int HEIGHT = 600;
 	private int SPACING = 10;
 	
-	public SplashPage(Button startButton){
+	public SplashPage(Button startButton, ComboBox languageSelector){
 		start = startButton;
 		title = new Text ("sLogo");
 		title.setId("title");
 		
 		VBox vbox = new VBox(SPACING);
-		vbox.getChildren().addAll(title, start);
+		vbox.getChildren().addAll(title, languageSelector, start);
 		vbox.setAlignment(Pos.CENTER);
 		
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(BACKGROUND));
