@@ -19,6 +19,7 @@ public class Turtle {
 	}
 	
 	public void process(Command c) throws CommandProcessException, ArgumentNumberException{
+		
 		if(c instanceof TurtleCommand){
 			execute((TurtleCommand) c);
 		} 

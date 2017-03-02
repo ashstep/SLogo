@@ -1,14 +1,15 @@
 package mathops;
 
 import turtle.ArgumentNumberException;
+import java.util.List;
 
 public class Sin extends MathCommand {
 	
 	@Override
 	public double calculate() throws ArgumentNumberException {
 		checkArgs();
-		double[] args = getArgs();
-		return Math.sin(args[0]);
+		List<Double> args = getArgs();
+		return Math.sin(args.get(0));
 	}
 
 	@Override

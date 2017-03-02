@@ -1,14 +1,15 @@
 package mathops;
 
 import turtle.ArgumentNumberException;
+import java.util.List;
 
 public class Tan extends MathCommand {
 	
 	@Override
 	public double calculate() throws ArgumentNumberException {
 		checkArgs();
-		double[] args = getArgs();
-		return Math.tan(args[0]);
+		List<Double> args = getArgs();
+		return Math.tan(args.get(0));
 	}
 
 	@Override
