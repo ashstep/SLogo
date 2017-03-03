@@ -57,6 +57,7 @@ public class CommandParser {
 	 * NOTE: Integer/Double values will be Strings
 	 */
 	public List<String> parseInputtedCommand(String commandLineInput) {
+		resetCommand(); //added
 		commandList = new ArrayList<String>();
 		String[] split = commandLineInput.split(" ");
 		for (int i = 0; i < split.length; i++) {
@@ -64,9 +65,13 @@ public class CommandParser {
 		}
 		System.out.println("the command list is:");
 		System.out.println(commandList);
-
 		return commandList;
 	}
+	
+	private void resetCommand() {
+		commandList.clear();
+		}
+
 
 	/**
 	 * Get Nth value from list of commands
@@ -309,7 +314,6 @@ public class CommandParser {
 		//language = lang;
 		setTranslationMap();
 	}
-
 	  *//**
 	  * Creating a translation mapping in case other language is inputted
 	  *//*
@@ -317,10 +321,6 @@ public class CommandParser {
 		getLang = ResourceBundle.getBundle("resources.languages/" + language);
 		commandLang = new CommandTypeMap(insertlangstring);
 	}*/
-
-
-
-
 	/**
 	 * NOTES:
 	 * 
