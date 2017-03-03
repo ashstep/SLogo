@@ -9,33 +9,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import turtle.TurtleState;
 
-public class TurtleView {
-	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
-	
+public class TurtleView implements ITurtleView {
 	
 	private StackPane stack;
 	private Canvas TurtleView;
 	private ImageView myTurtle;
 	private GraphicsContext myTurtleDrawer;
+	
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	private String turtleImage = "turtleImage.png";
-	
-	protected double getTurtleX(){
-		return turtleXPos;
-	}
-	
-	protected double getTurtleY(){
-		return turtleYPos;
-	}
-	
-	protected double getTurtleAngle(){
-		return turtleAngle;
-	}
-	
+
 	/**
 	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
 	 * @return TurtleView

@@ -32,28 +32,30 @@ public class View implements ExternalUserInterface {
 
 	private BorderPane BP;
 	private ScrollPane SP;
+	private StackPane stack;
 	private Scene theScene;
+	private InputView inputView;
+	private TurtleView turtleView;
+	private ResourceBundle myResourceBundle;
+	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	private final int SPACING = 10;
-	private InputView inputView;
-	private TurtleView turtleView = new TurtleView();
+	private String helpUrl = "http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
+	
+	private Canvas TurtleView;
+	private GraphicsContext gc;
 	private Button help;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
-	private Canvas TurtleView;
-	private GraphicsContext gc;
-	private String helpUrl = 
-			"http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
-	private ResourceBundle myResourceBundle;
 	private Rectangle r;
 	private Rectangle updated;
-	private StackPane stack;
 	
 	public View(Button submit, ResourceBundle myResourceBundle) {
 		System.out.println("start view");
 
 		inputView = new InputView();
+		turtleView = new TurtleView();
 		this.myResourceBundle = myResourceBundle;
 		
 		//System.out.println("reached here 3");
@@ -69,7 +71,7 @@ public class View implements ExternalUserInterface {
 		
 		//moved up
 		stack = new StackPane();
-		//System.out.println("stackchild is " + stack.getChildren());
+		//System.out.println("stack-child is " + stack.getChildren());
 		System.out.println("reached here 4");
 		System.out.println("stack is " + stack);
 		
@@ -82,8 +84,6 @@ public class View implements ExternalUserInterface {
 		System.out.println("stack is INITIAL"+ stack);
 		
 		BP.setLeft(stack);
-		
-		//TurtleView = initializeGraphicContent();
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
@@ -110,10 +110,6 @@ public class View implements ExternalUserInterface {
 		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser, helpLabel, help);
 		return RightMenu;
 	}
-
-	public void updateTurtle(TurtleState newTurtle){
-		turtleView.updateTurtle(newTurtle);
-	}
 	
 	/**
 	 * Opens up the help page in a web browser. If there are errors, display error message
@@ -123,11 +119,15 @@ public class View implements ExternalUserInterface {
 			Desktop.getDesktop().browse(new URI(helpUrl));
 		}
 		catch (IOException e){
-			System.out.println(myResourceBundle.getString("NotificationError"));
+			createErrorMessage(myResourceBundle.getString("NotificationError"));
 		}
 		catch (URISyntaxException e){
-			System.out.println(myResourceBundle.getString("NotificationError"));
+			createErrorMessage(myResourceBundle.getString("NotificationError"));
 		}
+	}
+	
+	public void updateTurtle(TurtleState newTurtle){
+		turtleView.updateTurtle(newTurtle);
 	}
 	
 	/**
