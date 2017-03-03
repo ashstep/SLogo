@@ -174,16 +174,23 @@ public class View implements ExternalUserInterface {
 	public void updateTurtle(TurtleState newTurtle){
 		System.out.println("updateTurtle called");
 		
+		//stack.getChildren().remove(myTurtle);
+		
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
-		System.out.println("turtleXPos:" + turtleXPos);
-		System.out.println("turtleYPos:" + turtleYPos);
+		System.out.println("initial turtleXPos:" + turtleXPos);
+		System.out.println("initial turtleYPos:" + turtleYPos);
 
 		turtleAngle = newTurtle.getAngle();
 		
 		//setting our turtle info
 		myTurtle.setX(turtleXPos);
 		myTurtle.setY(turtleYPos);
+		
+		//Bug fixed here - needs more work on the subtraction though
+		myTurtle.setTranslateX(turtleXPos);
+		myTurtle.setTranslateY(turtleYPos);
+		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
 		//System.out.println(r.getBoundsInParent());
@@ -207,6 +214,12 @@ public class View implements ExternalUserInterface {
 		//BP.setLeft(stack);
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
+		
+		//stack.getChildren().add(myTurtle);
+		
+		System.out.println("final turtleXPos:" + turtleXPos);
+		System.out.println("final turtleYPos:" + turtleYPos);
+		
 		System.out.println("end of updateTurtle ");
 
 	}
