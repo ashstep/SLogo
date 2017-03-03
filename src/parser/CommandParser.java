@@ -11,13 +11,6 @@ import turtle.Command;
  * 
  * @author Ashka Stephen
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  * TODO
  *  MAKE SPECIFIC COMMAND OBJECTS
  *  which method needs to be called and it just runs automatially
