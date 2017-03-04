@@ -27,6 +27,7 @@ public class InputView implements IInputView {
 	private TextArea userInput;
 	private ColorPicker colorPicker;
 	private Background background;
+
 	private int SPACING = 10;
 
 	/**
@@ -62,7 +63,7 @@ public class InputView implements IInputView {
 	 * Method that creates a color picker.
 	 * @return colorPicker
 	 */
-	protected ColorPicker initializeColorPicker() {
+	public ColorPicker initializeColorPicker() {
 		colorPicker = new ColorPicker();
 		colorPicker.setMaxWidth(View.WIDTH * (0.4));
 		return colorPicker;
@@ -73,7 +74,7 @@ public class InputView implements IInputView {
 	 * @param backgroundColorChooser
 	 * @param root
 	 */
-	protected void setBackground(ColorPicker backgroundColorChooser, Pane root) {
+	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {
 		backgroundColorChooser.setOnAction(e -> {
 			Paint fill = backgroundColorChooser.getValue();
 			BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
@@ -87,7 +88,7 @@ public class InputView implements IInputView {
 	 * @param strokeColorChooser
 	 * @param gc
 	 */
-	protected void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
+	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
 		strokeColorChooser.setOnAction(e -> {
 			Paint fill = strokeColorChooser.getValue();
 			gc.setStroke(fill);

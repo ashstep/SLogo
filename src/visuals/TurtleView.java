@@ -61,10 +61,24 @@ public class TurtleView implements ITurtleView {
 		}
 	}
 	
+	/**
+	 * sets the turtle to visible/invisible
+	 */
+	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
+		if(turtleInvis){
+			turtle.setVisible(true);
+		}
+		else{
+			turtle.setVisible(false);
+		}
+	}
+	
 	public void updateTurtle(TurtleState newTurtle){
 		System.out.println("updateTurtle called");
 		
 		//stack.getChildren().remove(myTurtle);
+		
+		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();

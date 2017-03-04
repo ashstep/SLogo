@@ -4,7 +4,7 @@ import turtle.ArgumentNumberException;
 import java.util.List;
 import turtle.TurtleState;
 
-public class SetXY extends TurtleCommand {
+public class SetPosition extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
