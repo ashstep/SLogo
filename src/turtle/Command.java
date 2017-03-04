@@ -16,6 +16,13 @@ public abstract class Command {
 	private double returnVal;
 	
 	/**
+	 * Runs the command and sets its return value
+	 * @param state The current state of the <code>Turtle</code>
+	 * @return The next state of the <code>Turtle</code>
+	 */
+	public abstract TurtleState run(TurtleState state) throws ArgumentNumberException;
+	
+	/**
 	 * Checks if the allowed number of arguments is supplied
 	 * @param allowed Number of allowed arguments
 	 * @param args Array of arguments

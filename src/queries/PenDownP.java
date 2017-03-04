@@ -6,9 +6,9 @@ import turtle.TurtleState;
 public class PenDownP extends TurtleQuery {
 
 	@Override
-	public double run(TurtleState state) throws ArgumentNumberException{
+	public TurtleState run(TurtleState state) throws ArgumentNumberException{
 		checkArgs();
-		return (state.isPenDown() ? 1 : 0);
+		setReturnVal(state.isPenDown() ? 1 : 0);
+		return state;
 	}
-
 }

@@ -2,8 +2,9 @@ package turtlecommands;
 
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
+import turtle.Command;
 
-public class ShowTurtle extends TurtleCommand {
+public class ShowTurtle extends Command {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

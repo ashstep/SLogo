@@ -1,15 +1,18 @@
 package mathops;
 
 import turtle.ArgumentNumberException;
+import turtle.TurtleState;
+import turtle.Command;
 import java.util.List;
 
-public class Sin extends MathCommand {
+public class Sin extends Command {
 	
 	@Override
-	public double calculate() throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		return Math.sin(args.get(0));
+		setReturnVal(Math.sin(args.get(0)));
+		return state;
 	}
 
 	@Override

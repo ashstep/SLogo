@@ -6,8 +6,9 @@ import turtle.TurtleState;
 public class ShowingP extends TurtleQuery {
 
 	@Override
-	public double run(TurtleState state) throws ArgumentNumberException{
+	public TurtleState run(TurtleState state) throws ArgumentNumberException{
 		checkArgs();
-		return (state.isVisible() ? 1 : 0);
+		setReturnVal(state.isVisible() ? 1 : 0);
+		return state;
 	}
 }

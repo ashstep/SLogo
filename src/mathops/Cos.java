@@ -2,14 +2,17 @@ package mathops;
 
 import java.util.List;
 import turtle.ArgumentNumberException;
+import turtle.TurtleState;
+import turtle.Command;
 
-public class Cos extends MathCommand {
+public class Cos extends Command {
 	
 	@Override
-	public double calculate() throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		return Math.cos(args.get(0));
+		setReturnVal(Math.cos(args.get(0)));
+		return state;
 	}
 
 	@Override
