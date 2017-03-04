@@ -24,15 +24,4 @@ public abstract class TurtleCommand extends Command {
 	 * Sets the return value of the command
 	 * @param val Value to set as return value
 	 */
-	protected void setReturnVal(double val){
-		returnVal = val;
-	}
-	
-	/**
-	 * Gets the value to return from the command running
-	 * @return The return value
-	 */
-	public double getReturnVal(){
-		return returnVal;
-	}
 }

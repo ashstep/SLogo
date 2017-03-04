@@ -13,6 +13,7 @@ import parser.Node;
 public abstract class Command {
 	
 	private List<Double> args;
+	private double returnVal;
 	
 	/**
 	 * Checks if the allowed number of arguments is supplied
@@ -60,4 +61,20 @@ public abstract class Command {
 	 * @return The number of allowed arguments
 	 */
 	public abstract int getNumArgs();
+	
+	/**
+	 * Sets the return value of the command
+	 * @param val Return value to set
+	 */
+	protected void setReturnVal(double val){
+		returnVal = val;
+	}
+	
+	/**
+	 * Gets the return value of the command	
+	 * @return The return value of the command
+	 */
+	public double getReturnVal(){
+		return returnVal;
+	}
 }
