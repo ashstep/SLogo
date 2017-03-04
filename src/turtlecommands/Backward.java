@@ -4,7 +4,7 @@ import turtle.ArgumentNumberException;
 import java.util.List;
 import turtle.TurtleState;
 
-public class Back extends TurtleCommand {
+public class Backward extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

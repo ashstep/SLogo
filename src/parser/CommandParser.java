@@ -62,7 +62,7 @@ public class CommandParser {
 	}
 	
 	private void resetCommand() {
-		commandList.clear();
+		//commandList.clear();
 		}
 
 
