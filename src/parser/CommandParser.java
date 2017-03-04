@@ -178,6 +178,7 @@ public class CommandParser {
         	return addedNode;	
         }
         
+        
         //else it has children ->iterate throgh
         //for each of the children ->incrememt the index
         for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
@@ -198,9 +199,9 @@ public class CommandParser {
     	// index of current command
     	indexintree2 = 0; 
     	//create the tree
-        return buildTree2();
+    	return buildTree2();
     }
-    
+
     protected Node initNodeforTree2(String nodeString) {
 /*        Node newNode = new Node(nodeString);
         System.out.println("nodeString is " + nodeString);
@@ -215,11 +216,16 @@ public class CommandParser {
 		System.out.println("initNewNode for tree 2: "+ nodeString);
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(nodeString);
+		if(isValidDouble(nodeString)){
+			created.setisNOTaCommand(); ///makes is have a false tag
+		}
+		else{
 		created.setCommand(nodeString);
 		String a = theCommand.getCommandString(nodeString);
 		System.out.println("back to initnode with comand string: "+ a);
 				
 		created.setCommandObject(theCommand.getCommandObj(a));
+		}
 		System.out.println("created new node");
 
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
@@ -229,6 +235,7 @@ public class CommandParser {
         
         
     }
+
 
 
 
