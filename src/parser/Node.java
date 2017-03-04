@@ -56,6 +56,11 @@ public class Node {
 		numChildren = commandObject.getNumArgs();
 	}
 
+	
+
+	
+	
+	
 	/**
 	 * @return returning an arraylist of the nodes subtrees 
 	 */

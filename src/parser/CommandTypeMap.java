@@ -25,66 +25,123 @@ public class CommandTypeMap {
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
-	private static final String LANG = "resources.languages/English";
+	//hardcoded currently
+	
+	//this works
+	//private static final String LANG = "resources.languages/English";
+	private static final String LANG = "resources.languages/";
 	private static final String SYNTAX = "resources.languages/Syntax";
 
 	/**
 	 * Default constructor
 	 * @param String for input
 	 */
-	public CommandTypeMap(String commandInputAnyLanguage) {
+	public CommandTypeMap(String lang) {
 		mySymbols = new ArrayList<>();
-		addResource("");  //getting the right language for mapping:
+		addResourceBundlez(LANG + lang);
+		addResourceBundlez(SYNTAX);
 	}
-
-	/**
-	 * @param can take any language String
-	 * @return the language's type associated with the given text if one exists
-	 */
-	public String getCommandString(String command) {
-		final String ERROR = "NO MATCH FOUND";
-		for (Entry<String, Pattern> e : mySymbols) {
-			if (match(command, e.getValue())) {
-				return e.getKey();
-			}
-		}
-		return ERROR;
-	}
-
 	/**
 	 * Using reflection properties to get command object
 	 * @param command String to m
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		ResourceBundle resources = ResourceBundle.getBundle(SYNTAX);
-		String getCommand = getCommandString(command);
+		System.out.println("getCommandObj");
+
+		//added to chekc for contsantt
+	    ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
+        //String commandType = getCommandType(command);
+		
+		
+        //String commandType = getCommandString(command);
+		System.out.println("aftaaa");
+
+		System.out.println("command:" + command);
+
+        //correct address? is this even needed?
 		try {
-			//Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
-			System.out.println("command being called for class is:");
-			System.out.println(command);
-			//"turtlecommands."
-			Class<?> commandObjectClazz = Class.forName( command); //getting the class
-			System.out.println("class found");
+			System.out.println("CommandTypeMap: command being called for class is:  " + command);
+			System.out.println("before class called");
 
 
+
+			
+			//previous
+			//Class<?> commandObjectClazz = Class.forName(command); 
+		
+			
+			Class<?> commandObjectClazz = (command == "Constant") ? Class.forName(constant.getString(command)) : Class.forName(command);
+
+
+			//if its a constant
+			//if(command == "Constant"){Class<?> commandObjectClazz = Class.forName(constant.getString(command)); }
+			
+			
+			System.out.println("CommandTypeMap: class found");
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
-				System.out.println("constructor found");
+				System.out.println("CommandTypeMap: constructor found");
 
 				Object commandObject = commandObjConstructor.newInstance(); //create instance
-				System.out.println("obj about to be made");
+				System.out.println("CommandTypeMap: obj found");
 
 				return (Command) commandObject;
 			} catch(Exception e) {
-				System.out.println("constructor / obj  NOT found");
+				System.out.println("CommandTypeMap: constructor or obj  NOT found");
 
 				e.printStackTrace();
 			}
 		} catch(Exception e) {
+			System.out.println("CommandTypeMap: class  NOT found");
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * LANGUAGES =========================
+	 */
+
+	/**
+	 * Adds the given resource file to this language's recognized types
+	 *
+	 * @param String for the path of the properties file to add
+	 * Resource: In class, Duvall
+	 */
+	public void addResourceBundlez(String filecalled) {
+		ResourceBundle resources = ResourceBundle.getBundle(filecalled);
+		System.out.println("resource bundle in commandtype map called: " + filecalled);
+		Enumeration<String> iter = resources.getKeys();
+		while (iter.hasMoreElements()) {
+			String key = iter.nextElement();
+			String regex = resources.getString(key);
+			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+		}
+		System.out.println("resource bundle finished");
+
+	}
+	
+	
+	/**
+	 * @param can take any language String
+	 * @return the language's type associated with the given text if one exists
+	 */
+	public String getCommandString(String command) {
+		System.out.println("command string inputted in getCommandString : " + command);
+
+		final String ERROR = "CommandTypeMap, getCommandString: NO STRING MATCH FOUND";
+		for (Entry<String, Pattern> e : mySymbols) {
+
+			if (match(command, e.getValue())) {
+				System.out.println("looping through to get command string, match successful!!");
+				System.out.println(e.getKey());
+
+				return e.getKey();
+			}
+		}
+		return ERROR;
 	}
 
 
@@ -96,27 +153,10 @@ public class CommandTypeMap {
 	/**
 	 * @return true if the given text matches the given regular expression pattern
 	 */
-	private boolean match(String text, Pattern regex) {
-		return regex.matcher(text).matches();
+	private boolean match(String command, Pattern regex) {
+		return regex.matcher(command).matches();
 	}
 
-	/**
-	 * LANGUAGES =========================
-	 */
 
-	/**
-	 * Adds the given resource file to this language's recognized types
-	 *
-	 * @param String for the path of the properties file to add
-	 * Resource: In class, Duvall
-	 */
-	public void addResource(String lang) {
-		ResourceBundle resources = ResourceBundle.getBundle(LANG);
-		Enumeration<String> iter = resources.getKeys();
-		while (iter.hasMoreElements()) {
-			String key = iter.nextElement();
-			String regex = resources.getString(key);
-			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-		}
-	}
+
 }

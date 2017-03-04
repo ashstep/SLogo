@@ -18,7 +18,7 @@ import turtle.Command;
  */
 public class CommandParser {
 
-	private List<String> commandList;
+//	private List<String> commandList;
 	private int indexofCommand = 0;
 	private int starting = 0;
 
@@ -42,7 +42,21 @@ public class CommandParser {
 
 	// map of the variables created to the values made with
 	private HashMap<String, Double> variable = new HashMap<>();
+	
+	private List<String>  commandList = new ArrayList<String>();
+	
 
+	
+	
+	
+	
+	//these are for testing the second tree 
+	private int indexintree2;
+    private static String[] myCommandsList;
+    private static String[] inputtedCommandsList;
+
+	
+	
 	/**
 	 * Create List of commands (String) based on input
 	 * @param raw command line String input 
@@ -50,8 +64,8 @@ public class CommandParser {
 	 * NOTE: Integer/Double values will be Strings
 	 */
 	public List<String> parseInputtedCommand(String commandLineInput) {
-		resetCommand(); //added
-		commandList = new ArrayList<String>();
+		//resetCommand(); //added
+		//commandList = new ArrayList<String>();
 		String[] split = commandLineInput.split(" ");
 		for (int i = 0; i < split.length; i++) {
 			commandList.add(split[i]);
@@ -64,6 +78,14 @@ public class CommandParser {
 	private void resetCommand() {
 		//commandList.clear();
 		}
+	
+	//for testing new tree added -> changed to string array not arraylist
+	public String[] treeTwoParseCommand(String commandLineInput) {
+		String[] inputtedCommandsList = commandLineInput.split(" ");
+		System.out.println("split input is: "+ inputtedCommandsList[0] );
+		System.out.println("the split inputted command list is:" + inputtedCommandsList);
+		return inputtedCommandsList;
+	}
 
 
 	/**
@@ -74,10 +96,11 @@ public class CommandParser {
 	private String nthItemOfList(List<String> currCommandList, int n) {
 		return currCommandList.get(n);
 	}
-	
-	
-	
-	
+
+
+
+
+
 
 	/**
 	 * Initialize a new node
@@ -85,15 +108,53 @@ public class CommandParser {
 	 * @return newly created Node
 	 */
 	protected Node initNewNode(String commandString) {
+		System.out.println("initNewNode for: "+ commandString);
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
 		String a = theCommand.getCommandString(commandString);
+		System.out.println("String for getting command string: "+ a);
+
 		//theCommand.getCommandObj(a);
+		
 		created.setCommandObject(theCommand.getCommandObj(a));
+		System.out.println("created new node");
+
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
 		return created;
+
+		
+		
+		
+		
+		
+		
+/*		System.out.println("initNewNode for: "+ commandString);
+
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(commandString);
+		System.out.println("initNewNode nodejust initlaized: ");
+
+		created.setCommand(commandString);
+		System.out.println("created.setCommand(commandString) ");
+
+		//String a = theCommand.getCommandString(commandString);
+		//this worked
+
+		//theCommand.getCommandObj(a);
+		//created.setCommandObject(theCommand.getCommandObj(a));
+		//created.setCommandObject(theCommand.getCommandObj(commandString));
+		System.out.println("commandString passed in was : "+commandString);
+		
+		System.out.println("theCommandMapObject.getCommandObj(commandString):  " + theCommandMapObject.getCommandObj(commandString));
+		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
+//        newNode.setCommandObj(myDetector.getCommandObj(currCommand));
+		System.out.println("created new noode  " );
+
+		return created;*/
 	}
+	
+	
 	
 	
 	protected Node initNewArgumentNode(String value) {
@@ -102,6 +163,79 @@ public class CommandParser {
 		created.setisNOTaCommand(); ///makes is have a false tag
 		return created;
 	}
+
+	//test this
+	public Node buildTree2() {
+        System.out.println("buildTree2 starting");
+        String theCurrentCommand = myCommandsList[indexintree2];
+        Node addedNode = initNodeforTree2(theCurrentCommand);
+        System.out.println("added node to build tree 2 -----------");
+
+
+        //baes case
+        if (addedNode.getNumberofChildren() == 0) {
+            System.out.println("node has zero children -> return");
+        	return addedNode;	
+        }
+        
+        
+        //else it has children ->iterate throgh
+        //for each of the children ->incrememt the index
+        for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
+        	//incrememt the index as u go -> since you are going through the list 
+        	indexintree2++;
+        	addedNode.addChild(buildTree2());
+        }
+        
+        //need to see how to clear???
+        //myMethodCaller.clearMethodBeingDefined(); // no longer defining method
+        return addedNode;
+	}
+	
+	//pass in the command list that has been split 
+    public Node initTreeRecurse(String[] commandList) {
+    	System.out.println("initTreeRecurse starting");
+    	myCommandsList = commandList;
+    	// index of current command
+    	indexintree2 = 0; 
+    	//create the tree
+    	return buildTree2();
+    }
+
+    protected Node initNodeforTree2(String nodeString) {
+/*        Node newNode = new Node(nodeString);
+        System.out.println("nodeString is " + nodeString);
+        System.out.println("theCommandMapObject.getCommandObj(nodeString is " + theCommandMapObject.getCommandObj(nodeString));
+        newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
+
+        //newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
+        return newNode;*/
+        
+        
+        
+		System.out.println("initNewNode for tree 2: "+ nodeString);
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(nodeString);
+		if(isValidDouble(nodeString)){
+			created.setisNOTaCommand(); ///makes is have a false tag
+		}
+		else{
+		created.setCommand(nodeString);
+		String a = theCommand.getCommandString(nodeString);
+		System.out.println("back to initnode with comand string: "+ a);
+				
+		created.setCommandObject(theCommand.getCommandObj(a));
+		}
+		System.out.println("created new node");
+
+		//created.setCommandObject(theCommand.getCommandObj(commandString));
+		return created;
+
+
+        
+        
+    }
+
 
 
 
@@ -141,7 +275,8 @@ public class CommandParser {
 				}
 			}
 		}
-
+		
+		System.out.println("BULDTREE: passes initial for loop, about ot initialize ");
 		// DEFAULT CASE:
 		Node currCommandNode = initNewNode(currCommand);
 		System.out.println("node initialized");
@@ -184,9 +319,7 @@ public class CommandParser {
 				Node argChild = initNewNode(toAdd);
 				currCommandNode.addChild(argChild);
 				starting++;
-				System.out.println("was a command , child node added:");
-				System.out.println(argChild.getCommand());
-
+				System.out.println("was a command , child node added with argument:" + argChild.getCommand());
 			}
 			
 			starting++;
