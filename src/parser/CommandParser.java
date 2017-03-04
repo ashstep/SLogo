@@ -75,8 +75,8 @@ public class CommandParser {
 		return commandList;
 	}
 	
-	public void resetCommand() {
-		commandList.clear();
+	private void resetCommand() {
+		//commandList.clear();
 		}
 	
 	//for testing new tree added -> changed to string array not arraylist

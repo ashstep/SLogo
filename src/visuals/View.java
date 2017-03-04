@@ -10,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -37,14 +36,14 @@ public class View implements ExternalUserInterface {
 	private InputView inputView;
 	private TurtleView turtleView;
 	private ResourceBundle myResourceBundle;
+	private Button clearScreen;
 	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	private final int SPACING = 10;
 	private String helpUrl = "http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
 	
-	private Canvas TurtleView;
-	private GraphicsContext gc;
+	private Canvas TurtleCanvas;
 	private Button help;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
@@ -75,9 +74,8 @@ public class View implements ExternalUserInterface {
 		System.out.println("reached here 4");
 		System.out.println("stack is " + stack);
 		
-		TurtleView = turtleView.initializeGraphicContent();
-		inputView.setStroke(strokeColorChooser, gc);
-		stack.getChildren().addAll(TurtleView, turtleView.initializeTurtle());
+		TurtleCanvas = turtleView.initializeGraphicContent();
+		stack.getChildren().addAll(TurtleCanvas, turtleView.initializeTurtle());
 		
 		System.out.println("stackchild is " + stack.getChildren());
 		
@@ -88,6 +86,13 @@ public class View implements ExternalUserInterface {
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
 	}
+	
+	
+	private void clearScreen(){
+		TurtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleView.updateTurtle(new TurtleState(0, 0, 0, false, true));
+	}
+	
 	
 	/**
 	 * Initialize the right side which has all the controls for the GUI
@@ -100,6 +105,12 @@ public class View implements ExternalUserInterface {
 		help.setOnAction(e->{
 			displayHelpPage();
 		});
+		
+		clearScreen = new Button(myResourceBundle.getString("Clear"));
+		clearScreen.setOnAction(e->{
+			clearScreen();
+		});
+		
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
 		Label helpLabel = new Label(myResourceBundle.getString("HelpButtonPrompt"));
@@ -107,7 +118,11 @@ public class View implements ExternalUserInterface {
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser, helpLabel, help);
+		
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), 
+				backgroundLabel, backgroundColorChooser, lineColorLabel, 
+				strokeColorChooser, helpLabel, help, clearScreen);
+		
 		return RightMenu;
 	}
 	
