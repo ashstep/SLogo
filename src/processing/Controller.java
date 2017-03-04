@@ -14,10 +14,6 @@ import turtle.ArgumentNumberException;
 import turtle.Command;
 import turtle.CommandProcessException;
 import turtle.Turtle;
-import turtlecommands.Forward;
-import turtlecommands.PenDown;
-import turtlecommands.PenUp;
-import turtlecommands.Right;
 import visuals.SplashPage;
 
 public class Controller {

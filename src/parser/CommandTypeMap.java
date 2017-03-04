@@ -38,7 +38,9 @@ public class CommandTypeMap {
 	 */
 	public CommandTypeMap(String lang) {
 		mySymbols = new ArrayList<>();
-		addResourceBundlez(lang);
+
+		addResourceBundlez(LANG + lang);
+		addResourceBundlez(SYNTAX);
 	}
 
 	/**
@@ -46,14 +48,25 @@ public class CommandTypeMap {
 	 * @return the language's type associated with the given text if one exists
 	 */
 	public String getCommandString(String command) {
-		final String ERROR = "NO MATCH FOUND";
+		System.out.println("command string inputted in getCommandString : " + command);
+
+		final String ERROR = "CommandTypeMap, getCommandString: NO STRING MATCH FOUND";
 		for (Entry<String, Pattern> e : mySymbols) {
+			System.out.println("looping through :");
+
 			if (match(command, e.getValue())) {
+				System.out.println("match successful!!");
+				System.out.println(e.getKey());
+
 				return e.getKey();
 			}
 		}
 		return ERROR;
 	}
+	
+
+
+	
 
 	/**
 	 * Using reflection properties to get command object
@@ -61,31 +74,38 @@ public class CommandTypeMap {
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		ResourceBundle resources = ResourceBundle.getBundle(SYNTAX);
-		String getCommand = getCommandString(command);
+        String commandType = getCommandString(command);
+		System.out.println("commandType:" + commandType);
+
+        //correct address? is this even needed?
 		try {
-			//Class<?> commandObjectClazz = Class.forName(getCommand); //getting the class
-			System.out.println("command being called for class is:");
-			System.out.println(command);
-			//"turtlecommands."
-			Class<?> commandObjectClazz = Class.forName( command); //getting the class
-			System.out.println("class found");
+			System.out.println("CommandTypeMap: command being called for class is:  " + command);
+			System.out.println("before class called");
+
+			//Class<?> commandObjectClazz = Class.forName(commandType); //getting the class
+	        ResourceBundle resources = ResourceBundle.getBundle("resources/languages/ClassLocations");
+			Class<?> commandObjectClazz = Class.forName(resources.getString(commandType)); // get commandType class
 
 
+			
+			//previous
+			//Class<?> commandObjectClazz = Class.forName(command); //getting the class
+			System.out.println("CommandTypeMap: class found");
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
-				System.out.println("constructor found");
+				System.out.println("CommandTypeMap: constructor found");
 
 				Object commandObject = commandObjConstructor.newInstance(); //create instance
-				System.out.println("obj about to be made");
+				System.out.println("CommandTypeMap: obj found");
 
 				return (Command) commandObject;
 			} catch(Exception e) {
-				System.out.println("constructor / obj  NOT found");
+				System.out.println("CommandTypeMap: constructor or obj  NOT found");
 
 				e.printStackTrace();
 			}
 		} catch(Exception e) {
+			System.out.println("CommandTypeMap: class  NOT found");
 			e.printStackTrace();
 		}
 		return null;
@@ -100,9 +120,10 @@ public class CommandTypeMap {
 	/**
 	 * @return true if the given text matches the given regular expression pattern
 	 */
-	private boolean match(String text, Pattern regex) {
-		return regex.matcher(text).matches();
+	private boolean match(String command, Pattern regex) {
+		return regex.matcher(command).matches();
 	}
+
 
 	/**
 	 * LANGUAGES =========================
@@ -114,15 +135,15 @@ public class CommandTypeMap {
 	 * @param String for the path of the properties file to add
 	 * Resource: In class, Duvall
 	 */
-	public void addResourceBundlez(String specificlangextention) {
-		//ResourceBundle resources = ResourceBundle.getBundle(LANG);
-		ResourceBundle resources = ResourceBundle.getBundle(LANG + specificlangextention);
-
+	public void addResourceBundlez(String filecalled) {
+		ResourceBundle resources = ResourceBundle.getBundle(filecalled);
+		System.out.println("resource bundle in commandtype map called: " + filecalled);
 		Enumeration<String> iter = resources.getKeys();
 		while (iter.hasMoreElements()) {
 			String key = iter.nextElement();
 			String regex = resources.getString(key);
 			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+
 		}
 	}
 }
