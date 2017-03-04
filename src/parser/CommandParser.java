@@ -90,13 +90,23 @@ public class CommandParser {
 	 * @return newly created Node
 	 */
 	protected Node initNewNode(String commandString) {
+		System.out.println("initNewNode for  :"+ commandString);
+
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
 		String a = theCommand.getCommandString(commandString);
+		//this worked
+
 		//theCommand.getCommandObj(a);
-		created.setCommandObject(theCommand.getCommandObj(a));
+		//created.setCommandObject(theCommand.getCommandObj(a));
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
+		System.out.println("commandString passed in was :"+commandString);
+		
+		System.out.println("theCommandMapObject.getCommandObj(commandString):  " + theCommandMapObject.getCommandObj(commandString));
+
+		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
+
 		return created;
 	}
 	
@@ -146,7 +156,8 @@ public class CommandParser {
 				}
 			}
 		}
-
+		
+		System.out.println("BULDTREE: passes initial for loop, about ot initialize ");
 		// DEFAULT CASE:
 		Node currCommandNode = initNewNode(currCommand);
 		System.out.println("node initialized");

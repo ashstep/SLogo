@@ -38,43 +38,20 @@ public class CommandTypeMap {
 	 */
 	public CommandTypeMap(String lang) {
 		mySymbols = new ArrayList<>();
-
 		addResourceBundlez(LANG + lang);
 		addResourceBundlez(SYNTAX);
 	}
-
-	/**
-	 * @param can take any language String
-	 * @return the language's type associated with the given text if one exists
-	 */
-	public String getCommandString(String command) {
-		System.out.println("command string inputted in getCommandString : " + command);
-
-		final String ERROR = "CommandTypeMap, getCommandString: NO STRING MATCH FOUND";
-		for (Entry<String, Pattern> e : mySymbols) {
-			System.out.println("looping through :");
-
-			if (match(command, e.getValue())) {
-				System.out.println("match successful!!");
-				System.out.println(e.getKey());
-
-				return e.getKey();
-			}
-		}
-		return ERROR;
-	}
-	
-
-
-	
-
 	/**
 	 * Using reflection properties to get command object
 	 * @param command String to m
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
+		System.out.println("entered get command object, before getcommand string");
+
         String commandType = getCommandString(command);
+		System.out.println("aftaaa");
+
 		System.out.println("commandType:" + commandType);
 
         //correct address? is this even needed?
@@ -83,7 +60,7 @@ public class CommandTypeMap {
 			System.out.println("before class called");
 
 			//Class<?> commandObjectClazz = Class.forName(commandType); //getting the class
-	        ResourceBundle resources = ResourceBundle.getBundle("resources/languages/ClassLocations");
+	        ResourceBundle resources = ResourceBundle.getBundle("classinformation/ClassLocations");
 			Class<?> commandObjectClazz = Class.forName(resources.getString(commandType)); // get commandType class
 
 
@@ -110,21 +87,8 @@ public class CommandTypeMap {
 		}
 		return null;
 	}
-
-
-
-	/**
-	 * REGEX  =========================
-	 */    
-
-	/**
-	 * @return true if the given text matches the given regular expression pattern
-	 */
-	private boolean match(String command, Pattern regex) {
-		return regex.matcher(command).matches();
-	}
-
-
+	
+	
 	/**
 	 * LANGUAGES =========================
 	 */
@@ -142,8 +106,48 @@ public class CommandTypeMap {
 		while (iter.hasMoreElements()) {
 			String key = iter.nextElement();
 			String regex = resources.getString(key);
+			System.out.println("reaching this point: ");
 			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-
 		}
+		System.out.println("resource bundle finished");
+
 	}
+	
+	
+	/**
+	 * @param can take any language String
+	 * @return the language's type associated with the given text if one exists
+	 */
+	public String getCommandString(String command) {
+		System.out.println("command string inputted in getCommandString : " + command);
+
+		final String ERROR = "CommandTypeMap, getCommandString: NO STRING MATCH FOUND";
+		for (Entry<String, Pattern> e : mySymbols) {
+			System.out.println("looping through :");
+
+			if (match(command, e.getValue())) {
+				System.out.println("match successful!!");
+				System.out.println(e.getKey());
+
+				return e.getKey();
+			}
+		}
+		return ERROR;
+	}
+
+
+
+	/**
+	 * REGEX  =========================
+	 */    
+
+	/**
+	 * @return true if the given text matches the given regular expression pattern
+	 */
+	private boolean match(String command, Pattern regex) {
+		return regex.matcher(command).matches();
+	}
+
+
+
 }
