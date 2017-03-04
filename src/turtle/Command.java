@@ -60,4 +60,14 @@ public abstract class Command {
 	 * @return The number of allowed arguments
 	 */
 	public abstract int getNumArgs();
+	
+	
+	
+//added to see if parsing can extend better with this
+	//public abstract double executionVal();
+	
+
+	
+	
+	
 }
