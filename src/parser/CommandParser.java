@@ -218,11 +218,7 @@ public class CommandParser {
 		created.setCommand(nodeString);
 		String a = theCommand.getCommandString(nodeString);
 		System.out.println("back to initnode with comand string: "+ a);
-		
-		if (a == "Constant"){
-			
-		}
-		
+				
 		created.setCommandObject(theCommand.getCommandObj(a));
 		System.out.println("created new node");
 
