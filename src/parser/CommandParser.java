@@ -53,6 +53,7 @@ public class CommandParser {
 	//these are for testing the second tree 
 	private int indexintree2;
     private static String[] myCommandsList;
+    private static String[] inputtedCommandsList;
 
 	
 	
@@ -77,6 +78,14 @@ public class CommandParser {
 	public void resetCommand() {
 		commandList.clear();
 		}
+	
+	//for testing new tree added -> changed to string array not arraylist
+	public String[] treeTwoParseCommand(String commandLineInput) {
+		String[] inputtedCommandsList = commandLineInput.split(" ");
+		System.out.println("split input is: "+ inputtedCommandsList[0] );
+		System.out.println("the split inputted command list is:" + inputtedCommandsList);
+		return inputtedCommandsList;
+	}
 
 
 	/**
@@ -88,9 +97,6 @@ public class CommandParser {
 		return currCommandList.get(n);
 	}
 
-	public void setLanguage(String language) {
-		theCommandMapObject = new CommandTypeMap(language);
-	}
 
 
 
@@ -158,10 +164,12 @@ public class CommandParser {
 		return created;
 	}
 
+	//test this
 	public Node buildTree2() {
+        System.out.println("buildTree2 starting");
         String theCurrentCommand = myCommandsList[indexintree2];
         Node addedNode = initNodeforTree2(theCurrentCommand);
-        System.out.println("added node to build tree 2");
+        System.out.println("added node to build tree 2 -----------");
 
 
         //baes case
@@ -185,6 +193,7 @@ public class CommandParser {
 	
 	//pass in the command list that has been split 
     public Node initTreeRecurse(String[] commandList) {
+    	System.out.println("initTreeRecurse starting");
     	myCommandsList = commandList;
     	// index of current command
     	indexintree2 = 0; 
@@ -193,9 +202,36 @@ public class CommandParser {
     }
     
     protected Node initNodeforTree2(String nodeString) {
-        Node newNode = new Node(nodeString);
+/*        Node newNode = new Node(nodeString);
+        System.out.println("nodeString is " + nodeString);
+        System.out.println("theCommandMapObject.getCommandObj(nodeString is " + theCommandMapObject.getCommandObj(nodeString));
         newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
-        return newNode;
+
+        //newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
+        return newNode;*/
+        
+        
+        
+		System.out.println("initNewNode for tree 2: "+ nodeString);
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(nodeString);
+		created.setCommand(nodeString);
+		String a = theCommand.getCommandString(nodeString);
+		System.out.println("back to initnode with comand string: "+ a);
+		
+		if (a == "Constant"){
+			
+		}
+		
+		created.setCommandObject(theCommand.getCommandObj(a));
+		System.out.println("created new node");
+
+		//created.setCommandObject(theCommand.getCommandObj(commandString));
+		return created;
+
+
+        
+        
     }
 
 

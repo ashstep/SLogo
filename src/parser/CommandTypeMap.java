@@ -47,26 +47,37 @@ public class CommandTypeMap {
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		System.out.println("entered get command object, before getcommand string");
+		System.out.println("getCommandObj");
 
-        String commandType = getCommandString(command);
+		//added to chekc for contsantt
+	    ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
+        //String commandType = getCommandType(command);
+		
+		
+        //String commandType = getCommandString(command);
 		System.out.println("aftaaa");
 
-		System.out.println("commandType:" + commandType);
+		System.out.println("command:" + command);
 
         //correct address? is this even needed?
 		try {
 			System.out.println("CommandTypeMap: command being called for class is:  " + command);
 			System.out.println("before class called");
 
-			//Class<?> commandObjectClazz = Class.forName(commandType); //getting the class
-	        //ResourceBundle resources = ResourceBundle.getBundle("classinformation/ClassLocations");
-			//Class<?> commandObjectClazz = Class.forName(resources.getString(commandType)); // get commandType class
 
 
 			
 			//previous
-			Class<?> commandObjectClazz = Class.forName(command); //getting the class
+			//Class<?> commandObjectClazz = Class.forName(command); 
+		
+			
+			Class<?> commandObjectClazz = (command == "Constant") ? Class.forName(constant.getString(command)) : Class.forName(command);
+
+
+			//if its a constant
+			//if(command == "Constant"){Class<?> commandObjectClazz = Class.forName(constant.getString(command)); }
+			
+			
 			System.out.println("CommandTypeMap: class found");
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
@@ -122,10 +133,9 @@ public class CommandTypeMap {
 
 		final String ERROR = "CommandTypeMap, getCommandString: NO STRING MATCH FOUND";
 		for (Entry<String, Pattern> e : mySymbols) {
-			System.out.println("looping through :");
 
 			if (match(command, e.getValue())) {
-				System.out.println("match successful!!");
+				System.out.println("looping through to get command string, match successful!!");
 				System.out.println(e.getKey());
 
 				return e.getKey();
