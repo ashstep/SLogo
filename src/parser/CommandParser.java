@@ -18,7 +18,7 @@ import turtle.Command;
  */
 public class CommandParser {
 
-	private List<String> commandList;
+//	private List<String> commandList;
 	private int indexofCommand = 0;
 	private int starting = 0;
 
@@ -42,7 +42,12 @@ public class CommandParser {
 
 	// map of the variables created to the values made with
 	private HashMap<String, Double> variable = new HashMap<>();
+	
+	private List<String>  commandList = new ArrayList<String>();
+	
 
+	
+	
 	/**
 	 * Create List of commands (String) based on input
 	 * @param raw command line String input 
@@ -50,8 +55,8 @@ public class CommandParser {
 	 * NOTE: Integer/Double values will be Strings
 	 */
 	public List<String> parseInputtedCommand(String commandLineInput) {
-		resetCommand(); //added
-		commandList = new ArrayList<String>();
+		//resetCommand(); //added
+		//commandList = new ArrayList<String>();
 		String[] split = commandLineInput.split(" ");
 		for (int i = 0; i < split.length; i++) {
 			commandList.add(split[i]);
@@ -61,7 +66,7 @@ public class CommandParser {
 		return commandList;
 	}
 	
-	private void resetCommand() {
+	public void resetCommand() {
 		commandList.clear();
 		}
 

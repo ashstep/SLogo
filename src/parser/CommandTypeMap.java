@@ -25,16 +25,20 @@ public class CommandTypeMap {
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
-	private static final String LANG = "resources.languages/English";
+	//hardcoded currently
+	
+	//this works
+	//private static final String LANG = "resources.languages/English";
+	private static final String LANG = "resources.languages/";
 	private static final String SYNTAX = "resources.languages/Syntax";
 
 	/**
 	 * Default constructor
 	 * @param String for input
 	 */
-	public CommandTypeMap(String commandInputAnyLanguage) {
+	public CommandTypeMap(String lang) {
 		mySymbols = new ArrayList<>();
-		addResource("");  //getting the right language for mapping:
+		addResourceBundlez(lang);
 	}
 
 	/**
@@ -110,8 +114,10 @@ public class CommandTypeMap {
 	 * @param String for the path of the properties file to add
 	 * Resource: In class, Duvall
 	 */
-	public void addResource(String lang) {
-		ResourceBundle resources = ResourceBundle.getBundle(LANG);
+	public void addResourceBundlez(String specificlangextention) {
+		//ResourceBundle resources = ResourceBundle.getBundle(LANG);
+		ResourceBundle resources = ResourceBundle.getBundle(LANG + specificlangextention);
+
 		Enumeration<String> iter = resources.getKeys();
 		while (iter.hasMoreElements()) {
 			String key = iter.nextElement();

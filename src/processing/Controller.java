@@ -87,6 +87,6 @@ public class Controller {
 		
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-
+		//parser.resetCommand(cmd);
 	}
 }
