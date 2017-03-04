@@ -60,13 +60,13 @@ public class CommandTypeMap {
 			System.out.println("before class called");
 
 			//Class<?> commandObjectClazz = Class.forName(commandType); //getting the class
-	        ResourceBundle resources = ResourceBundle.getBundle("classinformation/ClassLocations");
-			Class<?> commandObjectClazz = Class.forName(resources.getString(commandType)); // get commandType class
+	        //ResourceBundle resources = ResourceBundle.getBundle("classinformation/ClassLocations");
+			//Class<?> commandObjectClazz = Class.forName(resources.getString(commandType)); // get commandType class
 
 
 			
 			//previous
-			//Class<?> commandObjectClazz = Class.forName(command); //getting the class
+			Class<?> commandObjectClazz = Class.forName(command); //getting the class
 			System.out.println("CommandTypeMap: class found");
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); //getting the constructor
@@ -106,7 +106,6 @@ public class CommandTypeMap {
 		while (iter.hasMoreElements()) {
 			String key = iter.nextElement();
 			String regex = resources.getString(key);
-			System.out.println("reaching this point: ");
 			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
 		}
 		System.out.println("resource bundle finished");

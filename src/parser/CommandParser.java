@@ -79,10 +79,14 @@ public class CommandParser {
 	private String nthItemOfList(List<String> currCommandList, int n) {
 		return currCommandList.get(n);
 	}
-	
-	
-	
-	
+
+	public void setLanguage(String language) {
+		theCommandMapObject = new CommandTypeMap(language);
+	}
+
+
+
+
 
 	/**
 	 * Initialize a new node
@@ -90,24 +94,50 @@ public class CommandParser {
 	 * @return newly created Node
 	 */
 	protected Node initNewNode(String commandString) {
-		System.out.println("initNewNode for  :"+ commandString);
-
+		System.out.println("initNewNode for: "+ commandString);
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(commandString);
 		created.setCommand(commandString);
 		String a = theCommand.getCommandString(commandString);
+		System.out.println("String for getting command string: "+ a);
+
+		//theCommand.getCommandObj(a);
+		
+		created.setCommandObject(theCommand.getCommandObj(a));
+		System.out.println("created new node");
+
+		//created.setCommandObject(theCommand.getCommandObj(commandString));
+		return created;
+
+		
+		
+		
+		
+		
+		
+/*		System.out.println("initNewNode for: "+ commandString);
+
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(commandString);
+		System.out.println("initNewNode nodejust initlaized: ");
+
+		created.setCommand(commandString);
+		System.out.println("created.setCommand(commandString) ");
+
+		//String a = theCommand.getCommandString(commandString);
 		//this worked
 
 		//theCommand.getCommandObj(a);
 		//created.setCommandObject(theCommand.getCommandObj(a));
 		//created.setCommandObject(theCommand.getCommandObj(commandString));
-		System.out.println("commandString passed in was :"+commandString);
+		System.out.println("commandString passed in was : "+commandString);
 		
 		System.out.println("theCommandMapObject.getCommandObj(commandString):  " + theCommandMapObject.getCommandObj(commandString));
-
 		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
+//        newNode.setCommandObj(myDetector.getCommandObj(currCommand));
+		System.out.println("created new noode  " );
 
-		return created;
+		return created;*/
 	}
 	
 	
