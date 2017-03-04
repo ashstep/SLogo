@@ -48,6 +48,14 @@ public class CommandParser {
 
 	
 	
+	
+	
+	//these are for testing the second tree 
+	private int indexintree2;
+    private static String[] myCommandsList;
+
+	
+	
 	/**
 	 * Create List of commands (String) based on input
 	 * @param raw command line String input 
@@ -141,12 +149,54 @@ public class CommandParser {
 	}
 	
 	
+	
+	
 	protected Node initNewArgumentNode(String value) {
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(value);
 		created.setisNOTaCommand(); ///makes is have a false tag
 		return created;
 	}
+
+	public Node buildTree2() {
+        String theCurrentCommand = myCommandsList[indexintree2];
+        Node addedNode = initNodeforTree2(theCurrentCommand);
+        System.out.println("added node to build tree 2");
+
+
+        //baes case
+        if (addedNode.getNumberofChildren() == 0) {
+            System.out.println("node has zero children -> return");
+        	return addedNode;	
+        }
+        
+        //else it has children ->iterate throgh
+        //for each of the children ->incrememt the index
+        for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
+        	//incrememt the index as u go -> since you are going through the list 
+        	indexintree2++;
+        	addedNode.addChild(buildTree2());
+        }
+        
+        //need to see how to clear???
+        //myMethodCaller.clearMethodBeingDefined(); // no longer defining method
+        return addedNode;
+	}
+	
+	//pass in the command list that has been split 
+    public Node initTreeRecurse(String[] commandList) {
+    	myCommandsList = commandList;
+    	// index of current command
+    	indexintree2 = 0; 
+    	//create the tree
+        return buildTree2();
+    }
+    
+    protected Node initNodeforTree2(String nodeString) {
+        Node newNode = new Node(nodeString);
+        newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
+        return newNode;
+    }
 
 
 
@@ -230,9 +280,7 @@ public class CommandParser {
 				Node argChild = initNewNode(toAdd);
 				currCommandNode.addChild(argChild);
 				starting++;
-				System.out.println("was a command , child node added:");
-				System.out.println(argChild.getCommand());
-
+				System.out.println("was a command , child node added with argument:" + argChild.getCommand());
 			}
 			
 			starting++;
