@@ -6,8 +6,9 @@ import turtle.TurtleState;
 public class XCor extends TurtleQuery {
 
 	@Override
-	public double run(TurtleState state) throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
-		return state.getX();
+		setReturnVal(state.getX());
+		return state;
 	}
 }

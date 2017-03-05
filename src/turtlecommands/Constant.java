@@ -1,22 +1,21 @@
-package mathops;
-
+package turtlecommands;
+//to delete??
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 import turtle.Command;
-import java.util.List;
 
-public class Product extends Command {
-	
+public class Constant extends Command {
+
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
-		List<Double> args = getArgs();
-		setReturnVal(args.get(0)*args.get(1));
-		return state;
+		setReturnVal(1);
+		return new TurtleState(state.getX(), state.getY(), 
+				state.getAngle(), true, state.isVisible());
 	}
 
 	@Override
 	public int getNumArgs() {
-		return 2;
-	}
+		return 0;
+	}	
 }

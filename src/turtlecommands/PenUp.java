@@ -2,8 +2,9 @@ package turtlecommands;
 
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
+import turtle.Command;
 
-public class PenUp extends TurtleCommand {
+public class PenUp extends Command {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

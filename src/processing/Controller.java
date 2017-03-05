@@ -14,10 +14,6 @@ import turtle.ArgumentNumberException;
 import turtle.Command;
 import turtle.CommandProcessException;
 import turtle.Turtle;
-import turtlecommands.Forward;
-import turtlecommands.PenDown;
-import turtlecommands.PenUp;
-import turtlecommands.Right;
 import visuals.SplashPage;
 
 public class Controller {
@@ -70,15 +66,27 @@ public class Controller {
 	}
 
 	private void parseCommands(String cmd){
-		parser.parseInputtedCommand(cmd);
-		Node node = parser.buildTree();
-				
+		//old test
+		//parser.parseInputtedCommand(cmd);
+		//Node node = parser.buildTree();
+		
+		//new:
+		System.out.println("command to be parsed: " +cmd);
+		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
+		Command command = starting.getCommandObject();
+
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-		Command command = node.getCommandObject();
+		
+		//old test
+		//Command command = node.getCommandObject();
 
 		try {
-			command.treeArgs(node);
+			//old
+			//command.treeArgs(node);
+			//turtle.process(command);
+			command.treeArgs(starting);
 			turtle.process(command);
+			
 		} catch (CommandProcessException e) {
 			e.printStackTrace();
 		} catch (ArgumentNumberException e) {
@@ -87,6 +95,6 @@ public class Controller {
 		
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-
+		//parser.resetCommand(cmd);
 	}
 }

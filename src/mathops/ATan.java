@@ -2,14 +2,17 @@ package mathops;
 
 import java.util.List;
 import turtle.ArgumentNumberException;
+import turtle.TurtleState;
+import turtle.Command;
 
-public class ATan extends MathCommand {
+public class ATan extends Command {
 	
 	@Override
-	public double calculate() throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		return Math.atan(args.get(0));
+		setReturnVal(Math.atan(args.get(0)));
+		return state;
 	}
 
 	@Override

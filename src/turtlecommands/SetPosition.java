@@ -3,8 +3,9 @@ package turtlecommands;
 import turtle.ArgumentNumberException;
 import java.util.List;
 import turtle.TurtleState;
+import turtle.Command;
 
-public class SetPosition extends TurtleCommand {
+public class SetPosition extends Command {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

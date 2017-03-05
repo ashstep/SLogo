@@ -1,22 +1,23 @@
-package mathops;
+package booleans;
 
-import turtle.ArgumentNumberException;
-import turtle.TurtleState;
-import turtle.Command;
 import java.util.List;
 
-public class Product extends Command {
-	
+import turtle.ArgumentNumberException;
+import turtle.Command;
+import turtle.TurtleState;
+
+public class Not extends Command {
+
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		setReturnVal(args.get(0)*args.get(1));
+		setReturnVal(args.get(0) == 0 ? 1 : 0);
 		return state;
 	}
 
 	@Override
 	public int getNumArgs() {
-		return 2;
+		return 1;
 	}
 }
