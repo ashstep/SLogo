@@ -32,8 +32,8 @@ public class View implements ExternalUserInterface {
 	private ScrollPane SP;
 	private StackPane stack;
 	private Scene theScene;
-	private InputView inputView;
-	private TurtleView turtleView;
+	public InputView inputView;
+	public TurtleView turtleView;
 	private ResourceBundle myResourceBundle;
 	private Button clearScreen;
 	
