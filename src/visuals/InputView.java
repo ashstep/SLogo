@@ -27,6 +27,7 @@ public class InputView implements IInputView {
 	private TextArea userInput;
 	private ColorPicker colorPicker;
 	private Background background;
+	private History myHistory;
 
 	private int SPACING = 10;
 
@@ -42,8 +43,11 @@ public class InputView implements IInputView {
 		userInput.setPromptText(myResourceBundle.getString("EnterCommandPrompt"));
 		userInput.setWrapText(true);
 		userInput.setMaxWidth(View.WIDTH * (0.4));
+		myHistory = new History();
+		
+		
+		Menu.getChildren().addAll(userInput, submit, myHistory.getMyContents());
 
-		Menu.getChildren().addAll(userInput, submit);
 		Menu.setAlignment(Pos.CENTER);
 
 		return Menu;
@@ -94,6 +98,10 @@ public class InputView implements IInputView {
 			gc.setStroke(fill);
 			gc.stroke();
 		});
+	}
+	
+	public History getMyHistory(){
+		return myHistory;
 	}
 	
 }

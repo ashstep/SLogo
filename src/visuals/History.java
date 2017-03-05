@@ -2,6 +2,7 @@ package visuals;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -24,11 +25,12 @@ public class History {
 	
 	
 	public History(){
-		
+		myHistory = new ScrollPane();
 		myHistory.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		myHistory.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		myContents = new VBox();
+		
 		myHistory.setContent(myContents);
 		
 	}
@@ -38,7 +40,7 @@ public class History {
 	 * command Button
 	 * @param command the Button with a command String
 	 */
-	private void addButtonToHistory(Button command){
+	public void addButtonToHistory(Button command){
 		myContents.getChildren().add(command);
 		myHistory.setContent(myContents);
 	}
@@ -71,6 +73,11 @@ public class History {
 	
 	public ScrollPane getHistory(){
 		return myHistory;
+	}
+	
+
+	public Node getMyContents(){
+		return myContents;
 	}
 	
 }

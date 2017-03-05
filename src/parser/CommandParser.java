@@ -12,8 +12,7 @@ import turtle.Command;
  * @author Ashka Stephen
  * 
  * TODO
- *  MAKE SPECIFIC COMMAND OBJECTS
- *  which method needs to be called and it just runs automatially
+ * currently works for 1 command -> need to created multiple trees/checks?
  * 
  */
 public class CommandParser {
@@ -82,8 +81,6 @@ public class CommandParser {
 	//for testing new tree added -> changed to string array not arraylist
 	public String[] treeTwoParseCommand(String commandLineInput) {
 		String[] inputtedCommandsList = commandLineInput.split(" ");
-		System.out.println("split input is: "+ inputtedCommandsList[0] );
-		System.out.println("the split inputted command list is:" + inputtedCommandsList);
 		return inputtedCommandsList;
 	}
 
@@ -164,6 +161,14 @@ public class CommandParser {
 		return created;
 	}
 
+	
+	//toget the current index -> check if its equal to the end
+
+    public int geCommandListIndex() {
+        return indexintree2;
+    }
+	
+	
 	//test this
 	public Node buildTree2() {
         System.out.println("buildTree2 starting");
@@ -173,8 +178,8 @@ public class CommandParser {
 
 
         //baes case
-        if (addedNode.getNumberofChildren() == 0) {
-            System.out.println("node has zero children -> return");
+        if (addedNode.getNumberofChildren() == 0||addedNode.checkifCommand() == false ) {
+            System.out.println("node has zero children or is not a command -> return");
         	return addedNode;	
         }
         
@@ -183,6 +188,7 @@ public class CommandParser {
         //for each of the children ->incrememt the index
         for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
         	//incrememt the index as u go -> since you are going through the list 
+            System.out.println("adding a child");
         	indexintree2++;
         	addedNode.addChild(buildTree2());
         }
@@ -194,8 +200,8 @@ public class CommandParser {
 	
 	//pass in the command list that has been split 
     public Node initTreeRecurse(String[] commandList) {
-    	System.out.println("initTreeRecurse starting");
     	myCommandsList = commandList;
+    	System.out.println("initTreeRecurse starting for commandlist: " + myCommandsList);
     	// index of current command
     	indexintree2 = 0; 
     	//create the tree
@@ -203,37 +209,23 @@ public class CommandParser {
     }
 
     protected Node initNodeforTree2(String nodeString) {
-/*        Node newNode = new Node(nodeString);
-        System.out.println("nodeString is " + nodeString);
-        System.out.println("theCommandMapObject.getCommandObj(nodeString is " + theCommandMapObject.getCommandObj(nodeString));
-        newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
+    	System.out.println("initNewNode for tree 2: "+ nodeString);
+    	CommandTypeMap theCommand = new CommandTypeMap(language);
+    	Node created = new Node(nodeString);
+    	if(isValidDouble(nodeString)){
+    		created.setisNOTaCommand(); ///makes is have a false tag
+    		System.out.println("arguemnt node -> tag set to false");
 
-        //newNode.setCommandObject(theCommandMapObject.getCommandObj(nodeString));
-        return newNode;*/
-        
-        
-        
-		System.out.println("initNewNode for tree 2: "+ nodeString);
-		CommandTypeMap theCommand = new CommandTypeMap(language);
-		Node created = new Node(nodeString);
-		if(isValidDouble(nodeString)){
-			created.setisNOTaCommand(); ///makes is have a false tag
-		}
-		else{
-		created.setCommand(nodeString);
-		String a = theCommand.getCommandString(nodeString);
-		System.out.println("back to initnode with comand string: "+ a);
-				
-		created.setCommandObject(theCommand.getCommandObj(a));
-		}
-		System.out.println("created new node");
+    	}
+    	else{
+    		created.setCommand(nodeString);
+    		String a = theCommand.getCommandString(nodeString);
+    		System.out.println("back to initnode with comand string: "+ a);
 
-		//created.setCommandObject(theCommand.getCommandObj(commandString));
+    		created.setCommandObject(theCommand.getCommandObj(a));
+    	}
+    	System.out.println("created new node");
 		return created;
-
-
-        
-        
     }
 
 
