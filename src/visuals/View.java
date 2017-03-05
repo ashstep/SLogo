@@ -10,14 +10,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import processing.Controller;
 import turtle.TurtleState;
 
 /**
@@ -36,19 +41,16 @@ public class View implements ExternalUserInterface {
 	private InputView inputView;
 	private TurtleView turtleView;
 	private ResourceBundle myResourceBundle;
-	private Button clearScreen;
 	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	private final int SPACING = 10;
 	private String helpUrl = "http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
 	
-	private Canvas TurtleCanvas;
-	private Button help;
+	private Canvas TurtleView;
+	private GraphicsContext gc;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
-	private Rectangle r;
-	private Rectangle updated;
 	
 	public View(Button submit, ResourceBundle myResourceBundle) {
 		System.out.println("start view");
@@ -67,6 +69,7 @@ public class View implements ExternalUserInterface {
 
 		inputView.setBackground(backgroundColorChooser, BP);
 		BP.setRight(SP);
+		BP.setTop(createMenu());
 		
 		//moved up
 		stack = new StackPane();
@@ -74,8 +77,9 @@ public class View implements ExternalUserInterface {
 		System.out.println("reached here 4");
 		System.out.println("stack is " + stack);
 		
-		TurtleCanvas = turtleView.initializeGraphicContent();
-		stack.getChildren().addAll(TurtleCanvas, turtleView.initializeTurtle());
+		TurtleView = turtleView.initializeGraphicContent();
+		inputView.setStroke(strokeColorChooser, gc);
+		stack.getChildren().addAll(TurtleView, turtleView.initializeTurtle());
 		
 		System.out.println("stackchild is " + stack.getChildren());
 		
@@ -87,13 +91,6 @@ public class View implements ExternalUserInterface {
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
 	}
 	
-	
-	private void clearScreen(){
-		TurtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
-		turtleView.updateTurtle(new TurtleState(0, 0, 0, false, true));
-	}
-	
-	
 	/**
 	 * Initialize the right side which has all the controls for the GUI
 	 * @return
@@ -101,29 +98,49 @@ public class View implements ExternalUserInterface {
 	private VBox initializeRightMenu(Button submit) {
 		VBox RightMenu = new VBox(SPACING);
 		
-		help = new Button(myResourceBundle.getString("HelpPrompt"));
-		help.setOnAction(e->{
-			displayHelpPage();
-		});
-		
-		clearScreen = new Button(myResourceBundle.getString("Clear"));
-		clearScreen.setOnAction(e->{
-			clearScreen();
-		});
-		
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
-		Label helpLabel = new Label(myResourceBundle.getString("HelpButtonPrompt"));
-
+		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), 
-				backgroundLabel, backgroundColorChooser, lineColorLabel, 
-				strokeColorChooser, helpLabel, help, clearScreen);
-		
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
 		return RightMenu;
+	}
+	
+	/**
+	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
+	 * and accessing the help page.
+	 * @return MenuBar
+	 */
+	private MenuBar createMenu(){
+		MenuBar menuBar = new MenuBar();
+		
+		Menu menuFile = new Menu(myResourceBundle.getString("FilePrompt"));
+		
+		MenuItem menuItemExit = new MenuItem(myResourceBundle.getString("ExitPrompt"));
+		menuItemExit.setOnAction(e ->{
+			System.exit(0);
+		});
+		
+		MenuItem menuItemNew = new MenuItem(myResourceBundle.getString("NewPrompt"));
+		menuItemNew.setOnAction(e ->{
+			Stage newStage = new Stage();
+			new Controller(newStage);
+		});
+		
+		Menu menuHelp = new Menu (myResourceBundle.getString("HelpPrompt"));
+		
+		MenuItem menuItemHelp = new MenuItem(myResourceBundle.getString("DocumentationPrompt"));
+		menuItemHelp.setOnAction(e -> {
+			displayHelpPage();
+		});
+		
+		menuFile.getItems().addAll(menuItemExit, menuItemNew);
+		menuHelp.getItems().add(menuItemHelp);
+		menuBar.getMenus().addAll(menuFile, menuHelp);
+
+		return menuBar;
 	}
 	
 	/**
