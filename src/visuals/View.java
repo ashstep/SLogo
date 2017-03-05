@@ -1,6 +1,6 @@
 package visuals;
-
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -52,7 +52,7 @@ public class View implements ExternalUserInterface {
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
 	
-	public View(Button submit, ResourceBundle myResourceBundle) {
+	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
 		System.out.println("start view");
 
 		inputView = new InputView();
@@ -79,10 +79,9 @@ public class View implements ExternalUserInterface {
 		
 		TurtleView = turtleView.initializeGraphicContent();
 		inputView.setStroke(strokeColorChooser, gc);
-		stack.getChildren().addAll(TurtleView, turtleView.initializeTurtle());
+		stack.getChildren().addAll(TurtleView, turtleView.initializeTurtle(myImageFile));
 		
-		System.out.println("stackchild is " + stack.getChildren());
-		
+		System.out.println("stackchild is " + stack.getChildren());	
 		System.out.println("stack is INITIAL"+ stack);
 		
 		BP.setLeft(stack);

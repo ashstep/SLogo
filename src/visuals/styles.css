@@ -21,12 +21,12 @@
         }
  
  .button {
-	-fx-font-size:20.0px;
+	-fx-font-size:18.5 px;
     -fx-text-fill:black;
     -fx-font-family:"Helvetica";
     -fx-background-color: #FFCE00;
     -fx-alignment: center;
-    -fx-pref-height:45.0;
+    -fx-pref-height:30.0;
 }
 
 .label {
@@ -35,7 +35,10 @@
 
 .color-picker {
 	-fx-font-size:20.0px;
-    -fx-background-color: #FFCE00;
+    -fx-background-color: 
+     #a6b5c9,
+        linear-gradient(#303842 0.0%, #3e5577 20.0%, #375074 100.0%),
+        linear-gradient(#768aa5 0.0%, #849cbb 5.0%, #5877a2 50.0%, #486a9a 51.0%, #4a6c9b 100.0%);     
     -fx-pref-height:45.0;
     }
 

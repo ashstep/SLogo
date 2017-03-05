@@ -1,6 +1,6 @@
 package visuals;
 
-import java.io.InputStream;
+import java.io.File;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,7 +21,6 @@ public class TurtleView implements ITurtleView {
 	private double turtleAngle;
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-	private String turtleImage = "turtleImage.png";
 
 	/**
 	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
@@ -34,14 +33,14 @@ public class TurtleView implements ITurtleView {
 		return TurtleView;
 	}
 	
-	protected ImageView initializeTurtle(){
+	protected ImageView initializeTurtle(File myImageFile){
 		turtleXPos = WIDTH/4;
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 				
 		//myTurtle = new ImageView(myTurtleImage);
-		InputStream stream = getClass().getResourceAsStream(turtleImage);
-		myTurtle = new ImageView(new Image(stream));
+		String imagepath = myImageFile.toURI().toString();
+		myTurtle = new ImageView(new Image(imagepath));
 		System.out.println("stack is" + stack);
 		System.out.println("myTurtle is" + myTurtle);
 		
@@ -67,8 +66,7 @@ public class TurtleView implements ITurtleView {
 	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
 		if(turtleInvis){
 			turtle.setVisible(true);
-		}
-		else{
+		} else{
 			turtle.setVisible(false);
 		}
 	}

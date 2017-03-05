@@ -2,11 +2,15 @@ package processing;
 
 import visuals.View;
 
+import java.io.File;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
 import parser.Node;
@@ -25,6 +29,8 @@ public class Controller {
 	private ComboBox<String> languageSelector;
 	private CommandParser parser;
 	private Turtle turtle;
+	private File myImageFile;
+	private Button uploadImage;
 	
 	public Controller(Stage s){
 		theStage = s;
@@ -41,25 +47,49 @@ public class Controller {
 		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
-		SplashPage splash = new SplashPage(start, languageSelector);
+		
+		uploadImage = new Button(myResourceBundle.getString("UploadPrompt"));
+		uploadImage.setOnAction(e->chooseImage());
+		
+		SplashPage splash = new SplashPage(start, uploadImage, languageSelector);
 		
 		theStage.setScene(splash.getScene());
 		theStage.show();
 	}
 	
 	private void makeView(){
-	
+		try{
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));
 		System.out.println("reached here");
-		theView = new View(submit, myResourceBundle);
+		theView = new View(myImageFile, submit, myResourceBundle);
 		System.out.println("reached post-view constructor");
 
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
+		}
+		catch (Exception e){
+			Alert alert = new Alert(AlertType.ERROR, "Please upload a file!");
+			alert.showAndWait();
+		}
 	}
 	
+	/**
+	 * Summons a window for the user to select a image file for the turtle
+	 */
+	public void chooseImage(){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select a turtleImage");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
+                "*.png", "*.jpg"));
+		myImageFile= fileChooser.showOpenDialog(theStage);
+	}
+	
+	/**
+	 * Changes the resource bundle to the newly selected langugage
+	 * @param newLanguage
+	 */
 	private void changeResourceBundle(String newLanguage){
 		language = newLanguage;
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
