@@ -56,9 +56,10 @@ public class Controller {
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));
-		System.out.println("reached here");
+		
+		submit.setOnAction(e -> theView.inputView.getMyHistory().updateHistory(theView.getCommandString()));
 		theView = new View(submit, myResourceBundle);
-		System.out.println("reached post-view constructor");
+
 
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
