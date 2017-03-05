@@ -17,7 +17,6 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import turtle.TurtleState;
 
 /**
@@ -47,8 +46,6 @@ public class View implements ExternalUserInterface {
 	private Button help;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
-	private Rectangle r;
-	private Rectangle updated;
 	
 	public View(Button submit, ResourceBundle myResourceBundle) {
 		System.out.println("start view");
