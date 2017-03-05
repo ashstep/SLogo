@@ -13,7 +13,7 @@ public class Node {
 	ArrayList<Node> children;
 	int numChildren;
 	Command commandObject;	
-	Boolean isCommand;
+	Boolean isCommand = true;
 
 	/**
 	 * Default constructor
