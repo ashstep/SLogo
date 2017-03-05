@@ -1,17 +1,17 @@
 package mathops;
 
-import turtle.ArgumentNumberException;
-import turtle.TurtleState;
-import turtle.Command;
 import java.util.List;
+import turtle.ArgumentNumberException;
+import turtle.Command;
+import turtle.TurtleState;
 
-public class Product extends Command {
-	
+public class Pow extends Command {
+
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		setReturnVal(args.get(0)*args.get(1));
+		setReturnVal(Math.pow(args.get(0), args.get(1)));
 		return state;
 	}
 
@@ -19,4 +19,5 @@ public class Product extends Command {
 	public int getNumArgs() {
 		return 2;
 	}
+
 }

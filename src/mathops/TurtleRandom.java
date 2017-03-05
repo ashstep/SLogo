@@ -1,15 +1,18 @@
 package mathops;
 
 import turtle.ArgumentNumberException;
+import turtle.TurtleState;
 import java.util.List;
+import turtle.Command;
 
-public class TurtleRandom extends MathCommand {
+public class TurtleRandom extends Command {
 	
 	@Override
-	public double calculate() throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		return Math.random()*args.get(0);
+		setReturnVal(Math.random()*args.get(0));
+		return state;
 	}
 
 	@Override

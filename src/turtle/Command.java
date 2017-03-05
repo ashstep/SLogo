@@ -13,6 +13,14 @@ import parser.Node;
 public abstract class Command {
 	
 	private List<Double> args;
+	private double returnVal;
+	
+	/**
+	 * Runs the command and sets its return value
+	 * @param state The current state of the <code>Turtle</code>
+	 * @return The next state of the <code>Turtle</code>
+	 */
+	public abstract TurtleState run(TurtleState state) throws ArgumentNumberException;
 	
 	/**
 	 * Checks if the allowed number of arguments is supplied
@@ -61,13 +69,19 @@ public abstract class Command {
 	 */
 	public abstract int getNumArgs();
 	
+	/**
+	 * Sets the return value of the command
+	 * @param val Return value to set
+	 */
+	protected void setReturnVal(double val){
+		returnVal = val;
+	}
 	
-	
-//added to see if parsing can extend better with this
-	//public abstract double executionVal();
-	
-
-	
-	
-	
+	/**
+	 * Gets the return value of the command	
+	 * @return The return value of the command
+	 */
+	public double getReturnVal(){
+		return returnVal;
+	}
 }

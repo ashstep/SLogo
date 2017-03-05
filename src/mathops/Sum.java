@@ -1,15 +1,18 @@
 package mathops;
 
 import turtle.ArgumentNumberException;
+import turtle.TurtleState;
+import turtle.Command;
 import java.util.List;
 
-public class Sum extends MathCommand{
+public class Sum extends Command{
 
 	@Override
-	public double calculate() throws ArgumentNumberException {
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		return args.get(0) + args.get(1);
+		setReturnVal(args.get(0) + args.get(1));
+		return state;
 	}
 
 	@Override
