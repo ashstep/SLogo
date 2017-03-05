@@ -28,7 +28,7 @@ public class ParserHelper {
     		String headCommand = headNode.getCommand();
 
     		Command c =  theCommand.getCommandObj(headCommand);
-    		Double d = c.returnvalue();
+    		Double d = c.getReturnVal();
             return d;
             		//headNode.getCommandObject().valuesForSequentialCommandExecution(headNode);
             		//.getCommandObj().executeCommand(parseTree);

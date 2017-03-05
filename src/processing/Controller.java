@@ -62,7 +62,8 @@ public class Controller {
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
 		System.out.println("reached here");
-		submit.setOnAction(e -> theView.inputView.getMyHistory().updateHistory(theView.getCommandString()));
+		submit.setOnAction(e -> submitActions());
+		
 		theView = new View(myImageFile, submit, myResourceBundle);
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
@@ -71,6 +72,11 @@ public class Controller {
 			Alert alert = new Alert(AlertType.ERROR, "Please upload a file!");
 			alert.showAndWait();
 		}
+	}
+	
+	private void submitActions(){
+		theView.inputView.getMyHistory().updateHistory(theView.getCommandString());
+		parseCommands(theView.getCommandString());
 	}
 	
 	/**
