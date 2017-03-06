@@ -90,6 +90,7 @@ public class Controller {
 	}
 	
 	private void submitActions(){
+		theView.inputView.getMyHistory().updateHistory(theView.getCommandString());
 		for(Button b:theView.inputView.getMyHistory().getMyButtons()){
 			b.setOnAction(q -> parseCommands(b.getText()));
 		}
