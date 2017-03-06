@@ -30,7 +30,7 @@ public class History {
 		myHistory.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		myHistory.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
-		myContents = new VBox();
+		myContents = new VBox(10);
 		
 		myHistory.setContent(myContents);
 		myCommandButtons = new ArrayList<Button>();

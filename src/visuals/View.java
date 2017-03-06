@@ -18,6 +18,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -42,6 +45,7 @@ public class View implements ExternalUserInterface {
 	private Button clearScreen;
 	public InputView inputView;
 	public TurtleView turtleView;
+	private History myHistory;
 	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -63,13 +67,10 @@ public class View implements ExternalUserInterface {
 		//System.out.println("reached here 3");
 		
 		BP = new BorderPane();
-		SP = new ScrollPane();
-		SP.setContent(initializeRightMenu(submit));
-		SP.setHbarPolicy(ScrollBarPolicy.NEVER);
-		SP.setFitToWidth(true);
 
+		BP.setRight(initializeControlTabs(submit));
 		inputView.setBackground(backgroundColorChooser, BP);
-		BP.setRight(SP);
+		
 		BP.setTop(createMenu());
 		
 		//moved up
@@ -108,6 +109,21 @@ public class View implements ExternalUserInterface {
 		return RightMenu;
 	}
 	
+	private TabPane initializeControlTabs(Button submit){
+		
+		TabPane Menu = new TabPane();
+		Tab controlTab = new Tab();
+		controlTab.setText("Controls");
+		controlTab.setContent(initializeRightMenu(submit));
+		Tab historyTab = new Tab();
+		historyTab.setText("History");
+		myHistory = new History();
+		historyTab.setContent(myHistory.getMyContents());
+		Menu.getTabs().addAll(controlTab,historyTab);
+		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		return Menu;
+		
+	}
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
@@ -176,6 +192,10 @@ public class View implements ExternalUserInterface {
 	 */
 	public String getCommandString(){
 		return inputView.getCommandString();
+	}
+	
+	public History getMyHistory(){
+		return myHistory;
 	}
 	
 	/**
