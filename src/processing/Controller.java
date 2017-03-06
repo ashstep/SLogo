@@ -20,6 +20,14 @@ import turtle.CommandProcessException;
 import turtle.Turtle;
 import visuals.SplashPage;
 
+/**
+ * 
+ * @author Vishnu Gottiparthy
+ * The controller in SLogo command parsing. 
+ * Sends user input to the command parser and relays
+ * information between the turtle and the GUI.
+ */
+
 public class Controller {
 	private Stage theStage;
 	private View theView;
@@ -61,10 +69,25 @@ public class Controller {
 		try{
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
+<<<<<<< HEAD
 		System.out.println("reached here");
 		submit.setOnAction(e -> submitActions());
 		
 		theView = new View(myImageFile, submit, myResourceBundle);
+=======
+		submit.setOnAction(e -> parseCommands(theView.getCommandString()));	
+		submit.setOnAction(e -> theView.inputView.getMyHistory().updateHistory(theView.getCommandString()));
+		
+		//When history button is clicked, run its command automatically
+		submit.setOnAction(e -> {
+			for(Button b:theView.inputView.getMyHistory().getMyButtons()){
+				b.setOnAction(q -> parseCommands(b.getText()));
+			}
+		});
+				
+		theView = new View(submit, myResourceBundle);
+		
+>>>>>>> master
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
 		}

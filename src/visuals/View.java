@@ -38,9 +38,10 @@ public class View implements ExternalUserInterface {
 	private ScrollPane SP;
 	private StackPane stack;
 	private Scene theScene;
+	private ResourceBundle myResourceBundle;
+	private Button clearScreen;
 	public InputView inputView;
 	public TurtleView turtleView;
-	private ResourceBundle myResourceBundle;
 	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
