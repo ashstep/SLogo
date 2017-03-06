@@ -69,25 +69,17 @@ public class Controller {
 		try{
 		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 		submit.setMaxWidth(View.WIDTH / 2);
-<<<<<<< HEAD
 		System.out.println("reached here");
-		submit.setOnAction(e -> submitActions());
-		
-		theView = new View(myImageFile, submit, myResourceBundle);
-=======
+
 		submit.setOnAction(e -> parseCommands(theView.getCommandString()));	
 		submit.setOnAction(e -> theView.inputView.getMyHistory().updateHistory(theView.getCommandString()));
 		
 		//When history button is clicked, run its command automatically
 		submit.setOnAction(e -> {
-			for(Button b:theView.inputView.getMyHistory().getMyButtons()){
-				b.setOnAction(q -> parseCommands(b.getText()));
-			}
-		});
-				
-		theView = new View(submit, myResourceBundle);
-		
->>>>>>> master
+			submitActions();
+		});				
+		theView = new View(myImageFile, submit, myResourceBundle);
+	
 		theView.updateTurtle(turtle.getState());
 		theStage.setScene(theView.getScene());
 		}
@@ -98,7 +90,9 @@ public class Controller {
 	}
 	
 	private void submitActions(){
-		theView.inputView.getMyHistory().updateHistory(theView.getCommandString());
+		for(Button b:theView.inputView.getMyHistory().getMyButtons()){
+			b.setOnAction(q -> parseCommands(b.getText()));
+		}
 		parseCommands(theView.getCommandString());
 	}
 	
