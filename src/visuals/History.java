@@ -1,7 +1,8 @@
 package visuals;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,17 +13,17 @@ import javafx.scene.layout.VBox;
 /**
  * A ScrollPane that contains Buttons with commands previously 
  * input into the command Prompt for a SLogo program.
- * Buttons can be clicked to rerun the corresponding command
+ * Buttons can be clicked to reload the corresponding command
  * 
- * @author christianmartindale
+ * @author Christian Martindale
  *
  */
 public class History {
 
-	public String currentCommand;
+	
 	private ScrollPane myHistory;
 	private VBox myContents;
-	
+	private List<Button> myCommandButtons;
 	
 	public History(){
 		myHistory = new ScrollPane();
@@ -32,7 +33,7 @@ public class History {
 		myContents = new VBox();
 		
 		myHistory.setContent(myContents);
-		
+		myCommandButtons = new ArrayList<Button>();
 	}
 	
 	/**
@@ -53,12 +54,6 @@ public class History {
 	 */
 	private Button createHistoryButton(String userInput){
 		Button command = new Button(userInput);
-		command.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		        currentCommand = userInput; //needs listener to see when changed
-		        
-		    }
-		});
 		return command;
 	}
 	
@@ -68,13 +63,17 @@ public class History {
 	 */
 	public void updateHistory(String userInput){
 		Button newCommand = createHistoryButton(userInput);
+		myCommandButtons.add(newCommand);
 		addButtonToHistory(newCommand);
+		
 	}
 	
 	public ScrollPane getHistory(){
 		return myHistory;
 	}
-	
+	public List<Button> getMyButtons(){
+		return myCommandButtons;
+	}
 
 	public Node getMyContents(){
 		return myContents;

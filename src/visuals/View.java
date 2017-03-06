@@ -32,10 +32,10 @@ public class View implements ExternalUserInterface {
 	private ScrollPane SP;
 	private StackPane stack;
 	private Scene theScene;
-	public InputView inputView;
-	public TurtleView turtleView;
 	private ResourceBundle myResourceBundle;
 	private Button clearScreen;
+	public InputView inputView;
+	public TurtleView turtleView;
 	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -74,9 +74,9 @@ public class View implements ExternalUserInterface {
 		TurtleCanvas = turtleView.initializeGraphicContent();
 		stack.getChildren().addAll(TurtleCanvas, turtleView.initializeTurtle());
 		
-		System.out.println("stackchild is " + stack.getChildren());
+		//System.out.println("stackchild is " + stack.getChildren());
 		
-		System.out.println("stack is INITIAL"+ stack);
+		//System.out.println("stack is INITIAL"+ stack);
 		
 		BP.setLeft(stack);
 
