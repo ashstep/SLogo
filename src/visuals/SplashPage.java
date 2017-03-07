@@ -44,8 +44,9 @@ public class SplashPage {
 		VBox vbox = new VBox(SPACING);
 		vbox.getChildren().addAll(title, languageSelector, uploadImage, start);
 		vbox.setAlignment(Pos.CENTER);
+		//text
 		
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream(BACKGROUND));
+		Image image = new Image(getClass().getResourceAsStream(BACKGROUND));
 		BackgroundImage bgimg = new BackgroundImage(image, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		Background bg = new Background (bgimg);
