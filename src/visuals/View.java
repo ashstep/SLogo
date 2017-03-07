@@ -44,7 +44,7 @@ public class View implements ExternalUserInterface {
 	private ResourceBundle myResourceBundle;
 	private Button clearScreen;
 	public InputView inputView;
-	public TurtleView turtleView;
+	public ITurtleView turtleView;
 	private History myHistory;
 	
 	public static final int WIDTH = 800;
