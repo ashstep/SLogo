@@ -182,11 +182,15 @@ public class View implements IView {
 		return myHistory;
 	}
 	
+	public Canvas getTurtleCanvas(){
+		return turtleCanvas;
+	}
+	
 	/**
 	 * shows an error message popup
 	 * @param whatHappened the message that will be displayed in the error popup
 	 */
-	@Override
+
 	public void createErrorMessage(String whatHappened) {
 		System.out.println("Hello");
 		System.out.println(whatHappened);
