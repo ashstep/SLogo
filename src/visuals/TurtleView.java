@@ -79,7 +79,7 @@ public class TurtleView implements ITurtleView{
 	/* (non-Javadoc)
 	 * @see visuals.IITurtleView#turtleInvisCloak(javafx.scene.image.ImageView, boolean)
 	 */
-	private void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
+	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
 		if(turtleInvis){
 			turtle.setVisible(true);
 		} else{

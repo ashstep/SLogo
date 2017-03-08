@@ -188,7 +188,7 @@ public class View implements IView {
 	 * shows an error message popup
 	 * @param whatHappened the message that will be displayed in the error popup
 	 */
-	@Override
+
 	public void createErrorMessage(String whatHappened) {
 		System.out.println("Hello");
 		System.out.println(whatHappened);
