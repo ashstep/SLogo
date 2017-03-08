@@ -11,7 +11,6 @@ import turtle.TurtleState;
 
 public class TurtleView implements ITurtleView{
 	
-	private StackPane stack;
 	private Canvas TurtleView;
 	private ImageView myTurtle;
 	private GraphicsContext myTurtleDrawer;
@@ -21,7 +20,6 @@ public class TurtleView implements ITurtleView{
 	private double turtleAngle;
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-	private String turtleImage = "Unknown.png";
 
 	/* (non-Javadoc)
 	 * @see visuals.IITurtleView#initializeGraphicContent()
@@ -32,15 +30,16 @@ public class TurtleView implements ITurtleView{
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 
 		TurtleView.setOnMouseClicked(e -> {
-			System.out.println( "Mouseevent X is" + e.getX());
-			System.out.println("TurtlestartLoc is" + myTurtle.getX());
+			System.out.println( "Mouseevent X is " + e.getX());
+			System.out.println("TurtlestartLoc is " + myTurtle.getX());
 			myTurtle.setX(e.getX());
 			myTurtle.setY(e.getY());
-			turtleXPos = e.getX();
-			turtleYPos = e.getY();
-			myTurtle.setTranslateX(e.getX());
-			myTurtle.setTranslateY(e.getY());
-			System.out.print("TurtleEndLoc is" + myTurtle.getX());
+			myTurtle.setTranslateX(e.getX()-turtleXPos);
+			myTurtle.setTranslateY(e.getY()-turtleYPos);
+			turtleXPos = myTurtle.getX();
+			turtleYPos = myTurtle.getY();
+			System.out.print("TurtleEndLocX is " + myTurtle.getX() + "TurtleEndLocY is " + myTurtle.getY());
+			System.out.println("TurtleEndLocX is " + turtleXPos + "TurtleEndLocY is " + turtleYPos);
 		});
 		
 		return TurtleView;
@@ -55,11 +54,11 @@ public class TurtleView implements ITurtleView{
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 				
-		//myTurtle = new ImageView(myTurtleImage);
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
-		System.out.println("stack is" + stack);
-		System.out.println("myTurtle is" + myTurtle);
+		
+		System.out.println("initial turtleXPos:" + turtleXPos);
+		System.out.println("initial turtleYPos:" + turtleYPos);
 		
 		return myTurtle;
 	}
@@ -68,18 +67,20 @@ public class TurtleView implements ITurtleView{
 	 * @see visuals.IITurtleView#drawTurtlePath(double, double, boolean)
 	 */
 	@Override
-	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){
-		myTurtleDrawer.moveTo(xPosition,yPosition);
+	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){		
 		if(pen) {
-			myTurtleDrawer.lineTo(xPosition, yPosition);		
+			myTurtleDrawer.lineTo(xPosition, yPosition);	
+			System.out.println("The Pen Is Drawn To"+ "X"+ xPosition + "Y"+ yPosition);
 			myTurtleDrawer.stroke();
 		}
+		
+		//myTurtleDrawer.moveTo(xPosition,yPosition);
 	}
 	
 	/* (non-Javadoc)
 	 * @see visuals.IITurtleView#turtleInvisCloak(javafx.scene.image.ImageView, boolean)
 	 */
-	private void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
+	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
 		if(turtleInvis){
 			turtle.setVisible(true);
 		} else{
@@ -100,8 +101,6 @@ public class TurtleView implements ITurtleView{
 		
 		turtleXPos = newTurtle.getX();
 		turtleYPos = newTurtle.getY();
-		System.out.println("initial turtleXPos:" + turtleXPos);
-		System.out.println("initial turtleYPos:" + turtleYPos);
 
 		turtleAngle = newTurtle.getAngle();
 		
@@ -110,8 +109,8 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setY(turtleYPos);
 		
 		//Bug fixed here - needs more work on the subtraction though
-		myTurtle.setTranslateX(turtleXPos);
-		myTurtle.setTranslateY(turtleYPos);
+		myTurtle.setTranslateX(turtleXPos - 200); //////////////////////////////////////////////////
+		myTurtle.setTranslateY(turtleYPos - 400);
 		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
@@ -136,6 +135,7 @@ public class TurtleView implements ITurtleView{
 		//BP.setLeft(stack);
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
+		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );
 		
 		//stack.getChildren().add(myTurtle);
 		
