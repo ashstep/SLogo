@@ -83,13 +83,23 @@ public class View implements IView {
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
 		
+		clearScreen = new Button (myResourceBundle.getString("Clear"));
+		clearScreen.setOnAction(e->{
+			clearScreen();
+		});
+		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clearScreen, backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
 		return RightMenu;
 	}
 	
+	/**
+	 * Create the Tab-menu and set the content for the tabs
+	 * @param submit
+	 * @return Menu
+	 */
 	private TabPane initializeControlTabs(Button submit){
 		
 		TabPane Menu = new TabPane();
@@ -108,6 +118,15 @@ public class View implements IView {
 		return Menu;
 		
 	}
+	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 */
+	private void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+	}
+	
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
@@ -158,10 +177,6 @@ public class View implements IView {
 		}
 	}
 	
-	public void updateTurtle(TurtleState newTurtle){
-		turtleView.updateTurtle(newTurtle);
-	}
-	
 	/**
 	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
 	 * @return The <code>Scene</code> for the <code>View</code>
@@ -176,6 +191,10 @@ public class View implements IView {
 	 */
 	public String getCommandString(){
 		return inputView.getCommandString();
+	}
+	
+	public void updateTurtle(TurtleState newTurtle){
+		turtleView.updateTurtle(newTurtle);
 	}
 	
 	public History getMyHistory(){

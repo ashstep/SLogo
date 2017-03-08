@@ -6,7 +6,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import turtle.TurtleState;
 
 public class TurtleView implements ITurtleView{
@@ -59,9 +58,8 @@ public class TurtleView implements ITurtleView{
 			myTurtleDrawer.lineTo(xPosition, yPosition);	
 			System.out.println("The Pen Is Drawn To"+ "X"+ xPosition + "Y"+ yPosition);
 			myTurtleDrawer.stroke();
-		}
-		
-		//myTurtleDrawer.moveTo(xPosition,yPosition);
+		}		
+		myTurtleDrawer.moveTo(xPosition,yPosition);
 	}
 	
 	/* (non-Javadoc)
@@ -96,12 +94,11 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setY(turtleYPos);
 		
 		//Bug fixed here - needs more work on the subtraction though
-		myTurtle.setTranslateX(turtleXPos - 200); //////////////////////////////////////////////////
+		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
 		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
-		
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );
