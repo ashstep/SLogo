@@ -11,7 +11,7 @@ public class Turtle {
 	private TurtleState state;
 	
 	public Turtle(){
-		state = new TurtleState(0, 0, 0, false, true);
+		state = new TurtleState(200, 300, 0, false, true);
 	}
 	
 	public void process(Command c) throws CommandProcessException, ArgumentNumberException{
