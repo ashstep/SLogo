@@ -42,7 +42,6 @@ public class TurtleView implements ITurtleView{
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 				
-		//myTurtle = new ImageView(myTurtleImage);
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 		System.out.println("stack is" + stack);
