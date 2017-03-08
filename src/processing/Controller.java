@@ -2,16 +2,16 @@ package processing;
 
 import visuals.View;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
@@ -28,46 +28,69 @@ import visuals.SplashPage;
  * information between the turtle and the GUI.
  */
 
-public class Controller {
+public class Controller extends ErrorDisplayer {
 	private Stage theStage;
 	private View theView;
 	private ResourceBundle myResourceBundle;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private String language = "English";
-	private ComboBox<String> languageSelector;
 	private CommandParser parser;
 	private Turtle turtle;
 	private File myImageFile;
-	private Button uploadImage;
-	private String ImageName = "None";
-	private Alert alert;
 	private SplashPage splash;
 
 	public Controller(Stage s){
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
-
-		String[] myLanguages = new String[] { "English", "Spanish", "Chinese" };
-		ObservableList<String> languages = FXCollections.observableArrayList(myLanguages);	
-		languageSelector = new ComboBox<String>(languages);
-		languageSelector.valueProperty().addListener((obs, oVal, nVal) -> changeResourceBundle(nVal));
-		languageSelector.setPromptText("Choose a Language");
-
+		
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-
-		Button start = new Button(myResourceBundle.getString("StartPrompt"));
-		start.setOnAction(event -> makeView());
-
-		uploadImage = new Button(myResourceBundle.getString("UploadPrompt"));
-		uploadImage.setOnAction(e->chooseImage());
-
-		splash = new SplashPage(start, uploadImage, languageSelector);
-
+		buildSplashPage();
+		
 		theStage.setScene(splash.getScene());
 		theStage.show();
 	}
+	
+	/**
+	 * Creates the <code>ComboBox</code> to choose languages based 
+	 * on the list of languages in the properties file
+	 */
+	private ComboBox<String> buildComboBox(){
+		try{
+			BufferedReader fr = new BufferedReader(new FileReader(
+					new File("src/resources/languages/Languages.properties")));
+			List<String> myLanguages = fr.lines().collect(Collectors.toList());
+			fr.close();
+			ObservableList<String> languages = FXCollections.observableArrayList(myLanguages);	
+			
+			ComboBox<String> languageSelector = new ComboBox<String>(languages);
+			languageSelector.valueProperty().addListener((obs, oVal, nVal) -> changeResourceBundle(nVal));
+			languageSelector.setPromptText("Choose a Language");
+			return languageSelector;
+		}
+		catch(Exception e){
+			createErrorMessage("Cannot read languages list");
+			return new ComboBox<String>();
+		}
+	}
 
+	/**
+	 * Creates the splash page
+	 */
+	private void buildSplashPage(){
+		ComboBox<String> languageSelector = buildComboBox();
+		Button start = new Button(myResourceBundle.getString("StartPrompt"));
+		start.setOnAction(event -> makeView());
+
+		Button uploadImage = new Button(myResourceBundle.getString("UploadPrompt"));
+		uploadImage.setOnAction(e->chooseImage());
+
+		splash = new SplashPage(start, uploadImage, languageSelector);
+	}
+	
+	/**
+	 * Creates the main program view
+	 */
 	private void makeView(){
 		try{
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
@@ -94,11 +117,13 @@ public class Controller {
 			theStage.setScene(theView.getScene());
 		}
 		catch (Exception e){
-			alert = new Alert(AlertType.ERROR, "Please upload a file!");
-			alert.showAndWait();
+			createErrorMessage("Please upload an file!");
 		}
 	}
 
+	/**
+	 * Sets the actions for the submit button in the command entry view
+	 */
 	private void submitActions(){
 		theView.getMyHistory().updateHistory(theView.getCommandString());
 		for(Button b:theView.getMyHistory().getMyButtons()){
@@ -115,17 +140,11 @@ public class Controller {
 		fileChooser.setTitle("Select a turtleImage");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
-		myImageFile= fileChooser.showOpenDialog(theStage);
-		try{
-			ImageName = myImageFile.toURI().toString();
-			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
-			ImageView myTurtle = new ImageView(new Image(ImageName));
-			alert.setGraphic(myTurtle);
-			alert.show();
-		}
-		catch (Exception e){
-			alert = new Alert(AlertType.ERROR, "Please select an image!");
-			alert.showAndWait();
+		
+		myImageFile = fileChooser.showOpenDialog(theStage);
+		myImageFile.toURI().toString();
+		if (myImageFile == null){
+			createErrorMessage("Please select an image!");
 		}
 	}
 
@@ -138,6 +157,10 @@ public class Controller {
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 	}
 
+	/**
+	 * Sends a raw <code>String</code> to the <code>CommandParser</code> for parsing
+	 * @param cmd Raw command <code>String</code>
+	 */
 	private void parseCommands(String cmd){
 		//old test
 		//parser.parseInputtedCommand(cmd);
