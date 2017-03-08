@@ -6,7 +6,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import turtle.TurtleState;
 
 public class TurtleView implements ITurtleView{
@@ -100,7 +99,6 @@ public class TurtleView implements ITurtleView{
 		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
-		
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );

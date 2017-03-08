@@ -95,6 +95,11 @@ public class View implements IView {
 		return RightMenu;
 	}
 	
+	/**
+	 * Create the Tab-menu and set the content for the tabs
+	 * @param submit
+	 * @return Menu
+	 */
 	private TabPane initializeControlTabs(Button submit){
 		
 		TabPane Menu = new TabPane();
@@ -114,6 +119,9 @@ public class View implements IView {
 		
 	}
 	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 */
 	private void clearScreen(){
 		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
 		turtleCanvas.getGraphicsContext2D().beginPath();
@@ -169,10 +177,6 @@ public class View implements IView {
 		}
 	}
 	
-	public void updateTurtle(TurtleState newTurtle){
-		turtleView.updateTurtle(newTurtle);
-	}
-	
 	/**
 	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
 	 * @return The <code>Scene</code> for the <code>View</code>
@@ -187,6 +191,10 @@ public class View implements IView {
 	 */
 	public String getCommandString(){
 		return inputView.getCommandString();
+	}
+	
+	public void updateTurtle(TurtleState newTurtle){
+		turtleView.updateTurtle(newTurtle);
 	}
 	
 	public History getMyHistory(){
