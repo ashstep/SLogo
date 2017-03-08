@@ -6,7 +6,7 @@ public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
 	String lang;
 
-	//returns new command parsation builder
+	//returns new command parsing builder
     private CommandParser initTreeCreation() {
     	
     	CommandParser newParse = new CommandParser();
