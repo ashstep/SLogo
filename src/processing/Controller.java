@@ -81,6 +81,16 @@ public class Controller {
 
 			theView = new View(myImageFile, submit, myResourceBundle);
 			theView.updateTurtle(turtle.getState());
+			
+			//When user clicks on Canvas, move turtle there
+			theView.getTurtleCanvas().setOnMouseClicked(e ->{
+				Double clickXCoord = e.getX();
+				Double clickYCoord = e.getY();
+				
+				parseCommands("setxy" + " " + clickXCoord.toString() + " " + clickYCoord.toString());
+			});
+			
+			
 			theStage.setScene(theView.getScene());
 		}
 		catch (Exception e){
