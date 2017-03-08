@@ -17,7 +17,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -35,16 +34,15 @@ import turtle.TurtleState;
  * @author Harry Liu, Christian Martindale
  **/
 
-public class View implements ExternalUserInterface {
+public class View implements IView {
 
 	private BorderPane BP;
-	private ScrollPane SP;
-	private StackPane stack;
+	private StackPane SP;
 	private Scene theScene;
 	private ResourceBundle myResourceBundle;
 	private Button clearScreen;
-	public InputView inputView;
-	public ITurtleView turtleView;
+	private IInputView inputView;
+	private ITurtleView turtleView;
 	private History myHistory;
 	
 	public static final int WIDTH = 800;
@@ -52,41 +50,26 @@ public class View implements ExternalUserInterface {
 	private final int SPACING = 10;
 	private String helpUrl = "http://www.cs.duke.edu/courses/compsci308/spring17/assign/03_slogo/commands.php";
 	
-	private Canvas TurtleView;
-	private GraphicsContext gc;
+	private Canvas turtleCanvas;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
 	
 	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
-		System.out.println("start view");
-
+		
 		inputView = new InputView();
 		turtleView = new TurtleView();
+		SP = new StackPane();
+		BP = new BorderPane();
 		this.myResourceBundle = myResourceBundle;
 		
-		//System.out.println("reached here 3");
+		turtleCanvas = turtleView.initializeGraphicContent();
+		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
 		
-		BP = new BorderPane();
-
+		BP.setLeft(SP);
 		BP.setRight(initializeControlTabs(submit));
+		BP.setTop(createMenu());	
 		inputView.setBackground(backgroundColorChooser, BP);
-		
-		BP.setTop(createMenu());
-		
-		//moved up
-		stack = new StackPane();
-		//System.out.println("stack-child is " + stack.getChildren());
-		System.out.println("reached here 4");
-		System.out.println("stack is " + stack);
-		
-		TurtleView = turtleView.initializeGraphicContent();
-		inputView.setStroke(strokeColorChooser, gc);
-		stack.getChildren().addAll(TurtleView, turtleView.initializeTurtle(myImageFile));
-		
-		System.out.println("stackchild is " + stack.getChildren());	
-		System.out.println("stack is INITIAL"+ stack);
-		
-		BP.setLeft(stack);
+		inputView.setStroke(strokeColorChooser, turtleCanvas.getGraphicsContext2D());
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
@@ -115,10 +98,13 @@ public class View implements ExternalUserInterface {
 		Tab controlTab = new Tab();
 		controlTab.setText("Controls");
 		controlTab.setContent(initializeRightMenu(submit));
+		
 		Tab historyTab = new Tab();
 		historyTab.setText("History");
+		
 		myHistory = new History();
 		historyTab.setContent(myHistory.getMyContents());
+		
 		Menu.getTabs().addAll(controlTab,historyTab);
 		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		return Menu;
@@ -204,6 +190,8 @@ public class View implements ExternalUserInterface {
 	 */
 	@Override
 	public void createErrorMessage(String whatHappened) {
+		System.out.println("Hello");
+		System.out.println(whatHappened);
 		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
 		alert.showAndWait();
 	}
