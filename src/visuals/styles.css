@@ -29,6 +29,11 @@
     -fx-pref-height:30.0;
 }
 
+#imageText{
+	-fx-fill: white;
+	-fx-font-size:18.5 px;
+}
+
 .label {
 	 -fx-text-fill: white;
 }

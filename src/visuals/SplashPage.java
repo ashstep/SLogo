@@ -2,6 +2,10 @@ package visuals;
 
 import java.io.File;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,16 +39,17 @@ public class SplashPage {
 	private int WIDTH = 800;
 	private int HEIGHT = 600;
 	private int SPACING = 10;
+	private String ImageName = "None";
+	private Text myImage;
 	
 	public SplashPage(Button startButton, Button uploadImage, ComboBox languageSelector){
 		start = startButton;
 		title = new Text ("sLogo");
 		title.setId("title");
-	
+		
 		VBox vbox = new VBox(SPACING);
 		vbox.getChildren().addAll(title, languageSelector, uploadImage, start);
 		vbox.setAlignment(Pos.CENTER);
-		//text
 		
 		Image image = new Image(getClass().getResourceAsStream(BACKGROUND));
 		BackgroundImage bgimg = new BackgroundImage(image, BackgroundRepeat.REPEAT, 
@@ -66,4 +71,5 @@ public class SplashPage {
 	public Scene getScene(){
 		return theScene;
 	}
+	
 }
