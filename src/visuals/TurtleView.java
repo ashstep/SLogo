@@ -21,7 +21,7 @@ public class TurtleView implements ITurtleView {
 	private double turtleAngle;
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-	private String turtleImage = "turtleImage.png";
+	private String turtleImage = "Unknown.png";
 
 	/**
 	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
@@ -31,6 +31,18 @@ public class TurtleView implements ITurtleView {
 		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 
+		TurtleView.setOnMouseClicked(e -> {
+			System.out.println( "Mouseevent X is" + e.getX());
+			System.out.println("TurtlestartLoc is" + myTurtle.getX());
+			myTurtle.setX(e.getX());
+			myTurtle.setY(e.getY());
+			turtleXPos = e.getX();
+			turtleYPos = e.getY();
+			myTurtle.setTranslateX(e.getX());
+			myTurtle.setTranslateY(e.getY());
+			System.out.print("TurtleEndLoc is" + myTurtle.getX());
+		});
+		
 		return TurtleView;
 	}
 	
@@ -64,7 +76,7 @@ public class TurtleView implements ITurtleView {
 	/**
 	 * sets the turtle to visible/invisible
 	 */
-	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
+	private void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
 		if(turtleInvis){
 			turtle.setVisible(true);
 		}
