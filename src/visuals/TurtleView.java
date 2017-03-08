@@ -29,19 +29,6 @@ public class TurtleView implements ITurtleView{
 		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 
-		TurtleView.setOnMouseClicked(e -> {
-			System.out.println( "Mouseevent X is " + e.getX());
-			System.out.println("TurtlestartLoc is " + myTurtle.getX());
-			myTurtle.setX(e.getX());
-			myTurtle.setY(e.getY());
-			myTurtle.setTranslateX(e.getX()-turtleXPos);
-			myTurtle.setTranslateY(e.getY()-turtleYPos);
-			turtleXPos = myTurtle.getX();
-			turtleYPos = myTurtle.getY();
-			System.out.println("TurtleEndLocX is " + myTurtle.getX() + "TurtleEndLocY is " + myTurtle.getY());
-			System.out.println("TurtlePosX is " + turtleXPos + "TurtlePosY is " + turtleYPos);
-		});
-		
 		return TurtleView;
 	}
 	
@@ -113,25 +100,7 @@ public class TurtleView implements ITurtleView{
 		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
 
-		//System.out.println(r.getBoundsInParent());
-		//stack.getChildren().remove(r);
-		//stack.getChildren().removeAll(r, TurtleView);
-
-		/*
-		stack.getChildren().add(updated);
-		System.out.println("got here");
-		System.out.println(r.getBoundsInParent());
-		System.out.println(updated.getBoundsInParent());
-		System.out.println("got here2");*/
-
-		//originally here:
-		/*r.setX(turtleXPos);
-		r.setY(turtleYPos);
-		stack.getChildren().add(r);*/
-		//.getChildren().addAll(r, TurtleView);
-
-		//System.out.println(r.getBoundsInParent());
-		//BP.setLeft(stack);
+		
 		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );
