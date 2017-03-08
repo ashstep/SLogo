@@ -38,8 +38,8 @@ public class TurtleView implements ITurtleView{
 			myTurtle.setTranslateY(e.getY()-turtleYPos);
 			turtleXPos = myTurtle.getX();
 			turtleYPos = myTurtle.getY();
-			System.out.print("TurtleEndLocX is " + myTurtle.getX() + "TurtleEndLocY is " + myTurtle.getY());
-			System.out.println("TurtleEndLocX is " + turtleXPos + "TurtleEndLocY is " + turtleYPos);
+			System.out.println("TurtleEndLocX is " + myTurtle.getX() + "TurtleEndLocY is " + myTurtle.getY());
+			System.out.println("TurtlePosX is " + turtleXPos + "TurtlePosY is " + turtleYPos);
 		});
 		
 		return TurtleView;
@@ -72,9 +72,8 @@ public class TurtleView implements ITurtleView{
 			myTurtleDrawer.lineTo(xPosition, yPosition);	
 			System.out.println("The Pen Is Drawn To"+ "X"+ xPosition + "Y"+ yPosition);
 			myTurtleDrawer.stroke();
-		}
-		
-		//myTurtleDrawer.moveTo(xPosition,yPosition);
+		}		
+		myTurtleDrawer.moveTo(xPosition,yPosition);
 	}
 	
 	/* (non-Javadoc)
@@ -109,7 +108,7 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setY(turtleYPos);
 		
 		//Bug fixed here - needs more work on the subtraction though
-		myTurtle.setTranslateX(turtleXPos - 200); //////////////////////////////////////////////////
+		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
 		
 		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?

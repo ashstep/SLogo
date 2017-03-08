@@ -83,10 +83,15 @@ public class View implements IView {
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
 		
+		clearScreen = new Button (myResourceBundle.getString("Clear"));
+		clearScreen.setOnAction(e->{
+			clearScreen();
+		});
+		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clearScreen, backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
 		return RightMenu;
 	}
 	
@@ -108,6 +113,12 @@ public class View implements IView {
 		return Menu;
 		
 	}
+	
+	private void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+	}
+	
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
