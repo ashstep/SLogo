@@ -3,13 +3,35 @@
  *
  **/
  
+ .menu-bar{
+ 	 -fx-background-color: 
+        #a6b5c9,
+        linear-gradient(#303842 0.0%, #3e5577 20.0%, #375074 100.0%),
+        linear-gradient(#768aa5 0.0%, #849cbb 5.0%, #5877a2 50.0%, #486a9a 51.0%, #4a6c9b 100.0%);     
+     -fx-pref-height: 25px;
+         }
+ 
+ .menu-item {
+	-fx-background-color: 
+        linear-gradient(#686868 0.0%, #232723 25.0%, #373837 75.0%, #757575 100.0%),
+        linear-gradient(#020b02, #3a3a3a),
+        linear-gradient(#9d9e9d 0.0%, #6b6a6b 20.0%, #343534 80.0%, #242424 100.0%),
+        linear-gradient(#8a8a8a 0.0%, #6b6a6b 20.0%, #343534 80.0%, #262626 100.0%),
+        linear-gradient(#777777 0.0%, #606060 50.0%, #505250 51.0%, #2a2b2a 100.0%);
+        }
+ 
  .button {
-	-fx-font-size:20.0px;
+	-fx-font-size:18.5 px;
     -fx-text-fill:black;
     -fx-font-family:"Helvetica";
     -fx-background-color: #FFCE00;
     -fx-alignment: center;
-    -fx-pref-height:45.0;
+    -fx-pref-height:30.0;
+}
+
+#imageText{
+	-fx-fill: white;
+	-fx-font-size:18.5 px;
 }
 
 .label {
@@ -18,24 +40,40 @@
 
 .color-picker {
 	-fx-font-size:20.0px;
-    -fx-background-color: #FFCE00;
+    -fx-background-color: 
+     #a6b5c9,
+        linear-gradient(#303842 0.0%, #3e5577 20.0%, #375074 100.0%),
+        linear-gradient(#768aa5 0.0%, #849cbb 5.0%, #5877a2 50.0%, #486a9a 51.0%, #4a6c9b 100.0%);     
     -fx-pref-height:45.0;
     }
-
 
 .button:hover{
     -fx-background-color: #FFFFFF;
 }
 
-.scroll-pane{
-	-fx-background-color: #262228;
-	-fx-padding: 15.0px;
+.tab-pane{
+	-fx-background-color:
+   	linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
+    linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);		
+	-fx-padding: 10.0px;
 }
 
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
 }
 
+.text-area{
+	-fx-background-color:
+   	linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
+    linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-padding: 10px;
+}
 #title {
     -fx-font: 90.0px Krungthep;
     -fx-fill: white;

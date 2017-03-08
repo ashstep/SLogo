@@ -27,15 +27,13 @@ public class InputView implements IInputView {
 	private TextArea userInput;
 	private ColorPicker colorPicker;
 	private Background background;
-	private History myHistory;
 
 	private int SPACING = 10;
 
-	/**
-	 * create TextArea for userInput and Submit Button (placed in a VBox)
-	 * 
-	 * @return Menu;
+	/* (non-Javadoc)
+	 * @see visuals.IInputView#initializeTextArea(javafx.scene.control.Button, java.util.ResourceBundle)
 	 */
+	@Override
 	public VBox initializeTextArea(Button submit, ResourceBundle myResourceBundle) {
 		VBox Menu = new VBox(SPACING);
 
@@ -43,41 +41,36 @@ public class InputView implements IInputView {
 		userInput.setPromptText(myResourceBundle.getString("EnterCommandPrompt"));
 		userInput.setWrapText(true);
 		userInput.setMaxWidth(View.WIDTH * (0.4));
-		myHistory = new History();
-		
-		
-		Menu.getChildren().addAll(userInput, submit, myHistory.getMyContents());
+	
+		Menu.getChildren().addAll(userInput, submit);
 
 		Menu.setAlignment(Pos.CENTER);
 
 		return Menu;
 	}
 
-	/**
-	 * gets Text from input box and returns String that is accessible for
-	 * Command Parsing
-	 * 
-	 * @return userInput.getText()
+	/* (non-Javadoc)
+	 * @see visuals.IInputView#getCommandString()
 	 */
+	@Override
 	public String getCommandString() {
 		return userInput.getText();
 	}
 
-	/**
-	 * Method that creates a color picker.
-	 * @return colorPicker
+	/* (non-Javadoc)
+	 * @see visuals.IInputView#initializeColorPicker()
 	 */
+	@Override
 	public ColorPicker initializeColorPicker() {
 		colorPicker = new ColorPicker();
 		colorPicker.setMaxWidth(View.WIDTH * (0.4));
 		return colorPicker;
 	}
 
-	/**
-	 * Method that changes the color of the background based off of the selected color from the color picker
-	 * @param backgroundColorChooser
-	 * @param root
+	/* (non-Javadoc)
+	 * @see visuals.IInputView#setBackground(javafx.scene.control.ColorPicker, javafx.scene.layout.Pane)
 	 */
+	@Override
 	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {
 		backgroundColorChooser.setOnAction(e -> {
 			Paint fill = backgroundColorChooser.getValue();
@@ -87,21 +80,16 @@ public class InputView implements IInputView {
 		});
 	}
 
-	/**
-	 * Method that changes the stroke color based off of the selected color from the color picker
-	 * @param strokeColorChooser
-	 * @param gc
+	/* (non-Javadoc)
+	 * @see visuals.IInputView#setStroke(javafx.scene.control.ColorPicker, javafx.scene.canvas.GraphicsContext)
 	 */
+	@Override
 	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
 		strokeColorChooser.setOnAction(e -> {
 			Paint fill = strokeColorChooser.getValue();
 			gc.setStroke(fill);
 			gc.stroke();
 		});
-	}
-	
-	public History getMyHistory(){
-		return myHistory;
 	}
 	
 }

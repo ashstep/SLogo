@@ -1,6 +1,6 @@
 package visuals;
 
-import java.io.InputStream;
+import java.io.File;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import turtle.TurtleState;
 
-public class TurtleView implements ITurtleView {
+public class TurtleView implements ITurtleView{
 	
 	private StackPane stack;
 	private Canvas TurtleView;
@@ -23,11 +23,11 @@ public class TurtleView implements ITurtleView {
 	public static final int HEIGHT = 600;
 	private String turtleImage = "Unknown.png";
 
-	/**
-	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
-	 * @return TurtleView
+	/* (non-Javadoc)
+	 * @see visuals.IITurtleView#initializeGraphicContent()
 	 */
-	protected Canvas initializeGraphicContent() {
+	@Override
+	public Canvas initializeGraphicContent() {
 		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 
@@ -46,26 +46,29 @@ public class TurtleView implements ITurtleView {
 		return TurtleView;
 	}
 	
-	protected ImageView initializeTurtle(){
+	/* (non-Javadoc)
+	 * @see visuals.IITurtleView#initializeTurtle(java.io.File)
+	 */
+	@Override
+	public ImageView initializeTurtle(File myImageFile){
 		turtleXPos = WIDTH/4;
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 				
 		//myTurtle = new ImageView(myTurtleImage);
-		InputStream stream = getClass().getResourceAsStream(turtleImage);
-		myTurtle = new ImageView(new Image(stream));
+		String imagepath = myImageFile.toURI().toString();
+		myTurtle = new ImageView(new Image(imagepath));
 		System.out.println("stack is" + stack);
 		System.out.println("myTurtle is" + myTurtle);
 		
 		return myTurtle;
 	}
 	
-	/**
-	 * Filler method just to test if the line is displayed properly
-	 * @param x
-	 * @param y
+	/* (non-Javadoc)
+	 * @see visuals.IITurtleView#drawTurtlePath(double, double, boolean)
 	 */
-	protected void drawTurtlePath(double xPosition, double yPosition, boolean pen){
+	@Override
+	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){
 		myTurtleDrawer.moveTo(xPosition,yPosition);
 		if(pen) {
 			myTurtleDrawer.lineTo(xPosition, yPosition);		
@@ -73,18 +76,21 @@ public class TurtleView implements ITurtleView {
 		}
 	}
 	
-	/**
-	 * sets the turtle to visible/invisible
+	/* (non-Javadoc)
+	 * @see visuals.IITurtleView#turtleInvisCloak(javafx.scene.image.ImageView, boolean)
 	 */
 	private void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
 		if(turtleInvis){
 			turtle.setVisible(true);
-		}
-		else{
+		} else{
 			turtle.setVisible(false);
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see visuals.IITurtleView#updateTurtle(turtle.TurtleState)
+	 */
+	@Override
 	public void updateTurtle(TurtleState newTurtle){
 		System.out.println("updateTurtle called");
 		
