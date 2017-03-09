@@ -18,8 +18,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import parser.CommandParser;
 import parser.Node;
+import turtle.ArgumentNumberException;
 import turtle.Command;
 import turtle.Turtle;
 import turtle.TurtleState;
@@ -145,7 +147,7 @@ public class Controller extends ErrorDisplayer {
 			parseCommands(theView.getCommandString());
 		}
 		catch(Exception e){
-			createErrorMessage("Please input a command before pressing submit.");
+			createErrorMessage("Command not recognized");
 		}
 		
 	}
@@ -199,8 +201,8 @@ public class Controller extends ErrorDisplayer {
 			command.treeArgs(starting);
 			turtle.process(command);
 
-		} catch (Exception e) {
-			theView.createErrorMessage(e.getClass().toString());
+		} catch (ArgumentNumberException e) {
+			createErrorMessage("Improper number of arguments");
 		}
 
 		theView.updateTurtle(turtle.getState());
