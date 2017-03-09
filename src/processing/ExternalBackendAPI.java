@@ -6,38 +6,35 @@ import turtle.TurtleState;
 public interface ExternalBackendAPI {
 		
 	/**
-	 * Gets the size of the line if changed
-	 * @return
+	 * @return the current width of the line
 	 */
 	public double getLineSize();
 	
 	/**
-	 * Gets the new line color if changed
-	 * @return
+	 * @return the current color of the line
 	 */
 	public Color getLineColor();
 	
 	/**
-	 * Gets the new background color if changed
-	 * @return
+	 * @return the current color of the background of turtleView
 	 */
 	public Color getBackgroundColor();
 	
 	/**
-	 * Gets the next turtle state if changed
-	 * @return
+	 * 
+	 * @return the current State of the Turtle
 	 */
 	public TurtleState getTurtleStates();
 	
 	/**
-	 * Gets an error message if thrown
-	 * @return
+	 * Gets an error message String if thrown
+	 * @return an error message String detailing what went wrong
 	 */
 	public String getErrorMessage();
 	
 	/**
-	 * Tells the command parser what to process
-	 * @param command
+	 * Tells the command parser what command to parse
+	 * @param command the user input String representing a command
 	 */
 	public void processCommand(String command);
 }

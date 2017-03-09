@@ -34,7 +34,6 @@ import visuals.SplashPage;
  * Sends user input to the command parser and relays
  * information between the turtle and the GUI.
  */
-
 public class Controller extends ErrorDisplayer {
 	private Stage theStage;
 	private View theView;
@@ -88,6 +87,10 @@ public class Controller extends ErrorDisplayer {
 		}
 	}
 
+	/**
+	 * Creates the initial splash page for the program upon launch.
+	 * Contains a turtle image selector and the run program button.
+	 */
 	private void buildSplashPage(){
 		ComboBox<String> languageSelector = buildComboBox();
 		
@@ -101,7 +104,7 @@ public class Controller extends ErrorDisplayer {
 	}
 	
 	/**
-	 * Creates the main program view
+	 * Creates the main turtle program view.
 	 */
 	private void makeView(){
 		
@@ -139,7 +142,8 @@ public class Controller extends ErrorDisplayer {
 	}
 
 	/**
-	 * Sets the actions for the submit button in the command entry view
+	 * Sets the actions for the submit command button in the input view. 
+	 * 
 	 */
 	private void submitActions(){
 		try{
@@ -180,8 +184,8 @@ public class Controller extends ErrorDisplayer {
 	}
 
 	/**
-	 * Changes the resource bundle to the newly selected langugage
-	 * @param newLanguage
+	 * Changes the resource bundle to the newly selected language
+	 * @param newLanguage the language to switch to 
 	 */
 	private void changeResourceBundle(String newLanguage){
 		language = newLanguage;
@@ -190,7 +194,7 @@ public class Controller extends ErrorDisplayer {
 
 	/**
 	 * Sends a raw <code>String</code> to the <code>CommandParser</code> for parsing
-	 * @param cmd Raw command <code>String</code>
+	 * @param cmd Raw command <code>String</code> input by the user
 	 */
 	private void parseCommands(String cmd){
 
