@@ -1,12 +1,10 @@
 package processing;
 
 import visuals.View;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -19,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import parser.CommandParser;
 import parser.Node;
 import turtle.ArgumentNumberException;
@@ -36,11 +33,12 @@ import visuals.SplashPage;
  * information between the turtle and the GUI.
  */
 
-public class Controller extends ErrorDisplayer {
+public class Controller extends AlertDisplayer {
 	private Stage theStage;
 	private View theView;
 	private ResourceBundle myResourceBundle;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+	private String DEFAULT_LANGUAGE_FILE = "src/resources/languages/Languages.properties";
 	private String language = "English";
 	private CommandParser parser;
 	private static Turtle turtle;
@@ -48,24 +46,23 @@ public class Controller extends ErrorDisplayer {
 	private String ImageName;
 	private Alert alert;
 	private SplashPage splash;
-	
-	public static final String DEFAULT_IMAGE = "src/images/turtle01.png";
+	public static final String DEFAULT_IMAGE = "src/images/turtle_default.png";
 
 	public Controller(Stage s){
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
-		
+
 		ImageName = DEFAULT_IMAGE; 
 		myImageFile = new File(DEFAULT_IMAGE); 
-		
+
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		buildSplashPage();
-		
+
 		theStage.setScene(splash.getScene());
 		theStage.show();
 	}
-	
+
 	/**
 	 * Creates the <code>ComboBox</code> to choose languages based 
 	 * on the list of languages in the properties file
@@ -73,25 +70,26 @@ public class Controller extends ErrorDisplayer {
 	private ComboBox<String> buildComboBox(){
 		try{
 			BufferedReader fr = new BufferedReader(new FileReader(
-					new File("src/resources/languages/Languages.properties")));
+					new File(DEFAULT_LANGUAGE_FILE)));
 			List<String> myLanguages = fr.lines().collect(Collectors.toList());
 			fr.close();
 			ObservableList<String> languages = FXCollections.observableArrayList(myLanguages);	
-			
+
 			ComboBox<String> languageSelector = new ComboBox<String>(languages);
 			languageSelector.valueProperty().addListener((obs, oVal, nVal) -> changeResourceBundle(nVal));
-			languageSelector.setPromptText("Choose a Language");
+			languageSelector.setPromptText(myResourceBundle.getString("ChooseLanguagePrompt"));
 			return languageSelector;
 		}
 		catch(Exception e){
-			createErrorMessage("Cannot read languages list");
+			createErrorMessage(myResourceBundle.getString("LanguageErrorPrompt"));
+			e.printStackTrace();
 			return new ComboBox<String>();
 		}
 	}
 
 	private void buildSplashPage(){
 		ComboBox<String> languageSelector = buildComboBox();
-		
+
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
 
@@ -100,40 +98,34 @@ public class Controller extends ErrorDisplayer {
 
 		splash = new SplashPage(start, uploadImage, languageSelector);
 	}
-	
+
 	/**
 	 * Creates the main program view
 	 */
 	private void makeView(){
-		
-			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
-			submit.setMaxWidth(View.WIDTH / 2);
-			System.out.println("reached here");
 
-			//When history button is clicked, run its command automatically
-			submit.setOnAction(e -> {
-				submitActions();
-			});		
+		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
+		submit.setMaxWidth(View.WIDTH / 2);
 
-			theView = new View(myImageFile, submit, myResourceBundle);
-			theView.updateTurtle(turtle.getState());
-			
-			//When user clicks on Canvas, move turtle there
-			theView.getTurtleCanvas().setOnMouseClicked(e ->{
-				Double clickXCoord = e.getX();
-				Double clickYCoord = e.getY();
-				
-				parseCommands("setxy" + " " + clickXCoord.toString() + " " + clickYCoord.toString());
-			});
-			
-			
-			theStage.setScene(theView.getScene());
-		
-		/*
-		catch (Exception e){
-			createErrorMessage("Please upload an file!");
-		}
-		*/
+		//When history button is clicked, run its command automatically
+		submit.setOnAction(e -> {
+			submitActions();
+		});		
+
+		theView = new View(myImageFile, submit, myResourceBundle);
+		theView.updateTurtle(turtle.getState());
+
+		//When user clicks on Canvas, move turtle there
+		theView.getTurtleCanvas().setOnMouseClicked(e ->{
+			Double clickXCoord = e.getX();
+			Double clickYCoord = e.getY();
+
+			parseCommands("setxy" + " " + clickXCoord.toString() + " " + clickYCoord.toString());
+		});
+
+
+		theStage.setScene(theView.getScene());
+
 	}
 
 	/**
@@ -148,9 +140,9 @@ public class Controller extends ErrorDisplayer {
 			parseCommands(theView.getCommandString());
 		}
 		catch(Exception e){
-			createErrorMessage("Command not recognized");
+			createErrorMessage(myResourceBundle.getString("ErrorPrompt"));
 		}
-		
+
 	}
 
 	/**
@@ -158,23 +150,23 @@ public class Controller extends ErrorDisplayer {
 	 */
 	public void chooseImage(){
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Select a turtleImage");
+		fileChooser.setTitle(myResourceBundle.getString("SelectPrompt"));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
 		myImageFile= fileChooser.showOpenDialog(theStage);
 		try{
 			ImageName = myImageFile.toURI().toString();
-			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
+			alert = createInformationMessage(myResourceBundle.getString("ImagePrompt"));
 			ImageView myTurtle = new ImageView(new Image(ImageName));
 			alert.setGraphic(myTurtle);
 			alert.show();
 		}
-		
+
 		catch (Exception e){
-			alert = new Alert(AlertType.ERROR, "Please select an image!");
+			alert = new Alert(AlertType.ERROR, myResourceBundle.getString("SelectPrompt"));
 			alert.showAndWait();
 		}
-		
+
 	}
 
 	/**
@@ -202,21 +194,21 @@ public class Controller extends ErrorDisplayer {
 		try {
 			command.treeArgs(starting);
 			turtle.process(command);
-			
+
 			//newest:::
 			//valuesForSequentialCommandExecution
 			//		phelper.valuesForSequentialCommandExecution(commands)
 
 
 		} catch (ArgumentNumberException e) {
-			createErrorMessage("Improper number of arguments");
+			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));
 		}
 
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 	}
-	
+
 	public static TurtleState getTurtleState(){
 		return turtle.getState();
 	}
