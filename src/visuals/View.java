@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -88,7 +87,7 @@ public class View extends ErrorDisplayer {
 
 		clearScreen = new Button (myResourceBundle.getString("Clear"));
 		clearScreen.setOnAction(e->{
-			clearScreen();
+			inputView.clearScreen(turtleCanvas, WIDTH, HEIGHT);;
 		});
 
 		backgroundColorChooser = inputView.initializeColorPicker();
@@ -130,18 +129,9 @@ public class View extends ErrorDisplayer {
 		myHistory = new History();
 		historyTab.setContent(myHistory.getMyContents());
 
-		Menu.getTabs().addAll(controlTab,historyTab);
+		Menu.getTabs().addAll(controlTab , historyTab);
 		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		return Menu;
-
-	}
-
-	/**
-	 * Clears the TurtleView screen (left side of the GUI)
-	 */
-	private void clearScreen(){
-		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
-		turtleCanvas.getGraphicsContext2D().beginPath();
 	}
 
 	/**
