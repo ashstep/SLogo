@@ -191,7 +191,8 @@ public class Controller extends ErrorDisplayer {
 	 */
 	private void parseCommands(String cmd){
 
-		System.out.println("command to be parsed: " +cmd);
+		//new:
+		System.out.println("(in cotroller) command to be parsed: " +cmd);
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
@@ -200,6 +201,11 @@ public class Controller extends ErrorDisplayer {
 		try {
 			command.treeArgs(starting);
 			turtle.process(command);
+			
+			//newest:::
+			//valuesForSequentialCommandExecution
+			//		phelper.valuesForSequentialCommandExecution(commands)
+
 
 		} catch (ArgumentNumberException e) {
 			createErrorMessage("Improper number of arguments");

@@ -30,3 +30,5 @@ public class And extends Command {
 		return getReturnVal();
 	}
 }
+
+

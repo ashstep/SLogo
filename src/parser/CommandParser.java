@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import turtle.Command;
 
 /**
  * Parses inputted commands and calls relevant commands
@@ -163,13 +162,13 @@ public class CommandParser {
 
 	
 	//toget the current index -> check if its equal to the end
-
     public int geCommandListIndex() {
         return indexintree2;
     }
 	
 	
 	//test this
+    //this handles EACH SEPARATE COMMAND -> returns the action as you go 
 	public Node buildTree2() {
         System.out.println("buildTree2 starting");
         String theCurrentCommand = myCommandsList[indexintree2];
@@ -178,7 +177,8 @@ public class CommandParser {
 
 
         //baes case
-        if (addedNode.getNumberofChildren() == 0||addedNode.checkifCommand() == false ) {
+        if (addedNode.getNumberofChildren() == 0) {
+        	//another chekc? addedNode.checkifCommand() == false 
             System.out.println("node has zero children or is not a command -> return");
         	return addedNode;	
         }
@@ -190,6 +190,8 @@ public class CommandParser {
         	//incrememt the index as u go -> since you are going through the list 
             System.out.println("adding a child");
         	indexintree2++;
+            System.out.println("index of list is -");
+            System.out.println(indexintree2);
         	addedNode.addChild(buildTree2());
         }
         
