@@ -32,10 +32,8 @@ public class SplashPage {
 	private int WIDTH = 800;
 	private int HEIGHT = 600;
 	private int SPACING = 10;
-	private String ImageName = "None";
-	private Text myImage;
 	
-	public SplashPage(Button startButton, Button uploadImage, ComboBox languageSelector){
+	public SplashPage(Button startButton, Button uploadImage, ComboBox<String> languageSelector){
 		start = startButton;
 		title = new Text ("sLogo");
 		title.setId("title");

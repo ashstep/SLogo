@@ -6,8 +6,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
@@ -25,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import processing.Controller;
 import turtle.TurtleState;
+import processing.ErrorDisplayer;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
@@ -33,7 +32,7 @@ import turtle.TurtleState;
  * @author Harry Liu, Christian Martindale
  **/
 
-public class View implements IView {
+public class View extends ErrorDisplayer {
 
 	private BorderPane BP;
 	private StackPane SP;
@@ -85,6 +84,11 @@ public class View implements IView {
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
 		
+		clearScreen = new Button (myResourceBundle.getString("Clear"));
+		clearScreen.setOnAction(e->{
+			clearScreen();
+		});
+		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		penWidthBox = inputView.initializePenWidthController(myResourceBundle.getString("PenWidthPrompt"));
@@ -94,6 +98,11 @@ public class View implements IView {
 		return RightMenu;
 	}
 	
+	/**
+	 * Create the Tab-menu and set the content for the tabs
+	 * @param submit
+	 * @return Menu
+	 */
 	private TabPane initializeControlTabs(Button submit){
 		
 		TabPane Menu = new TabPane();
@@ -112,6 +121,15 @@ public class View implements IView {
 		return Menu;
 		
 	}
+	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 */
+	private void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+	}
+	
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
@@ -162,10 +180,6 @@ public class View implements IView {
 		}
 	}
 	
-	public void updateTurtle(TurtleState newTurtle){
-		turtleView.updateTurtle(newTurtle);
-	}
-	
 	/**
 	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
 	 * @return The <code>Scene</code> for the <code>View</code>
@@ -182,6 +196,10 @@ public class View implements IView {
 		return inputView.getCommandString();
 	}
 	
+	public void updateTurtle(TurtleState newTurtle){
+		turtleView.updateTurtle(newTurtle);
+	}
+	
 	public History getMyHistory(){
 		return myHistory;
 	}
@@ -189,17 +207,4 @@ public class View implements IView {
 	public Canvas getTurtleCanvas(){
 		return turtleCanvas;
 	}
-	
-	/**
-	 * shows an error message popup
-	 * @param whatHappened the message that will be displayed in the error popup
-	 */
-
-	public void createErrorMessage(String whatHappened) {
-		System.out.println("Hello");
-		System.out.println(whatHappened);
-		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
-		alert.showAndWait();
-	}
-
 }
