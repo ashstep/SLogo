@@ -46,6 +46,6 @@ interface IInputView {
 	 */
 	void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc);
 
-	TextField initializePenWidthController();
+	TextField initializePenWidthController(String prompt);
 
 }

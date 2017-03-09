@@ -87,7 +87,7 @@ public class View implements IView {
 		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
-		penWidthBox = inputView.initializePenWidthController();
+		penWidthBox = inputView.initializePenWidthController(myResourceBundle.getString("PenWidthPrompt"));
 		
 		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, 
 				backgroundColorChooser, lineColorLabel, strokeColorChooser, penWidthBox);

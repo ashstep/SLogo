@@ -42,6 +42,8 @@ public class Controller {
 	private String ImageName;
 	private Alert alert;
 	private SplashPage splash;
+	
+	public static final String DEFAULT_IMAGE = "src/images/turtle01.png";
 
 	public Controller(Stage s){
 		theStage = s;
@@ -56,8 +58,8 @@ public class Controller {
 
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 
-		ImageName = "src/images/turtle01.png"; //default
-		myImageFile = new File("src/images/turtle01.png"); //default
+		ImageName = DEFAULT_IMAGE; 
+		myImageFile = new File(DEFAULT_IMAGE); 
 		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
@@ -72,7 +74,7 @@ public class Controller {
 	}
 
 	private void makeView(){
-		try{
+		
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 			submit.setMaxWidth(View.WIDTH / 2);
 			System.out.println("reached here");
@@ -95,11 +97,13 @@ public class Controller {
 			
 			
 			theStage.setScene(theView.getScene());
-		}
+		
+		/*
 		catch (Exception e){
 			alert = new Alert(AlertType.ERROR, "Please upload a file!");
 			alert.showAndWait();
 		}
+		*/
 	}
 
 	private void submitActions(){

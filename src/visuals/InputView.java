@@ -74,9 +74,9 @@ public class InputView implements IInputView {
 	 * @return a TextField for inputting the desired size
 	 */
 	@Override
-	public TextField initializePenWidthController(){
+	public TextField initializePenWidthController(String prompt){
 		TextField penWidthBox = new TextField();
-		penWidthBox.setPromptText("Set pen width here");
+		penWidthBox.setPromptText(prompt);
 		return penWidthBox;
 	}
 
