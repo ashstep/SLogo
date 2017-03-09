@@ -15,6 +15,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 /**
@@ -29,6 +30,7 @@ public class InputView implements IInputView {
 	private TextArea userInput;
 	private ColorPicker colorPicker;
 	private Background background;
+	private String initialColor = "#F0F0F0";
 
 	private int SPACING = 10;
 
@@ -64,7 +66,7 @@ public class InputView implements IInputView {
 	 */
 	@Override
 	public ColorPicker initializeColorPicker() {
-		colorPicker = new ColorPicker();
+		colorPicker = new ColorPicker(Color.web(initialColor));
 		colorPicker.setMaxWidth(View.WIDTH * (0.4));
 		return colorPicker;
 	}

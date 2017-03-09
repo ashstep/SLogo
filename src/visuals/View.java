@@ -23,9 +23,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import processing.AlertDisplayer;
 import processing.Controller;
 import turtle.TurtleState;
-import processing.ErrorDisplayer;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
@@ -34,7 +34,7 @@ import processing.ErrorDisplayer;
  * @author Harry Liu, Christian Martindale
  **/
 
-public class View extends ErrorDisplayer {
+public class View extends AlertDisplayer {
 
 	private BorderPane BP;
 	private StackPane SP;
@@ -95,7 +95,7 @@ public class View extends ErrorDisplayer {
 					turtleCanvas.getGraphicsContext2D().setLineWidth(Double.parseDouble(penWidthBox.getText()));
 				}
 				catch(Exception fail){
-					createErrorMessage("Please input a valid double.");
+					createErrorMessage(myResourceBundle.getString("ValidDoublePrompt"));
 				}
 			}
 		});
@@ -115,12 +115,10 @@ public class View extends ErrorDisplayer {
 
 		TabPane Menu = new TabPane();
 		Tab controlTab = new Tab();
-		controlTab.setText("Controls");
+		controlTab.setText(myResourceBundle.getString("Control"));
 		controlTab.setContent(initializeRightMenu(submit, clear));
-		
-		
 		Tab historyTab = new Tab();
-		historyTab.setText("History");
+		historyTab.setText(myResourceBundle.getString("History"));
 
 		myHistory = new History();
 		historyTab.setContent(myHistory.getMyContents());
