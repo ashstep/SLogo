@@ -4,6 +4,7 @@ import turtle.ArgumentNumberException;
 import java.util.List;
 
 import parser.Node;
+import processing.Controller;
 import turtle.TurtleState;
 import turtle.Command;
 
@@ -27,8 +28,11 @@ public class SetPosition extends Command {
 
 	@Override
 	public double findReturnVal(Node n) {
-		// TODO Need current turtle state to return correct value
-		setReturnVal(0);
-		return 0;
+		TurtleState state = Controller.getTurtleState();
+		double x = state.getX() - n.getSpecificChild(0).getCommandObject().getReturnVal();
+		double y = state.getY() - n.getSpecificChild(1).getCommandObject().getReturnVal();
+		double dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		setReturnVal(dist);
+		return getReturnVal();
 	}
 }

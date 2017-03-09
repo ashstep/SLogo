@@ -5,6 +5,8 @@ import turtle.TurtleState;
 import turtle.Command;
 import java.util.List;
 
+import parser.Node;
+
 public class Minus extends Command {
 	
 	@Override
@@ -18,5 +20,11 @@ public class Minus extends Command {
 	@Override
 	public int getNumArgs() {
 		return 1;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		setReturnVal(-1*n.getSpecificChild(0).getCommandObject().getReturnVal());
+		return getReturnVal();
 	}
 }

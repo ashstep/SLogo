@@ -22,6 +22,7 @@ import parser.CommandParser;
 import parser.Node;
 import turtle.Command;
 import turtle.Turtle;
+import turtle.TurtleState;
 import visuals.SplashPage;
 
 /**
@@ -39,7 +40,7 @@ public class Controller extends ErrorDisplayer {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private String language = "English";
 	private CommandParser parser;
-	private Turtle turtle;
+	private static Turtle turtle;
 	private File myImageFile;
 	private String ImageName;
 	private Alert alert;
@@ -205,5 +206,9 @@ public class Controller extends ErrorDisplayer {
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
+	}
+	
+	public static TurtleState getTurtleState(){
+		return turtle.getState();
 	}
 }

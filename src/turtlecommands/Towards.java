@@ -4,6 +4,7 @@ import turtle.ArgumentNumberException;
 import java.util.List;
 
 import parser.Node;
+import processing.Controller;
 import turtle.TurtleState;
 import turtle.Command;
 
@@ -27,8 +28,11 @@ public class Towards extends Command {
 
 	@Override
 	public double findReturnVal(Node n) {
-		// TODO Needs current turtle state to return the right value
-		setReturnVal(0);
-		return 0;
+		TurtleState state = Controller.getTurtleState();
+		double x = n.getSpecificChild(0).getCommandObject().getReturnVal() - state.getX();
+		double y = n.getSpecificChild(0).getCommandObject().getReturnVal() - state.getY();
+		double angle = Math.atan(y/x);
+		setReturnVal(angle - state.getAngle());
+		return getReturnVal();
 	}
 }

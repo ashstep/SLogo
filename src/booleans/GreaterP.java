@@ -2,6 +2,7 @@ package booleans;
 
 import java.util.List;
 
+import parser.Node;
 import turtle.ArgumentNumberException;
 import turtle.Command;
 import turtle.TurtleState;
@@ -21,4 +22,11 @@ public class GreaterP extends Command {
 		return 2;
 	}
 
+	@Override
+	public double findReturnVal(Node n) {
+		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
+		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
+		setReturnVal(arg0 > arg1 ? 1 : 0);
+		return getReturnVal();
+	}
 }

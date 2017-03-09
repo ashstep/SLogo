@@ -4,6 +4,7 @@ import turtle.ArgumentNumberException;
 import java.util.List;
 
 import parser.Node;
+import processing.Controller;
 import turtle.TurtleState;
 import turtle.Command;
 
@@ -24,8 +25,8 @@ public class SetHeading extends Command {
 
 	@Override
 	public double findReturnVal(Node n) {
-		// TODO Needs current turtle state to return correct value
-		setReturnVal(0);
-		return 0;
+		TurtleState state = Controller.getTurtleState();
+		setReturnVal(n.getSpecificChild(0).getCommandObject().getReturnVal() - state.getAngle());
+		return getReturnVal();
 	}	
 }
