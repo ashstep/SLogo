@@ -1,7 +1,6 @@
 package visuals;
 
 import java.io.File;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -119,4 +118,5 @@ public class TurtleView implements ITurtleView{
 		System.out.println("end of updateTurtle ");
 
 	}
+	
 }
