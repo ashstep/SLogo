@@ -107,14 +107,22 @@ public class Controller extends ErrorDisplayer {
 		
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 			submit.setMaxWidth(View.WIDTH / 2);
-			System.out.println("reached here");
+
 
 			//When history button is clicked, run its command automatically
 			submit.setOnAction(e -> {
 				submitActions();
 			});		
 
-			theView = new View(myImageFile, submit, myResourceBundle);
+			Button clearScreen = new Button (myResourceBundle.getString("Clear"));
+			clearScreen.setOnAction(e->{
+				theView.clearScreen();
+				parseCommands("home");
+			});
+			
+			theView = new View(myImageFile, submit, clearScreen, myResourceBundle);
+			
+			
 			theView.updateTurtle(turtle.getState());
 			
 			//When user clicks on Canvas, move turtle there
@@ -128,11 +136,6 @@ public class Controller extends ErrorDisplayer {
 			
 			theStage.setScene(theView.getScene());
 		
-		/*
-		catch (Exception e){
-			createErrorMessage("Please upload an file!");
-		}
-		*/
 	}
 
 	/**

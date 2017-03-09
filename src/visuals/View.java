@@ -40,7 +40,6 @@ public class View extends ErrorDisplayer {
 	private StackPane SP;
 	private Scene theScene;
 	private ResourceBundle myResourceBundle;
-	private Button clearScreen;
 	private IInputView inputView;
 	private ITurtleView turtleView;
 	private History myHistory;
@@ -54,7 +53,7 @@ public class View extends ErrorDisplayer {
 	private ColorPicker strokeColorChooser;
 	private TextField penWidthBox;
 
-	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
+	public View(File myImageFile, Button submit, Button clear, ResourceBundle myResourceBundle) {
 
 		inputView = new InputView();
 		turtleView = new TurtleView();
@@ -66,7 +65,7 @@ public class View extends ErrorDisplayer {
 		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
 
 		BP.setLeft(SP);
-		BP.setRight(initializeControlTabs(submit));
+		BP.setRight(initializeControlTabs(submit, clear));
 		BP.setTop(createMenu());	
 		inputView.setBackground(backgroundColorChooser, BP);
 		inputView.setStroke(strokeColorChooser, turtleCanvas.getGraphicsContext2D());
@@ -79,7 +78,7 @@ public class View extends ErrorDisplayer {
 	 * Initialize the right side which has all the controls for the GUI
 	 * @return
 	 */
-	private VBox initializeRightMenu(Button submit) {
+	private VBox initializeRightMenu(Button submit, Button clear) {
 		VBox RightMenu = new VBox(SPACING);
 
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
@@ -105,8 +104,8 @@ public class View extends ErrorDisplayer {
 			}
 		});
 
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clearScreen, penWidthBox, backgroundLabel, 
-				backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), penWidthBox, backgroundLabel, 
+				backgroundColorChooser, lineColorLabel, strokeColorChooser, clear);
 		RightMenu.setAlignment(Pos.CENTER);
 		return RightMenu;
 	}
@@ -116,13 +115,14 @@ public class View extends ErrorDisplayer {
 	 * @param submit
 	 * @return Menu
 	 */
-	private TabPane initializeControlTabs(Button submit){
+	private TabPane initializeControlTabs(Button submit, Button clear){
 
 		TabPane Menu = new TabPane();
 		Tab controlTab = new Tab();
 		controlTab.setText("Controls");
-		controlTab.setContent(initializeRightMenu(submit));
-
+		controlTab.setContent(initializeRightMenu(submit, clear));
+		
+		
 		Tab historyTab = new Tab();
 		historyTab.setText("History");
 
@@ -132,6 +132,20 @@ public class View extends ErrorDisplayer {
 		Menu.getTabs().addAll(controlTab , historyTab);
 		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		return Menu;
+
+	}
+
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 * not done yet help
+	 */
+	public void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+		
+		
+		//turtleCanvas = turtleView.initializeGraphicContent();
+
 	}
 
 	/**
