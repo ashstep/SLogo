@@ -18,6 +18,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,6 +52,7 @@ public class View implements IView {
 	private Canvas turtleCanvas;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
+	private TextField penWidthBox;
 	
 	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
 		
@@ -85,8 +87,10 @@ public class View implements IView {
 		
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
+		penWidthBox = inputView.initializePenWidthController();
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, 
+				backgroundColorChooser, lineColorLabel, strokeColorChooser, penWidthBox);
 		return RightMenu;
 	}
 	

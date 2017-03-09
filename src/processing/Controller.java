@@ -39,7 +39,7 @@ public class Controller {
 	private Turtle turtle;
 	private File myImageFile;
 	private Button uploadImage;
-	private String ImageName = "None";
+	private String ImageName;
 	private Alert alert;
 	private SplashPage splash;
 
@@ -56,6 +56,9 @@ public class Controller {
 
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 
+		ImageName = "src/images/turtle01.png"; //default
+		myImageFile = new File("src/images/turtle01.png"); //default
+		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
 
@@ -116,17 +119,19 @@ public class Controller {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
 		myImageFile= fileChooser.showOpenDialog(theStage);
-		try{
+		
 			ImageName = myImageFile.toURI().toString();
 			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
 			ImageView myTurtle = new ImageView(new Image(ImageName));
 			alert.setGraphic(myTurtle);
 			alert.show();
-		}
+		
+		/*
 		catch (Exception e){
 			alert = new Alert(AlertType.ERROR, "Please select an image!");
 			alert.showAndWait();
 		}
+		*/
 	}
 
 	/**

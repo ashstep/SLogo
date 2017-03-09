@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 /**
  * A ScrollPane that contains Buttons with commands previously 
  * input into the command Prompt for a SLogo program.
- * Buttons can be clicked to reload the corresponding command
+ * Buttons can be clicked to rerun the corresponding command
  * 
  * @author Christian Martindale
  *
