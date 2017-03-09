@@ -126,11 +126,6 @@ public class Controller extends ErrorDisplayer {
 			
 			theStage.setScene(theView.getScene());
 		
-		/*
-		catch (Exception e){
-			createErrorMessage("Please upload an file!");
-		}
-		*/
 	}
 
 	/**
