@@ -5,9 +5,8 @@ import java.util.List;
 
 import parser.Node;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class Left extends Command {
+public class Left extends TurtleCommand {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

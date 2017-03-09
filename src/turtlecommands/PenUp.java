@@ -1,5 +1,6 @@
 package turtlecommands;
 
+import parser.Node;
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 import turtle.Command;
@@ -16,5 +17,11 @@ public class PenUp extends Command {
 	@Override
 	public int getNumArgs() {
 		return 0;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		setReturnVal(1);
+		return getReturnVal();
 	}
 }

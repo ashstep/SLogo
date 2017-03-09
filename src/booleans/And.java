@@ -21,28 +21,14 @@ public class And extends Command {
 	public int getNumArgs() {
 		return 2;
 	}
-	//added
-	public double getReturnVal(Node n){
-		//passed in node > get first two children _.get those childrens valueyes 
-		//return doubles anc check 0>
-		
-		//get two children
-		Node arg1 = n.getSpecificChild(0);
-		Node arg2 = n.getSpecificChild(1);
 
-				
-		//if its a constat, its still a node
-		//get the return value of the executed comman
-		double v1 = arg1.getCommandObject().getReturnVal();
-		double v2 = arg2.getCommandObject().getReturnVal();
-
-		if (v1 != 0 && v2 != 0) {
-			return 1;
-		}
-		return 0;	
+	@Override
+	public double findReturnVal(Node n) {
+		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
+		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
+		setReturnVal((arg0 != 0 && arg1 != 0) ? 1 : 0);
+		return getReturnVal();
 	}
-
 }
-
 
 
