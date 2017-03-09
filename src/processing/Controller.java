@@ -41,7 +41,6 @@ public class Controller extends ErrorDisplayer {
 	private CommandParser parser;
 	private Turtle turtle;
 	private File myImageFile;
-	private Button uploadImage;
 	private String ImageName;
 	private Alert alert;
 	private SplashPage splash;
@@ -159,19 +158,19 @@ public class Controller extends ErrorDisplayer {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
 		myImageFile= fileChooser.showOpenDialog(theStage);
-		
+		try{
 			ImageName = myImageFile.toURI().toString();
 			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
 			ImageView myTurtle = new ImageView(new Image(ImageName));
 			alert.setGraphic(myTurtle);
 			alert.show();
+		}
 		
-		/*
 		catch (Exception e){
 			alert = new Alert(AlertType.ERROR, "Please select an image!");
 			alert.showAndWait();
 		}
-		*/
+		
 	}
 
 	/**
@@ -188,24 +187,14 @@ public class Controller extends ErrorDisplayer {
 	 * @param cmd Raw command <code>String</code>
 	 */
 	private void parseCommands(String cmd){
-		//old test
-		//parser.parseInputtedCommand(cmd);
-		//Node node = parser.buildTree();
 
-		//new:
 		System.out.println("command to be parsed: " +cmd);
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
-		//old test
-		//Command command = node.getCommandObject();
-
 		try {
-			//old
-			//command.treeArgs(node);
-			//turtle.process(command);
 			command.treeArgs(starting);
 			turtle.process(command);
 
@@ -215,6 +204,6 @@ public class Controller extends ErrorDisplayer {
 
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-		//parser.resetCommand(cmd);
+
 	}
 }
