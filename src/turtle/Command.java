@@ -81,6 +81,8 @@ public abstract class Command {
 	 * Gets the return value of the command	
 	 * @return The return value of the command
 	 */
+	
+	//	//	public double getReturnVal(Node n){
 	public double getReturnVal(){
 		return returnVal;
 	}

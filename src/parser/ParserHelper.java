@@ -1,6 +1,7 @@
 package parser;
 
 import turtle.Command;
+//recursievly call command parser and create trees and execute ocmmands as you go 
 
 public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
@@ -14,16 +15,18 @@ public class ParserHelper {
     }
 
 
-    //passes value up the tree
+    //propogates value up the tree
     private double buildTree(String[] commandListInput) {
+    	//TO DO: check for errors?
+		System.out.println("just in PARSERHELPER ");
     	//initialize tree building
     	CommandParser newTreeParse = initTreeCreation();
     	//head node of the tree for current command
     	Node headNode = newTreeParse.initTreeRecurse(commandListInput);
-    	//block to check for errors
-    	//not sure if correct 
     	try { 
     		System.out.println("PARSERHELPER the string of headnode: "+ headNode.getCommand());
+            //returning thiss:   (if pass in a node) headNode.getCommandObject().executeCommand(headNode);
+
     		CommandTypeMap theCommand = new CommandTypeMap(lang);
     		String headCommand = headNode.getCommand();
 
@@ -41,11 +44,17 @@ public class ParserHelper {
     }
 
     
-    /*
+    /**
+     * Executes the TOTAL actions for all commands
+     *
+     * @param commands a String array containing the commands issued from the editor
+     * @return an ArrayList of doubles containing the results from executing the commands
+     */
+
     public double valuesForSequentialCommandExecution(String[] commands) {
         return buildTree(commands);
     }
-*/
+
     
     
     

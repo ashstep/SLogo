@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
 import parser.Node;
+import parser.ParserHelper;
 import turtle.Command;
 import turtle.Turtle;
 import visuals.SplashPage;
@@ -38,6 +39,7 @@ public class Controller extends ErrorDisplayer {
 	private Turtle turtle;
 	private File myImageFile;
 	private SplashPage splash;
+	private ParserHelper phelper;
 
 	public Controller(Stage s){
 		theStage = s;
@@ -167,10 +169,15 @@ public class Controller extends ErrorDisplayer {
 		//Node node = parser.buildTree();
 
 		//new:
-		System.out.println("command to be parsed: " +cmd);
-		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
-		Command command = starting.getCommandObject();
+		System.out.println("(in cotroller) command to be parsed: " +cmd);
+		//Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
+		//Command command = starting.getCommandObject();
+		
+		//newest:
+		phelper.valuesForSequentialCommandExecution(commands);
 
+		
+		
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 		//old test
@@ -182,6 +189,7 @@ public class Controller extends ErrorDisplayer {
 			//turtle.process(command);
 			command.treeArgs(starting);
 			turtle.process(command);
+			valuesForSequentialCommandExecution
 
 		} catch (Exception e) {
 			theView.createErrorMessage(e.getClass().toString());
@@ -189,6 +197,5 @@ public class Controller extends ErrorDisplayer {
 
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-		//parser.resetCommand(cmd);
 	}
 }
