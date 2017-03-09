@@ -75,4 +75,11 @@ public class History implements IHistory{
 		return myContents;
 	}
 	
+	/**
+	 * @see visuals.IHistory#getMyButtons()
+	 */
+	public List<Button> getMyButtons(){
+		return myCommandButtons;
+	}
+	
 }

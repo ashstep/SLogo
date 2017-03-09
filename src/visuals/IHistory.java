@@ -1,5 +1,7 @@
 package visuals;
 
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
@@ -29,4 +31,9 @@ interface IHistory {
 	 */
 	public Node getMyContents();
 	
+	/**
+	 * 
+	 * @return the Collection of Buttons representing History commands
+	 */
+	public List<Button> getMyButtons();
 }
