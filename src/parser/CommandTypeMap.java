@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
+
 import turtle.Command;
 
 /**
@@ -21,7 +22,7 @@ import turtle.Command;
  *
  */
 
-public class CommandTypeMap {
+public class CommandTypeMap{
 	private List<Entry<String, Pattern>> mySymbols;
 
 	//forLANG	
@@ -93,7 +94,7 @@ public class CommandTypeMap {
 				e.printStackTrace();
 			}
 		} catch(Exception e) {
-			System.out.println("CommandTypeMap: class  NOT found");
+			System.out.println("Class NOT found");
 			e.printStackTrace();
 		}
 		return null;

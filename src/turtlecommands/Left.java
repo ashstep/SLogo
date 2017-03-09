@@ -2,10 +2,11 @@ package turtlecommands;
 
 import turtle.ArgumentNumberException;
 import java.util.List;
-import turtle.TurtleState;
-import turtle.Command;
 
-public class Left extends Command {
+import parser.Node;
+import turtle.TurtleState;
+
+public class Left extends TurtleCommand {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -20,4 +21,5 @@ public class Left extends Command {
 	public int getNumArgs() {
 		return 1;
 	}
+	
 }

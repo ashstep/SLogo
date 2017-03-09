@@ -81,7 +81,16 @@ public abstract class Command {
 	 * Gets the return value of the command	
 	 * @return The return value of the command
 	 */
+	
+	//	//	public double getReturnVal(Node n){
 	public double getReturnVal(){
 		return returnVal;
 	}
+	
+	/**
+	 * Sets the return value of the <code>Command</code> based on its node in the command tree
+	 * @param n Node containing this <code>Command</code>
+	 * @return The return value of the <code>Command</code>
+	 */
+	public abstract double findReturnVal(Node n);
 }
