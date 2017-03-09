@@ -6,8 +6,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
@@ -24,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import processing.Controller;
 import turtle.TurtleState;
+import processing.ErrorDisplayer;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
@@ -32,7 +31,7 @@ import turtle.TurtleState;
  * @author Harry Liu, Christian Martindale
  **/
 
-public class View implements IView {
+public class View extends ErrorDisplayer {
 
 	private BorderPane BP;
 	private StackPane SP;
@@ -204,17 +203,4 @@ public class View implements IView {
 	public Canvas getTurtleCanvas(){
 		return turtleCanvas;
 	}
-	
-	/**
-	 * shows an error message popup
-	 * @param whatHappened the message that will be displayed in the error popup
-	 */
-
-	public void createErrorMessage(String whatHappened) {
-		System.out.println("Hello");
-		System.out.println(whatHappened);
-		Alert alert = new Alert(AlertType.ERROR, "Error: "+ whatHappened);
-		alert.showAndWait();
-	}
-
 }
