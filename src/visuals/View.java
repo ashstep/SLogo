@@ -1,9 +1,7 @@
 package visuals;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -166,13 +164,12 @@ public class View extends ErrorDisplayer {
 	 */
 	private void displayHelpPage(){
 		try{
-			Desktop.getDesktop().browse(new URI(helpUrl));
+		URL url = getClass().getResource("help.html");
+        Desktop.getDesktop().browse(url.toURI());
+        System.out.println(url);
 		}
-		catch (IOException e){
-			createErrorMessage(myResourceBundle.getString("NotificationError"));
-		}
-		catch (URISyntaxException e){
-			createErrorMessage(myResourceBundle.getString("NotificationError"));
+		catch (Exception e){
+			//display alert.
 		}
 	}
 	
