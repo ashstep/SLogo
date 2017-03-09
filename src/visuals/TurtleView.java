@@ -24,27 +24,26 @@ public class TurtleView implements ITurtleView{
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+
 
 	/* (non-Javadoc)
 	 * @see visuals.IITurtleView#initializeGraphicContent()
 	 */
 	@Override
-	public Canvas initializeGraphicContent() {
-		TurtleView = new Canvas (WIDTH*0.5, HEIGHT);
+	public Canvas initializeGraphicContent(int width, int height) {
+		TurtleView = new Canvas (width*0.5, height);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 
 		return TurtleView;
 	}
 	
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see visuals.IITurtleView#initializeTurtle(java.io.File)
 	 */
 	@Override
-	public ImageView initializeTurtle(File myImageFile){
-		turtleXPos = WIDTH/4;
-		turtleYPos = HEIGHT/2;
+	public ImageView initializeTurtle(File myImageFile, int width, int height){
+		turtleXPos = width/4;
+		turtleYPos = height/2;
 		turtleAngle = 0;
 				
 		String imagepath = myImageFile.toURI().toString();
