@@ -24,6 +24,7 @@ import turtle.Command;
 import turtle.Turtle;
 import turtle.TurtleState;
 import visuals.SplashPage;
+import visuals.TurtleView;
 
 /**
  * 
@@ -34,6 +35,7 @@ import visuals.SplashPage;
  */
 
 public class Controller extends AlertDisplayer {
+
 	private Stage theStage;
 	private View theView;
 	private ResourceBundle myResourceBundle;
@@ -87,6 +89,10 @@ public class Controller extends AlertDisplayer {
 		}
 	}
 
+	/**
+	 * Creates the initial splash page for the program upon launch.
+	 * Contains a turtle image selector and the run program button.
+	 */
 	private void buildSplashPage(){
 		ComboBox<String> languageSelector = buildComboBox();
 
@@ -100,36 +106,43 @@ public class Controller extends AlertDisplayer {
 	}
 
 	/**
-	 * Creates the main program view
+	 * Creates the main turtle program view.
 	 */
 	private void makeView(){
-
-		Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
-		submit.setMaxWidth(View.WIDTH / 2);
-
-		//When history button is clicked, run its command automatically
-		submit.setOnAction(e -> {
-			submitActions();
-		});		
-
-		theView = new View(myImageFile, submit, myResourceBundle);
-		theView.updateTurtle(turtle.getState());
-
-		//When user clicks on Canvas, move turtle there
-		theView.getTurtleCanvas().setOnMouseClicked(e ->{
-			Double clickXCoord = e.getX();
-			Double clickYCoord = e.getY();
-
-			parseCommands("setxy" + " " + clickXCoord.toString() + " " + clickYCoord.toString());
-		});
+		
+			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
+			submit.setMaxWidth(View.WIDTH / 2);
 
 
-		theStage.setScene(theView.getScene());
+			//When history button is clicked, run its command automatically
+			submit.setOnAction(e -> {
+				submitActions();
+			});		
+
+			Button clearScreen = new Button (myResourceBundle.getString("Clear"));
+			clearScreen.setOnAction(e->{
+				theView.clearScreen();
+				parseCommands("home");
+			});
+			
+			theView = new View(myImageFile, submit, clearScreen, myResourceBundle);
+			
+			//When user clicks on Canvas, move turtle there
+			theView.getTurtleCanvas().setOnMouseClicked(e ->{
+				Double clickXCoord = e.getX();
+				Double clickYCoord = e.getY();
+				System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
+				parseCommands("setxy" + " " + (clickXCoord - TurtleView.WIDTH/2)
+						+ " " + (TurtleView.HEIGHT/2 - clickYCoord));
+			});
+			
+			
+			theStage.setScene(theView.getScene());
 
 	}
 
 	/**
-	 * Sets the actions for the submit button in the command entry view
+	 * Sets the actions for the submit command button in the input view. 
 	 */
 	private void submitActions(){
 		try{
@@ -170,8 +183,8 @@ public class Controller extends AlertDisplayer {
 	}
 
 	/**
-	 * Changes the resource bundle to the newly selected langugage
-	 * @param newLanguage
+	 * Changes the resource bundle to the newly selected language
+	 * @param newLanguage the language to switch to 
 	 */
 	private void changeResourceBundle(String newLanguage){
 		language = newLanguage;
@@ -180,33 +193,28 @@ public class Controller extends AlertDisplayer {
 
 	/**
 	 * Sends a raw <code>String</code> to the <code>CommandParser</code> for parsing
-	 * @param cmd Raw command <code>String</code>
+	 * @param cmd Raw command <code>String</code> input by the user
 	 */
 	private void parseCommands(String cmd){
 
-		//new:
-		System.out.println("(in cotroller) command to be parsed: " +cmd);
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 
 		try {
 			command.treeArgs(starting);
 			turtle.process(command);
-
-			//newest:::
-			//valuesForSequentialCommandExecution
-			//		phelper.valuesForSequentialCommandExecution(commands)
-
-
-		} catch (ArgumentNumberException e) {
+		}
+		catch (ArgumentNumberException e) {
 			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));
 		}
 
 		theView.updateTurtle(turtle.getState());
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-
+		
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 	}
 
 	public static TurtleState getTurtleState(){

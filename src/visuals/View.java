@@ -40,7 +40,6 @@ public class View extends AlertDisplayer {
 	private StackPane SP;
 	private Scene theScene;
 	private ResourceBundle myResourceBundle;
-	private Button clearScreen;
 	private IInputView inputView;
 	private ITurtleView turtleView;
 	private History myHistory;
@@ -54,7 +53,7 @@ public class View extends AlertDisplayer {
 	private ColorPicker strokeColorChooser;
 	private TextField penWidthBox;
 
-	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
+	public View(File myImageFile, Button submit, Button clear, ResourceBundle myResourceBundle) {
 
 		inputView = new InputView();
 		turtleView = new TurtleView();
@@ -62,11 +61,11 @@ public class View extends AlertDisplayer {
 		BP = new BorderPane();
 		this.myResourceBundle = myResourceBundle;
 
-		turtleCanvas = turtleView.initializeGraphicContent();
+		turtleCanvas = turtleView.initializeGraphicContent(WIDTH, HEIGHT);
 		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
 
 		BP.setLeft(SP);
-		BP.setRight(initializeControlTabs(submit));
+		BP.setRight(initializeControlTabs(submit, clear));
 		BP.setTop(createMenu());	
 		inputView.setBackground(backgroundColorChooser, BP);
 		inputView.setStroke(strokeColorChooser, turtleCanvas.getGraphicsContext2D());
@@ -77,18 +76,14 @@ public class View extends AlertDisplayer {
 
 	/**
 	 * Initialize the right side which has all the controls for the GUI
-	 * @return
+	 * @return a VBox with the Menu controls
 	 */
-	private VBox initializeRightMenu(Button submit) {
+	private VBox initializeRightMenu(Button submit, Button clear) {
 		VBox RightMenu = new VBox(SPACING);
 
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
 
-		clearScreen = new Button (myResourceBundle.getString("Clear"));
-		clearScreen.setOnAction(e->{
-			inputView.clearScreen(turtleCanvas, WIDTH, HEIGHT);;
-		});
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
@@ -105,8 +100,8 @@ public class View extends AlertDisplayer {
 			}
 		});
 
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clearScreen, penWidthBox, backgroundLabel, 
-				backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), penWidthBox, backgroundLabel, 
+				backgroundColorChooser, lineColorLabel, strokeColorChooser, clear);
 		RightMenu.setAlignment(Pos.CENTER);
 		return RightMenu;
 	}
@@ -116,13 +111,12 @@ public class View extends AlertDisplayer {
 	 * @param submit
 	 * @return Menu
 	 */
-	private TabPane initializeControlTabs(Button submit){
+	private TabPane initializeControlTabs(Button submit, Button clear){
 
 		TabPane Menu = new TabPane();
 		Tab controlTab = new Tab();
 		controlTab.setText(myResourceBundle.getString("Control"));
-		controlTab.setContent(initializeRightMenu(submit));
-
+		controlTab.setContent(initializeRightMenu(submit, clear));
 		Tab historyTab = new Tab();
 		historyTab.setText(myResourceBundle.getString("History"));
 
@@ -132,12 +126,26 @@ public class View extends AlertDisplayer {
 		Menu.getTabs().addAll(controlTab , historyTab);
 		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		return Menu;
+
+	}
+
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 * 
+	 */
+	public void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+		
+		
+		//turtleCanvas = turtleView.initializeGraphicContent();
+
 	}
 
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
-	 * @return MenuBar
+	 * @return a MenuBar with control buttons
 	 */
 	private MenuBar createMenu(){
 		MenuBar menuBar = new MenuBar();
@@ -170,7 +178,7 @@ public class View extends AlertDisplayer {
 	}
 
 	/**
-	 * Opens up the help page in a web browser. If there are errors, display error message
+	 * Opens up the help page in a web browser. If there are errors, display error message.
 	 */
 	private void displayHelpPage(){
 		URL url = getClass().getResource("help.html");

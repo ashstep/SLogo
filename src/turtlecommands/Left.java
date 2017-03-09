@@ -3,7 +3,6 @@ package turtlecommands;
 import turtle.ArgumentNumberException;
 import java.util.List;
 
-import parser.Node;
 import turtle.TurtleState;
 
 public class Left extends TurtleCommand {

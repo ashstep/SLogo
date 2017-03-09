@@ -34,7 +34,7 @@ public class InputView implements IInputView {
 
 	private int SPACING = 10;
 
-	/* (non-Javadoc)
+	/**
 	 * @see visuals.IInputView#initializeTextArea(javafx.scene.control.Button, java.util.ResourceBundle)
 	 */
 	@Override
@@ -53,7 +53,7 @@ public class InputView implements IInputView {
 		return Menu;
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see visuals.IInputView#getCommandString()
 	 */
 	@Override
@@ -61,7 +61,7 @@ public class InputView implements IInputView {
 		return userInput.getText();
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see visuals.IInputView#initializeColorPicker()
 	 */
 	@Override
@@ -72,9 +72,7 @@ public class InputView implements IInputView {
 	}
 	
 	/**
-	 * User can input a number to set the width of the
-	 * turtle's pen
-	 * @return a TextField for inputting the desired size
+	 * @see visuals.IInputView#initializeTextArea(Button, ResourceBundle)
 	 */
 	@Override
 	public TextField initializePenWidthController(String prompt){
@@ -83,7 +81,7 @@ public class InputView implements IInputView {
 		return penWidthBox;
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see visuals.IInputView#setBackground(javafx.scene.control.ColorPicker, javafx.scene.layout.Pane)
 	 */
 	@Override
@@ -96,7 +94,7 @@ public class InputView implements IInputView {
 		});
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see visuals.IInputView#setStroke(javafx.scene.control.ColorPicker, javafx.scene.canvas.GraphicsContext)
 	 */
 	@Override
@@ -109,7 +107,7 @@ public class InputView implements IInputView {
 	}
 	
 	/**
-	 * Clears the TurtleView screen (left side of the GUI)
+	 * @see visuals.IInputView#clearScreen(Canvas, int, int)
 	 */
 	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){
 		canvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);

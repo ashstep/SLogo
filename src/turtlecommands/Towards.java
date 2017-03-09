@@ -16,7 +16,19 @@ public class Towards extends Command {
 		List<Double> args = getArgs();
 		double x = args.get(0) - state.getX();
 		double y = args.get(1) - state.getY();
-		double angle = Math.atan(y/x);
+		
+		double angle = 0;
+		if(x != 0){
+			angle = Math.atan(y/x)*180/Math.PI;
+			if(angle == 0 && x < 0){
+				angle = state.getAngle() + 180;
+			}
+		} else if (y > 0) {
+			angle = state.getAngle() - 90;
+		} else if (y < 0) {
+			angle = state.getAngle() + 90;
+		}
+		System.out.println(angle);
 		setReturnVal(angle - state.getAngle());
 		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
 	}
