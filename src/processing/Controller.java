@@ -10,8 +10,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
@@ -49,6 +53,9 @@ public class Controller extends ErrorDisplayer {
 		parser = new CommandParser();
 		turtle = new Turtle();
 		
+		ImageName = DEFAULT_IMAGE; 
+		myImageFile = new File(DEFAULT_IMAGE); 
+		
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		buildSplashPage();
 		
@@ -79,8 +86,8 @@ public class Controller extends ErrorDisplayer {
 		}
 	}
 
-		ImageName = DEFAULT_IMAGE; 
-		myImageFile = new File(DEFAULT_IMAGE); 
+	private void buildSplashPage(){
+		ComboBox<String> languageSelector = buildComboBox();
 		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
