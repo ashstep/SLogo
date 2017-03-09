@@ -4,10 +4,12 @@ import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -66,6 +68,18 @@ public class InputView implements IInputView {
 		colorPicker.setMaxWidth(View.WIDTH * (0.4));
 		return colorPicker;
 	}
+	
+	/**
+	 * User can input a number to set the width of the
+	 * turtle's pen
+	 * @return a TextField for inputting the desired size
+	 */
+	@Override
+	public TextField initializePenWidthController(String prompt){
+		TextField penWidthBox = new TextField();
+		penWidthBox.setPromptText(prompt);
+		return penWidthBox;
+	}
 
 	/* (non-Javadoc)
 	 * @see visuals.IInputView#setBackground(javafx.scene.control.ColorPicker, javafx.scene.layout.Pane)
@@ -92,4 +106,11 @@ public class InputView implements IInputView {
 		});
 	}
 	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 */
+	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){
+		canvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		canvas.getGraphicsContext2D().beginPath();
+	}
 }

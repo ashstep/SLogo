@@ -3,6 +3,7 @@ package visuals;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,7 @@ import javafx.scene.layout.VBox;
 /**
  * A ScrollPane that contains Buttons with commands previously 
  * input into the command Prompt for a SLogo program.
- * Buttons can be clicked to reload the corresponding command
+ * Buttons can be clicked to rerun the corresponding command
  * 
  * @author Christian Martindale
  *
@@ -31,6 +32,7 @@ public class History {
 		myHistory.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		myContents = new VBox(10);
+		myContents.setAlignment(Pos.CENTER);
 		
 		myHistory.setContent(myContents);
 		myCommandButtons = new ArrayList<Button>();
