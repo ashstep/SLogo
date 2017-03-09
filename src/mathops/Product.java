@@ -5,6 +5,8 @@ import turtle.TurtleState;
 import turtle.Command;
 import java.util.List;
 
+import parser.Node;
+
 public class Product extends Command {
 	
 	@Override
@@ -18,5 +20,13 @@ public class Product extends Command {
 	@Override
 	public int getNumArgs() {
 		return 2;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
+		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
+		setReturnVal(arg0 * arg1);
+		return getReturnVal();
 	}
 }

@@ -19,11 +19,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import parser.CommandParser;
 import parser.Node;
-import sun.util.locale.LocaleUtils;
+import turtle.ArgumentNumberException;
 import turtle.Command;
 import turtle.Turtle;
+import turtle.TurtleState;
 import visuals.SplashPage;
 
 /**
@@ -41,7 +43,7 @@ public class Controller extends ErrorDisplayer {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private String language = "English";
 	private CommandParser parser;
-	private Turtle turtle;
+	private static Turtle turtle;
 	private File myImageFile;
 	private String ImageName;
 	private Alert alert;
@@ -146,7 +148,7 @@ public class Controller extends ErrorDisplayer {
 			parseCommands(theView.getCommandString());
 		}
 		catch(Exception e){
-			createErrorMessage("Please input a command before pressing submit.");
+			createErrorMessage("Command not recognized");
 		}
 		
 	}
@@ -190,7 +192,8 @@ public class Controller extends ErrorDisplayer {
 	 */
 	private void parseCommands(String cmd){
 
-		System.out.println("command to be parsed: " +cmd);
+		//new:
+		System.out.println("(in cotroller) command to be parsed: " +cmd);
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
@@ -199,13 +202,22 @@ public class Controller extends ErrorDisplayer {
 		try {
 			command.treeArgs(starting);
 			turtle.process(command);
+			
+			//newest:::
+			//valuesForSequentialCommandExecution
+			//		phelper.valuesForSequentialCommandExecution(commands)
 
-		} catch (Exception e) {
-			theView.createErrorMessage(e.getClass().toString());
+
+		} catch (ArgumentNumberException e) {
+			createErrorMessage("Improper number of arguments");
 		}
 
 		theView.updateTurtle(turtle.getState());
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
+	}
+	
+	public static TurtleState getTurtleState(){
+		return turtle.getState();
 	}
 }
