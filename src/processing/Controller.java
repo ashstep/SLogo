@@ -123,9 +123,6 @@ public class Controller extends ErrorDisplayer {
 			
 			theView = new View(myImageFile, submit, clearScreen, myResourceBundle);
 			
-			
-			theView.updateTurtle(turtle.getState());
-			
 			//When user clicks on Canvas, move turtle there
 			theView.getTurtleCanvas().setOnMouseClicked(e ->{
 				Double clickXCoord = e.getX();

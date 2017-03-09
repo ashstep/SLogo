@@ -44,13 +44,13 @@ public class TurtleView implements ITurtleView{
 	 * @see visuals.IITurtleView#initializeTurtle(java.io.File)
 	 */
 	@Override
-	public ImageView initializeTurtle(File myImageFile, int width, int height){
+	public ImageView initializeTurtle(File myImageFile){
 		
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 		
-		turtleXPos = width/4;
-		turtleYPos = height/2;
+		turtleXPos = WIDTH/2;
+		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 		
 		System.out.println("initial turtleXPos:" + turtleXPos);

@@ -62,7 +62,7 @@ public class View extends ErrorDisplayer {
 		this.myResourceBundle = myResourceBundle;
 
 		turtleCanvas = turtleView.initializeGraphicContent(WIDTH, HEIGHT);
-		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile, WIDTH, HEIGHT));
+		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
 
 		BP.setLeft(SP);
 		BP.setRight(initializeControlTabs(submit, clear));

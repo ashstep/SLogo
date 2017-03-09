@@ -14,7 +14,7 @@ interface ITurtleView {
 	 */
 	Canvas initializeGraphicContent(int width, int height);
 
-	ImageView initializeTurtle(File myImageFile, int width, int height);
+	ImageView initializeTurtle(File myImageFile);
 
 	/**
 	 * Filler method just to test if the line is displayed properly
