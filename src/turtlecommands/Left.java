@@ -3,9 +3,8 @@ package turtlecommands;
 import turtle.ArgumentNumberException;
 import java.util.List;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class Left extends Command {
+public class Left extends TurtleCommand {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

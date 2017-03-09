@@ -2,9 +2,8 @@ package turtlecommands;
 //to delete??
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class Constant extends Command {
+public class Constant extends TurtleCommand {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -17,5 +16,5 @@ public class Constant extends Command {
 	@Override
 	public int getNumArgs() {
 		return 0;
-	}	
+	}
 }

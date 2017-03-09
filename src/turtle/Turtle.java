@@ -14,7 +14,7 @@ public class Turtle {
 		state = new TurtleState(200, 300, 0, false, true);
 	}
 	
-	public void process(Command c) throws CommandProcessException, ArgumentNumberException{
+	public void process(Command c) throws ArgumentNumberException{
 		state = c.run(state);
 	}
 	

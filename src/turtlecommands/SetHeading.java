@@ -2,6 +2,9 @@ package turtlecommands;
 
 import turtle.ArgumentNumberException;
 import java.util.List;
+
+import parser.Node;
+import processing.Controller;
 import turtle.TurtleState;
 import turtle.Command;
 
@@ -18,5 +21,12 @@ public class SetHeading extends Command {
 	@Override
 	public int getNumArgs() {
 		return 1;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		TurtleState state = Controller.getTurtleState();
+		setReturnVal(n.getSpecificChild(0).getCommandObject().getReturnVal() - state.getAngle());
+		return getReturnVal();
 	}	
 }
