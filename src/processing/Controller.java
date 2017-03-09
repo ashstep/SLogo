@@ -170,14 +170,9 @@ public class Controller extends ErrorDisplayer {
 
 		//new:
 		System.out.println("(in cotroller) command to be parsed: " +cmd);
-		//Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
-		//Command command = starting.getCommandObject();
-		
-		//newest:
-		phelper.valuesForSequentialCommandExecution(commands);
+		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
+		Command command = starting.getCommandObject();
 
-		
-		
 		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 		//old test
@@ -189,7 +184,11 @@ public class Controller extends ErrorDisplayer {
 			//turtle.process(command);
 			command.treeArgs(starting);
 			turtle.process(command);
-			valuesForSequentialCommandExecution
+			
+			//newest:::
+			//valuesForSequentialCommandExecution
+			//		phelper.valuesForSequentialCommandExecution(commands)
+
 
 		} catch (Exception e) {
 			theView.createErrorMessage(e.getClass().toString());

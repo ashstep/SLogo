@@ -7,25 +7,37 @@ public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
 	String lang;
 
-	//returns new command parsing builder
+	//constructor??
+	
+	
+    /**
+     * Initializes a new command parsing builder
+     *
+     * @return the newly initialized ParseTreeBuilder
+     */
     private CommandParser initTreeCreation() {
-    	
     	CommandParser newParse = new CommandParser();
     	return newParse;
-    }
+    	}
 
 
-    //propogates value up the tree
+
+    /**
+     * Builds a tree to be parse with commands
+     * @param commands String array representing commands
+     * @return Double for result of each execution
+     */
+
     private double buildTree(String[] commandListInput) {
     	//TO DO: check for errors?
-		System.out.println("just in PARSERHELPER ");
+    	System.out.println("started PARSERHELPER");
     	//initialize tree building
     	CommandParser newTreeParse = initTreeCreation();
     	//head node of the tree for current command
     	Node headNode = newTreeParse.initTreeRecurse(commandListInput);
     	try { 
     		System.out.println("PARSERHELPER the string of headnode: "+ headNode.getCommand());
-            //returning thiss:   (if pass in a node) headNode.getCommandObject().executeCommand(headNode);
+            //returning this:   (if pass in a node) headNode.getCommandObject().executeCommand(headNode);
 
     		CommandTypeMap theCommand = new CommandTypeMap(lang);
     		String headCommand = headNode.getCommand();
@@ -48,17 +60,9 @@ public class ParserHelper {
      * Executes the TOTAL actions for all commands
      *
      * @param commands a String array containing the commands issued from the editor
-     * @return an ArrayList of doubles containing the results from executing the commands
+     * @return an List of doubles containing the results from executing the commands
      */
-
     public double valuesForSequentialCommandExecution(String[] commands) {
         return buildTree(commands);
     }
-
-    
-    
-    
-    
-    
-
 }
