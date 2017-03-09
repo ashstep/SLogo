@@ -76,7 +76,7 @@ public class View extends ErrorDisplayer {
 
 	/**
 	 * Initialize the right side which has all the controls for the GUI
-	 * @return
+	 * @return a VBox with the Menu controls
 	 */
 	private VBox initializeRightMenu(Button submit, Button clear) {
 		VBox RightMenu = new VBox(SPACING);
@@ -133,7 +133,7 @@ public class View extends ErrorDisplayer {
 
 	/**
 	 * Clears the TurtleView screen (left side of the GUI)
-	 * not done yet help
+	 * 
 	 */
 	public void clearScreen(){
 		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
@@ -147,7 +147,7 @@ public class View extends ErrorDisplayer {
 	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
-	 * @return MenuBar
+	 * @return a MenuBar with control buttons
 	 */
 	private MenuBar createMenu(){
 		MenuBar menuBar = new MenuBar();
@@ -180,7 +180,7 @@ public class View extends ErrorDisplayer {
 	}
 
 	/**
-	 * Opens up the help page in a web browser. If there are errors, display error message
+	 * Opens up the help page in a web browser. If there are errors, display error message.
 	 */
 	private void displayHelpPage(){
 		URL url = getClass().getResource("help.html");

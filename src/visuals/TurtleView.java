@@ -26,7 +26,7 @@ public class TurtleView implements ITurtleView{
 	private double turtleAngle;
 
 
-	/* (non-Javadoc)
+	/** 
 	 * @see visuals.IITurtleView#initializeGraphicContent()
 	 */
 	@Override
@@ -37,7 +37,7 @@ public class TurtleView implements ITurtleView{
 		return TurtleView;
 	}
 	
-	/** (non-Javadoc)
+	/** 
 	 * @see visuals.IITurtleView#initializeTurtle(java.io.File)
 	 */
 	@Override
@@ -55,7 +55,7 @@ public class TurtleView implements ITurtleView{
 		return myTurtle;
 	}
 	
-	/* (non-Javadoc)
+	/** 
 	 * @see visuals.IITurtleView#drawTurtlePath(double, double, boolean)
 	 */
 	@Override
@@ -68,7 +68,7 @@ public class TurtleView implements ITurtleView{
 		myTurtleDrawer.moveTo(xPosition,yPosition);
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see visuals.IITurtleView#turtleInvisCloak(javafx.scene.image.ImageView, boolean)
 	 */
 	public void turtleInvisCloak(ImageView turtle, boolean turtleInvis){
@@ -79,14 +79,12 @@ public class TurtleView implements ITurtleView{
 		}
 	}
 	
-	/* (non-Javadoc)
+	/** 
 	 * @see visuals.IITurtleView#updateTurtle(turtle.TurtleState)
 	 */
 	@Override
 	public void updateTurtle(TurtleState newTurtle){
 		System.out.println("updateTurtle called");
-		
-		//stack.getChildren().remove(myTurtle);
 		
 		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
@@ -99,17 +97,13 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setX(turtleXPos);
 		myTurtle.setY(turtleYPos);
 		
-		//Bug fixed here - needs more work on the subtraction though
 		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
 		
-		myTurtle.setRotate(turtleAngle); //how does setRotate work? absolute or relative angles?
-
-		
+		myTurtle.setRotate(turtleAngle); 
+	
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );
-		
-		//stack.getChildren().add(myTurtle);
 		
 		System.out.println("final turtleXPos:" + turtleXPos);
 		System.out.println("final turtleYPos:" + turtleYPos);
