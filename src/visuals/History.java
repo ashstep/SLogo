@@ -3,6 +3,7 @@ package visuals;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +32,7 @@ public class History {
 		myHistory.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		myContents = new VBox(10);
+		myContents.setAlignment(Pos.CENTER);
 		
 		myHistory.setContent(myContents);
 		myCommandButtons = new ArrayList<Button>();
