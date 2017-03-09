@@ -24,16 +24,19 @@ public class TurtleView implements ITurtleView{
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
-
+	
+	public static int WIDTH;
+	public static int HEIGHT;
 
 	/* (non-Javadoc)
 	 * @see visuals.IITurtleView#initializeGraphicContent()
 	 */
 	@Override
 	public Canvas initializeGraphicContent(int width, int height) {
-		TurtleView = new Canvas (width*0.5, height);
+		WIDTH = (int) (width*0.5);
+		HEIGHT = (int) (height);
+		TurtleView = new Canvas (WIDTH, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
-
 		return TurtleView;
 	}
 	
@@ -42,12 +45,13 @@ public class TurtleView implements ITurtleView{
 	 */
 	@Override
 	public ImageView initializeTurtle(File myImageFile, int width, int height){
+		
+		String imagepath = myImageFile.toURI().toString();
+		myTurtle = new ImageView(new Image(imagepath));
+		
 		turtleXPos = width/4;
 		turtleYPos = height/2;
 		turtleAngle = 0;
-				
-		String imagepath = myImageFile.toURI().toString();
-		myTurtle = new ImageView(new Image(imagepath));
 		
 		System.out.println("initial turtleXPos:" + turtleXPos);
 		System.out.println("initial turtleYPos:" + turtleYPos);
@@ -90,8 +94,8 @@ public class TurtleView implements ITurtleView{
 		
 		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
-		turtleXPos = newTurtle.getX();
-		turtleYPos = newTurtle.getY();
+		turtleXPos = newTurtle.getX() + WIDTH/2;
+		turtleYPos = HEIGHT/2 - newTurtle.getY() + myTurtle.getBoundsInLocal().getHeight();
 
 		turtleAngle = newTurtle.getAngle();
 		

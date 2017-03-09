@@ -26,6 +26,7 @@ import turtle.Command;
 import turtle.Turtle;
 import turtle.TurtleState;
 import visuals.SplashPage;
+import visuals.TurtleView;
 
 /**
  * 
@@ -129,8 +130,9 @@ public class Controller extends ErrorDisplayer {
 			theView.getTurtleCanvas().setOnMouseClicked(e ->{
 				Double clickXCoord = e.getX();
 				Double clickYCoord = e.getY();
-				
-				parseCommands("setxy" + " " + clickXCoord.toString() + " " + clickYCoord.toString());
+				System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
+				parseCommands("setxy" + " " + (clickXCoord - TurtleView.WIDTH/2)
+						+ " " + (TurtleView.HEIGHT/2 - clickYCoord));
 			});
 			
 			
