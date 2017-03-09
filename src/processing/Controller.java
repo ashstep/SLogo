@@ -10,8 +10,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
@@ -41,11 +45,16 @@ public class Controller extends ErrorDisplayer {
 	private String ImageName;
 	private Alert alert;
 	private SplashPage splash;
+	
+	public static final String DEFAULT_IMAGE = "src/images/turtle01.png";
 
 	public Controller(Stage s){
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
+		
+		ImageName = DEFAULT_IMAGE; 
+		myImageFile = new File(DEFAULT_IMAGE); 
 		
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		buildSplashPage();
@@ -77,8 +86,8 @@ public class Controller extends ErrorDisplayer {
 		}
 	}
 
-		ImageName = "src/images/turtle01.png"; //default
-		myImageFile = new File("src/images/turtle01.png"); //default
+	private void buildSplashPage(){
+		ComboBox<String> languageSelector = buildComboBox();
 		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
@@ -93,7 +102,7 @@ public class Controller extends ErrorDisplayer {
 	 * Creates the main program view
 	 */
 	private void makeView(){
-		try{
+		
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 			submit.setMaxWidth(View.WIDTH / 2);
 			System.out.println("reached here");
@@ -116,10 +125,12 @@ public class Controller extends ErrorDisplayer {
 			
 			
 			theStage.setScene(theView.getScene());
-		}
+		
+		/*
 		catch (Exception e){
 			createErrorMessage("Please upload an file!");
 		}
+		*/
 	}
 
 	/**
