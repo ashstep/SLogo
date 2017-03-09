@@ -137,11 +137,17 @@ public class Controller extends ErrorDisplayer {
 	 * Sets the actions for the submit button in the command entry view
 	 */
 	private void submitActions(){
-		theView.getMyHistory().updateHistory(theView.getCommandString());
-		for(Button b:theView.getMyHistory().getMyButtons()){
-			b.setOnAction(q -> parseCommands(b.getText()));
+		try{
+			theView.getMyHistory().updateHistory(theView.getCommandString());
+			for(Button b:theView.getMyHistory().getMyButtons()){
+				b.setOnAction(q -> parseCommands(b.getText()));
+			}
+			parseCommands(theView.getCommandString());
 		}
-		parseCommands(theView.getCommandString());
+		catch(Exception e){
+			createErrorMessage("Please input a command before pressing submit.");
+		}
+		
 	}
 
 	/**
