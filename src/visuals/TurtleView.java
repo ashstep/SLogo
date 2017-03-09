@@ -33,9 +33,9 @@ public class TurtleView implements ITurtleView{
 	 */
 	@Override
 	public Canvas initializeGraphicContent(int width, int height) {
-		WIDTH = (int) (width*0.5);
-		HEIGHT = (int) (height);
-		TurtleView = new Canvas (WIDTH, HEIGHT);
+		WIDTH = width/2;
+		HEIGHT = height;
+		TurtleView = new Canvas(WIDTH, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
 		return TurtleView;
 	}
@@ -52,9 +52,6 @@ public class TurtleView implements ITurtleView{
 		turtleXPos = WIDTH/2;
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
-		
-		System.out.println("initial turtleXPos:" + turtleXPos);
-		System.out.println("initial turtleYPos:" + turtleYPos);
 		
 		return myTurtle;
 	}
@@ -88,12 +85,10 @@ public class TurtleView implements ITurtleView{
 	@Override
 	public void updateTurtle(TurtleState newTurtle){
 
-		
 		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
 		turtleXPos = newTurtle.getX() + WIDTH/2;
 		turtleYPos = HEIGHT/2 - newTurtle.getY() + myTurtle.getBoundsInLocal().getHeight();
-
 		turtleAngle = newTurtle.getAngle();
 		
 		//setting our turtle info
@@ -102,11 +97,8 @@ public class TurtleView implements ITurtleView{
 		
 		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
-		
 		myTurtle.setRotate(turtleAngle); 
 	
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
-
 	}
-	
 }

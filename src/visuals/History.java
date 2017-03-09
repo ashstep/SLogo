@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
  *
  */
 public class History implements IHistory{
-
 	
 	private ScrollPane myHistory;
 	private VBox myContents;
@@ -81,5 +80,4 @@ public class History implements IHistory{
 	public List<Button> getMyButtons(){
 		return myCommandButtons;
 	}
-	
 }

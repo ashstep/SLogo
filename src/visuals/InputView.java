@@ -86,6 +86,7 @@ public class InputView implements IInputView {
 	 */
 	@Override
 	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {
+		
 		backgroundColorChooser.setOnAction(e -> {
 			Paint fill = backgroundColorChooser.getValue();
 			BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
@@ -99,6 +100,7 @@ public class InputView implements IInputView {
 	 */
 	@Override
 	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
+		
 		strokeColorChooser.setOnAction(e -> {
 			Paint fill = strokeColorChooser.getValue();
 			gc.setStroke(fill);
@@ -110,6 +112,7 @@ public class InputView implements IInputView {
 	 * @see visuals.IInputView#clearScreen(Canvas, int, int)
 	 */
 	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){
+		
 		canvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
 		canvas.getGraphicsContext2D().beginPath();
 	}

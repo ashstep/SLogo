@@ -15,8 +15,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import parser.CommandParser;
 import parser.Node;
 import turtle.ArgumentNumberException;
@@ -39,23 +41,21 @@ public class Controller extends AlertDisplayer {
 	private Stage theStage;
 	private View theView;
 	private ResourceBundle myResourceBundle;
-	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-	private String DEFAULT_LANGUAGE_FILE = "src/resources/languages/Languages.properties";
 	private String language = "English";
 	private CommandParser parser;
 	private static Turtle turtle;
 	private File myImageFile;
-	private String ImageName;
-	private Alert alert;
 	private SplashPage splash;
-	public static final String DEFAULT_IMAGE = "src/images/turtle_default.png";
+	
+	private String DEFAULT_LANGUAGE_FILE = "src/resources/languages/Languages.properties";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+	private static final String DEFAULT_IMAGE = "src/images/turtle_default.png";
 
 	public Controller(Stage s){
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
 
-		ImageName = DEFAULT_IMAGE; 
 		myImageFile = new File(DEFAULT_IMAGE); 
 
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -63,30 +63,6 @@ public class Controller extends AlertDisplayer {
 
 		theStage.setScene(splash.getScene());
 		theStage.show();
-	}
-
-	/**
-	 * Creates the <code>ComboBox</code> to choose languages based 
-	 * on the list of languages in the properties file
-	 */
-	private ComboBox<String> buildComboBox(){
-		try{
-			BufferedReader fr = new BufferedReader(new FileReader(
-					new File(DEFAULT_LANGUAGE_FILE)));
-			List<String> myLanguages = fr.lines().collect(Collectors.toList());
-			fr.close();
-			ObservableList<String> languages = FXCollections.observableArrayList(myLanguages);	
-
-			ComboBox<String> languageSelector = new ComboBox<String>(languages);
-			languageSelector.valueProperty().addListener((obs, oVal, nVal) -> changeResourceBundle(nVal));
-			languageSelector.setPromptText(myResourceBundle.getString("ChooseLanguagePrompt"));
-			return languageSelector;
-		}
-		catch(Exception e){
-			createErrorMessage(myResourceBundle.getString("LanguageErrorPrompt"));
-			e.printStackTrace();
-			return new ComboBox<String>();
-		}
 	}
 
 	/**
@@ -104,6 +80,42 @@ public class Controller extends AlertDisplayer {
 
 		splash = new SplashPage(start, uploadImage, languageSelector);
 	}
+	
+	/**
+	 * Creates the <code>ComboBox</code> to choose languages based 
+	 * on the list of languages in the properties file
+	 */
+	private ComboBox<String> buildComboBox(){
+		
+		try{
+			//File IO - read list of languages
+			BufferedReader fr = new BufferedReader(new FileReader(
+					new File(DEFAULT_LANGUAGE_FILE)));
+			List<String> myLanguages = fr.lines().collect(Collectors.toList());
+			fr.close();
+			ObservableList<String> languages = FXCollections.observableArrayList(myLanguages);	
+
+			//Create ComboBox
+			ComboBox<String> languageSelector = new ComboBox<String>(languages);
+			languageSelector.valueProperty().addListener((obs, oVal, nVal) -> changeResourceBundle(nVal));
+			languageSelector.setPromptText(myResourceBundle.getString("ChooseLanguagePrompt"));
+			return languageSelector;
+		}
+		catch(Exception e){
+			createErrorMessage(myResourceBundle.getString("LanguageErrorPrompt"));
+			return new ComboBox<String>();
+		}
+	}
+	
+	/**
+	 * Changes the resource bundle to the newly selected language
+	 * @param newLanguage the language to switch to 
+	 */
+	private void changeResourceBundle(String newLanguage){
+		language = newLanguage;
+		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+	}
+
 
 	/**
 	 * Creates the main turtle program view.
@@ -112,7 +124,6 @@ public class Controller extends AlertDisplayer {
 		
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 			submit.setMaxWidth(View.WIDTH / 2);
-
 
 			//When history button is clicked, run its command automatically
 			submit.setOnAction(e -> {
@@ -128,17 +139,11 @@ public class Controller extends AlertDisplayer {
 			theView = new View(myImageFile, submit, clearScreen, myResourceBundle);
 			
 			//When user clicks on Canvas, move turtle there
-			theView.getTurtleCanvas().setOnMouseClicked(e ->{
-				Double clickXCoord = e.getX();
-				Double clickYCoord = e.getY();
-				System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
-				parseCommands("setxy" + " " + (clickXCoord - TurtleView.WIDTH/2)
-						+ " " + (TurtleView.HEIGHT/2 - clickYCoord));
+			theView.getTurtleCanvas().setOnMouseClicked(e -> {
+				clickActions(e);
 			});
 			
-			
 			theStage.setScene(theView.getScene());
-
 	}
 
 	/**
@@ -155,42 +160,45 @@ public class Controller extends AlertDisplayer {
 		catch(Exception e){
 			createErrorMessage(myResourceBundle.getString("ErrorPrompt"));
 		}
-
 	}
 
+	/**
+	 * Handle moving the turtle to mouse click location
+	 * @param e Click event
+	 */
+	private void clickActions(MouseEvent e){
+		Double clickXCoord = e.getX();
+		Double clickYCoord = e.getY();
+		System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
+		parseCommands("setxy" + " " + (clickXCoord - TurtleView.WIDTH/2)
+				+ " " + (TurtleView.HEIGHT/2 - clickYCoord));
+	}
+	
 	/**
 	 * Summons a window for the user to select a image file for the turtle
 	 */
 	public void chooseImage(){
+		
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(myResourceBundle.getString("SelectPrompt"));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
 		myImageFile= fileChooser.showOpenDialog(theStage);
+		
 		try{
-			ImageName = myImageFile.toURI().toString();
-			alert = createInformationMessage(myResourceBundle.getString("ImagePrompt"));
+			String ImageName = myImageFile.toURI().toString();
+			Alert alert = createInformationMessage(myResourceBundle.getString("ImagePrompt"));
 			ImageView myTurtle = new ImageView(new Image(ImageName));
 			alert.setGraphic(myTurtle);
 			alert.show();
 		}
 
 		catch (Exception e){
-			alert = new Alert(AlertType.ERROR, myResourceBundle.getString("SelectPrompt"));
+			Alert alert = new Alert(AlertType.ERROR, myResourceBundle.getString("SelectPrompt"));
 			alert.showAndWait();
 		}
-
 	}
-
-	/**
-	 * Changes the resource bundle to the newly selected language
-	 * @param newLanguage the language to switch to 
-	 */
-	private void changeResourceBundle(String newLanguage){
-		language = newLanguage;
-		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-	}
-
+	
 	/**
 	 * Sends a raw <code>String</code> to the <code>CommandParser</code> for parsing
 	 * @param cmd Raw command <code>String</code> input by the user
