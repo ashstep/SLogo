@@ -11,8 +11,8 @@ public class Backward extends TurtleCommand {
 		checkArgs();
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0));
-		return new TurtleState(state.getX() - Math.cos(state.getAngle())*args.get(0), 
-				state.getY() - Math.sin(state.getAngle())*args.get(0), 
+		return new TurtleState(state.getX() - Math.cos(state.getAngle()*Math.PI/180)*args.get(0), 
+				state.getY() - Math.sin(state.getAngle()*Math.PI/180)*args.get(0), 
 				state.getAngle(), state.isPenDown(), state.isVisible());
 	}
 

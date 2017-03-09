@@ -11,8 +11,8 @@ public class Forward extends TurtleCommand {
 		checkArgs();
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0));
-		double x = state.getX() + Math.cos(state.getAngle())*args.get(0);
-		double y = state.getY() + Math.sin(state.getAngle())*args.get(0);
+		double x = state.getX() + Math.cos(state.getAngle()*Math.PI/180)*args.get(0);
+		double y = state.getY() + Math.sin(state.getAngle()*Math.PI/180)*args.get(0);
 		return new TurtleState(x, y, state.getAngle(), state.isPenDown(), state.isVisible());
 	}
 

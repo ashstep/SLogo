@@ -4,6 +4,7 @@ import parser.Node;
 import processing.Controller;
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
+import visuals.View;
 import turtle.Command;
 
 public class Home extends Command {
@@ -11,7 +12,7 @@ public class Home extends Command {
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException{
 		checkArgs();
-		return new TurtleState(0, 0, 0, false, true);
+		return new TurtleState(View.WIDTH/2, View.HEIGHT/2, 0, false, true);
 	}
 
 	@Override

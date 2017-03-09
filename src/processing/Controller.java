@@ -196,7 +196,8 @@ public class Controller extends ErrorDisplayer {
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 
 		try {
 			command.treeArgs(starting);
@@ -212,8 +213,8 @@ public class Controller extends ErrorDisplayer {
 		}
 
 		theView.updateTurtle(turtle.getState());
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 	}
 	
 	public static TurtleState getTurtleState(){

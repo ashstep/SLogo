@@ -47,6 +47,8 @@ public class View extends ErrorDisplayer {
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
+	public static final int CANVAS_WIDTH = 400;
+	public static final int CANVAS_HEIGHT = 300;
 	private final int SPACING = 10;
 
 	private Canvas turtleCanvas;
