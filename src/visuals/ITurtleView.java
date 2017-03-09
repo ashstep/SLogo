@@ -12,9 +12,9 @@ interface ITurtleView {
 	 * Initialize the left size of the BorderPane (the Canvas) which displays the turtle movements
 	 * @return TurtleView
 	 */
-	Canvas initializeGraphicContent();
+	Canvas initializeGraphicContent(int width, int height);
 
-	ImageView initializeTurtle(File myImageFile);
+	ImageView initializeTurtle(File myImageFile, int width, int height);
 
 	/**
 	 * Filler method just to test if the line is displayed properly
