@@ -8,6 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import turtle.TurtleState;
 
+
+/**
+ * 
+ * @author Harry Liu and Christian Martindale
+ * The Canvas on which a SLogo turtle moves and displays
+ * its path. Part of a View.
+ *
+ */
 public class TurtleView implements ITurtleView{
 	
 	private Canvas TurtleView;

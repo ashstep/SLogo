@@ -37,6 +37,9 @@ public class Controller extends ErrorDisplayer {
 	private CommandParser parser;
 	private Turtle turtle;
 	private File myImageFile;
+	private Button uploadImage;
+	private String ImageName;
+	private Alert alert;
 	private SplashPage splash;
 
 	public Controller(Stage s){
@@ -74,11 +77,9 @@ public class Controller extends ErrorDisplayer {
 		}
 	}
 
-	/**
-	 * Creates the splash page
-	 */
-	private void buildSplashPage(){
-		ComboBox<String> languageSelector = buildComboBox();
+		ImageName = "src/images/turtle01.png"; //default
+		myImageFile = new File("src/images/turtle01.png"); //default
+		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
 
@@ -140,12 +141,20 @@ public class Controller extends ErrorDisplayer {
 		fileChooser.setTitle("Select a turtleImage");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
+		myImageFile= fileChooser.showOpenDialog(theStage);
 		
-		myImageFile = fileChooser.showOpenDialog(theStage);
-		myImageFile.toURI().toString();
-		if (myImageFile == null){
-			createErrorMessage("Please select an image!");
+			ImageName = myImageFile.toURI().toString();
+			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
+			ImageView myTurtle = new ImageView(new Image(ImageName));
+			alert.setGraphic(myTurtle);
+			alert.show();
+		
+		/*
+		catch (Exception e){
+			alert = new Alert(AlertType.ERROR, "Please select an image!");
+			alert.showAndWait();
 		}
+		*/
 	}
 
 	/**
