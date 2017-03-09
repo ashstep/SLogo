@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -105,4 +106,11 @@ public class InputView implements IInputView {
 		});
 	}
 	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 */
+	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){
+		canvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		canvas.getGraphicsContext2D().beginPath();
+	}
 }
