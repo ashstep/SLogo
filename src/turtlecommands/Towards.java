@@ -2,6 +2,8 @@ package turtlecommands;
 
 import turtle.ArgumentNumberException;
 import java.util.List;
+
+import parser.Node;
 import turtle.TurtleState;
 import turtle.Command;
 
@@ -21,5 +23,12 @@ public class Towards extends Command {
 	@Override
 	public int getNumArgs() {
 		return 2;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		// TODO Needs current turtle state to return the right value
+		setReturnVal(0);
+		return 0;
 	}
 }
