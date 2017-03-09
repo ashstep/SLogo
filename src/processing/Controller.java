@@ -10,8 +10,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import parser.CommandParser;
@@ -37,12 +41,20 @@ public class Controller extends ErrorDisplayer {
 	private CommandParser parser;
 	private Turtle turtle;
 	private File myImageFile;
+	private Button uploadImage;
+	private String ImageName;
+	private Alert alert;
 	private SplashPage splash;
+	
+	public static final String DEFAULT_IMAGE = "src/images/turtle01.png";
 
 	public Controller(Stage s){
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
+		
+		ImageName = DEFAULT_IMAGE; 
+		myImageFile = new File(DEFAULT_IMAGE); 
 		
 		myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 		buildSplashPage();
@@ -74,11 +86,9 @@ public class Controller extends ErrorDisplayer {
 		}
 	}
 
-	/**
-	 * Creates the splash page
-	 */
 	private void buildSplashPage(){
 		ComboBox<String> languageSelector = buildComboBox();
+		
 		Button start = new Button(myResourceBundle.getString("StartPrompt"));
 		start.setOnAction(event -> makeView());
 
@@ -92,7 +102,7 @@ public class Controller extends ErrorDisplayer {
 	 * Creates the main program view
 	 */
 	private void makeView(){
-		try{
+		
 			Button submit = new Button(myResourceBundle.getString("SubmitPrompt"));
 			submit.setMaxWidth(View.WIDTH / 2);
 			System.out.println("reached here");
@@ -115,10 +125,12 @@ public class Controller extends ErrorDisplayer {
 			
 			
 			theStage.setScene(theView.getScene());
-		}
+		
+		/*
 		catch (Exception e){
 			createErrorMessage("Please upload an file!");
 		}
+		*/
 	}
 
 	/**
@@ -140,12 +152,20 @@ public class Controller extends ErrorDisplayer {
 		fileChooser.setTitle("Select a turtleImage");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files",
 				"*.png", "*.jpg"));
+		myImageFile= fileChooser.showOpenDialog(theStage);
 		
-		myImageFile = fileChooser.showOpenDialog(theStage);
-		myImageFile.toURI().toString();
-		if (myImageFile == null){
-			createErrorMessage("Please select an image!");
+			ImageName = myImageFile.toURI().toString();
+			alert = new Alert(AlertType.INFORMATION, "You have selected the image above for this simulation");
+			ImageView myTurtle = new ImageView(new Image(ImageName));
+			alert.setGraphic(myTurtle);
+			alert.show();
+		
+		/*
+		catch (Exception e){
+			alert = new Alert(AlertType.ERROR, "Please select an image!");
+			alert.showAndWait();
 		}
+		*/
 	}
 
 	/**

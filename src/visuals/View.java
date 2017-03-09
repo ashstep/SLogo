@@ -14,6 +14,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -48,6 +50,7 @@ public class View extends ErrorDisplayer {
 	private Canvas turtleCanvas;
 	private ColorPicker backgroundColorChooser;
 	private ColorPicker strokeColorChooser;
+	private TextField penWidthBox;
 	
 	public View(File myImageFile, Button submit, ResourceBundle myResourceBundle) {
 		
@@ -88,7 +91,21 @@ public class View extends ErrorDisplayer {
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
 		
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clearScreen, backgroundLabel, backgroundColorChooser, lineColorLabel, strokeColorChooser);
+		penWidthBox = inputView.initializePenWidthController(myResourceBundle.getString("PenWidthPrompt"));
+		penWidthBox.setOnKeyPressed(e ->{
+			if(e.getCode() == KeyCode.ENTER){
+				try{
+					turtleCanvas.getGraphicsContext2D().setLineWidth(Double.parseDouble(penWidthBox.getText()));
+				}
+				catch(Exception fail){
+					createErrorMessage("Please input a valid double.");
+				}
+			}
+		});
+		
+		
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), backgroundLabel, 
+				backgroundColorChooser, lineColorLabel, strokeColorChooser, penWidthBox);
 		return RightMenu;
 	}
 	
