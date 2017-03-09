@@ -83,13 +83,7 @@ public class View extends ErrorDisplayer {
 
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
-		/*
-		clearScreen = new Button (myResourceBundle.getString("Clear"));
-		clearScreen.setOnAction(e->{
-			inputView.clearScreen(turtleCanvas, WIDTH, HEIGHT);;
-		});
-		8?
-		*/
+
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
