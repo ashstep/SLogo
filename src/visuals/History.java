@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  * @author Christian Martindale
  *
  */
-public class History {
+public class History implements IHistory{
 
 	
 	private ScrollPane myHistory;
@@ -39,9 +39,7 @@ public class History {
 	}
 	
 	/**
-	 * updates myHistory with the new
-	 * command Button
-	 * @param command the Button with a command String
+	 * @see visuals.IHistory#addButtonToHistory(Button)
 	 */
 	public void addButtonToHistory(Button command){
 		myContents.getChildren().add(command);
@@ -60,8 +58,8 @@ public class History {
 	}
 	
 	/**
-	 * updates the History class when a command is input
-	 * @param userInput user-input String
+	 * 
+	 * @see visuals.IHistory#updateHistory(String)
 	 */
 	public void updateHistory(String userInput){
 		Button newCommand = createHistoryButton(userInput);
@@ -70,15 +68,18 @@ public class History {
 		
 	}
 	
-	public ScrollPane getHistory(){
-		return myHistory;
-	}
-	public List<Button> getMyButtons(){
-		return myCommandButtons;
-	}
-
+	/**
+	 * @see visuals.IHistory#getMyContents()
+	 */
 	public Node getMyContents(){
 		return myContents;
+	}
+	
+	/**
+	 * @see visuals.IHistory#getMyButtons()
+	 */
+	public List<Button> getMyButtons(){
+		return myCommandButtons;
 	}
 	
 }

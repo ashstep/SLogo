@@ -15,4 +15,6 @@ We had to add a few methods to be initialized to our interface - pen width contr
 but their interactions with Controller and the View required them to be part of the API, instead of private
 to the View. These changes were not major because we made the change relatively early on, so it was easy to extend the new interface into the Controller. These changes are for the better because they allow for easy communication between Model and Controller in our MVC system, and were easy to implement without disturbing the backend. 
 
+We added a History interface. This was a pretty major change - we had planned for having a history, but did not realize that it would have to interact with other classes in our frontend and in Controller. This change is helpful for organization. 
+
 ## Backend API:
