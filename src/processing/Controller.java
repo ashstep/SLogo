@@ -143,7 +143,6 @@ public class Controller extends ErrorDisplayer {
 
 	/**
 	 * Sets the actions for the submit command button in the input view. 
-	 * 
 	 */
 	private void submitActions(){
 		try{
@@ -198,28 +197,21 @@ public class Controller extends ErrorDisplayer {
 	 */
 	private void parseCommands(String cmd){
 
-		//new:
-		System.out.println("(in cotroller) command to be parsed: " +cmd);
 		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
 		Command command = starting.getCommandObject();
 
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 		try {
 			command.treeArgs(starting);
 			turtle.process(command);
 			
-			//newest:::
-			//valuesForSequentialCommandExecution
-			//		phelper.valuesForSequentialCommandExecution(commands)
 
-
-		} catch (ArgumentNumberException e) {
+		}
+		catch (ArgumentNumberException e) {
 			createErrorMessage("Improper number of arguments");
 		}
 
 		theView.updateTurtle(turtle.getState());
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 	}
 	

@@ -49,8 +49,7 @@ public class TurtleView implements ITurtleView{
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 		
-		System.out.println("initial turtleXPos:" + turtleXPos);
-		System.out.println("initial turtleYPos:" + turtleYPos);
+
 		
 		return myTurtle;
 	}
@@ -62,7 +61,6 @@ public class TurtleView implements ITurtleView{
 	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){		
 		if(pen) {
 			myTurtleDrawer.lineTo(xPosition, yPosition);	
-			System.out.println("The Pen Is Drawn To"+ "X"+ xPosition + "Y"+ yPosition);
 			myTurtleDrawer.stroke();
 		}		
 		myTurtleDrawer.moveTo(xPosition,yPosition);
@@ -84,7 +82,7 @@ public class TurtleView implements ITurtleView{
 	 */
 	@Override
 	public void updateTurtle(TurtleState newTurtle){
-		System.out.println("updateTurtle called");
+
 		
 		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
@@ -103,12 +101,6 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setRotate(turtleAngle); 
 	
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
-		System.out.println("The status of the pen is: " + newTurtle.isPenDown() );
-		
-		System.out.println("final turtleXPos:" + turtleXPos);
-		System.out.println("final turtleYPos:" + turtleYPos);
-		
-		System.out.println("end of updateTurtle ");
 
 	}
 	
