@@ -1,6 +1,8 @@
 package mathops;
 
 import java.util.List;
+
+import parser.Node;
 import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 import turtle.Command;
@@ -18,5 +20,11 @@ public class ATan extends Command {
 	@Override
 	public int getNumArgs() {
 		return 1;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		setReturnVal(Math.atan(n.getSpecificChild(1).getCommandObject().getReturnVal()));
+		return getReturnVal();
 	}
 }

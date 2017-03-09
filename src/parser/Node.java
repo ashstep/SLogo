@@ -57,10 +57,6 @@ public class Node {
 	}
 
 	
-
-	
-	
-	
 	/**
 	 * @return returning an arraylist of the nodes subtrees 
 	 */

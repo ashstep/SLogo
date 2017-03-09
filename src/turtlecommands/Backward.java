@@ -3,9 +3,8 @@ package turtlecommands;
 import turtle.ArgumentNumberException;
 import java.util.List;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class Backward extends Command {
+public class Backward extends TurtleCommand {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {

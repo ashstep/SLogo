@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -84,8 +83,13 @@ public class View extends ErrorDisplayer {
 
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
-
-		
+		/*
+		clearScreen = new Button (myResourceBundle.getString("Clear"));
+		clearScreen.setOnAction(e->{
+			inputView.clearScreen(turtleCanvas, WIDTH, HEIGHT);;
+		});
+		8?
+		*/
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
@@ -127,7 +131,7 @@ public class View extends ErrorDisplayer {
 		myHistory = new History();
 		historyTab.setContent(myHistory.getMyContents());
 
-		Menu.getTabs().addAll(controlTab,historyTab);
+		Menu.getTabs().addAll(controlTab , historyTab);
 		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		return Menu;
 

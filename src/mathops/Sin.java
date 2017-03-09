@@ -5,6 +5,8 @@ import turtle.TurtleState;
 import turtle.Command;
 import java.util.List;
 
+import parser.Node;
+
 public class Sin extends Command {
 	
 	@Override
@@ -18,5 +20,11 @@ public class Sin extends Command {
 	@Override
 	public int getNumArgs() {
 		return 1;
+	}
+
+	@Override
+	public double findReturnVal(Node n) {
+		setReturnVal(Math.sin(n.getSpecificChild(0).getCommandObject().getReturnVal()));
+		return getReturnVal();
 	}
 }
