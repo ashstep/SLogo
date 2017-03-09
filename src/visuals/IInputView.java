@@ -2,6 +2,7 @@ package visuals;
 
 import java.util.ResourceBundle;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -47,5 +48,7 @@ interface IInputView {
 	void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc);
 
 	TextField initializePenWidthController(String prompt);
+	
+	void clearScreen(Canvas canvas, int WIDTH, int HEIGHT);
 
 }
