@@ -138,9 +138,6 @@ public class View extends ErrorDisplayer {
 	public void clearScreen(){
 		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
 		turtleCanvas.getGraphicsContext2D().beginPath();
-		
-		
-		//turtleCanvas = turtleView.initializeGraphicContent();
 
 	}
 
@@ -210,11 +207,11 @@ public class View extends ErrorDisplayer {
 	public void updateTurtle(TurtleState newTurtle){
 		turtleView.updateTurtle(newTurtle);
 	}
-
+	
 	public History getMyHistory(){
-		return myHistory;
+		return (History) myHistory;
 	}
-
+	
 	public Canvas getTurtleCanvas(){
 		return turtleCanvas;
 	}
