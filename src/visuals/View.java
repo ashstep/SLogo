@@ -42,7 +42,7 @@ public class View extends ErrorDisplayer {
 	private ResourceBundle myResourceBundle;
 	private IInputView inputView;
 	private ITurtleView turtleView;
-	private History myHistory;
+	private IHistory myHistory;
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
