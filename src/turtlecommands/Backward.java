@@ -1,7 +1,8 @@
 package turtlecommands;
 
-import turtle.ArgumentNumberException;
 import java.util.List;
+
+import command.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class Backward extends TurtleCommand {
@@ -14,10 +15,5 @@ public class Backward extends TurtleCommand {
 		return new TurtleState(state.getX() - Math.cos(state.getAngle()*Math.PI/180)*args.get(0), 
 				state.getY() - Math.sin(state.getAngle()*Math.PI/180)*args.get(0), 
 				state.getAngle(), state.isPenDown(), state.isVisible());
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 1;
 	}
 }

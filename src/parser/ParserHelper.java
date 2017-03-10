@@ -1,7 +1,6 @@
 package parser;
 
-import turtle.Command;
-//recursievly call command parser and create trees and execute ocmmands as you go 
+import command.Command;
 
 public class ParserHelper {
 	CommandTypeMap theCommandMapObject;

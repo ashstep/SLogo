@@ -1,13 +1,13 @@
 package mathops;
 
-import turtle.ArgumentNumberException;
-import turtle.TurtleState;
-import turtle.Command;
 import java.util.List;
 
+import command.ArgumentNumberException;
+import command.OneArg;
 import parser.Node;
+import turtle.TurtleState;
 
-public class Sum extends Command{
+public class Sum extends OneArg {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -15,11 +15,6 @@ public class Sum extends Command{
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0) + args.get(1));
 		return state;
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 2;
 	}
 
 	@Override

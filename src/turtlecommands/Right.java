@@ -1,7 +1,8 @@
 package turtlecommands;
 
-import turtle.ArgumentNumberException;
 import java.util.List;
+
+import command.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class Right extends TurtleCommand {
@@ -13,10 +14,5 @@ public class Right extends TurtleCommand {
 		setReturnVal(args.get(0));
 		double angle = state.getAngle() + args.get(0);
 		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 1;
 	}
 }

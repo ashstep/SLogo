@@ -1,11 +1,12 @@
 package queries;
 
+import command.ArgumentNumberException;
+import command.ZeroArgs;
 import parser.Node;
 import processing.Controller;
-import turtle.ArgumentNumberException;
 import turtle.TurtleState;
 
-public class PenDownP extends TurtleQuery {
+public class PenDownP extends ZeroArgs {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException{

@@ -1,5 +1,7 @@
 package turtle;
 
+import command.ArgumentNumberException;
+import command.Command;
 
 /**
  * Object that holds state of on-screen turtle and processes <code>Command</code> objects

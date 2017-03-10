@@ -1,13 +1,13 @@
 package mathops;
 
-import turtle.ArgumentNumberException;
-import turtle.TurtleState;
-import turtle.Command;
 import java.util.List;
 
+import command.ArgumentNumberException;
+import command.TwoArgs;
 import parser.Node;
+import turtle.TurtleState;
 
-public class Remainder extends Command {
+public class Remainder extends TwoArgs {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -16,12 +16,7 @@ public class Remainder extends Command {
 		setReturnVal(args.get(0) % args.get(1));
 		return state;
 	}
-
-	@Override
-	public int getNumArgs() {
-		return 2;
-	}
-
+	
 	@Override
 	public double findReturnVal(Node n) {
 		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
