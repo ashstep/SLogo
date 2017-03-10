@@ -177,7 +177,7 @@ public class Controller extends AlertDisplayer {
 	/**
 	 * Summons a window for the user to select a image file for the turtle
 	 */
-	public void chooseImage(){
+	private void chooseImage(){
 		
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(myResourceBundle.getString("SelectPrompt"));
