@@ -33,7 +33,6 @@ public class CommandParser {
         //Base case
         if (addedNode.getNumberofChildren() == 0 ) {
             System.out.println("node has zero children  -> RETURN!!!!");
-            
             System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
             if(!isValidDouble(addedNode.getCommand())){
                 System.out.println("its not a constant -> arraylist");

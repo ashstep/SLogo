@@ -2,6 +2,14 @@ package parser;
 
 import java.util.ArrayList;
 
+
+/**
+ *  Recursievly call command parser and create trees and execute ocmmands as you go
+ * 
+ * @author Ashka Stephen
+ */
+
+
 public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
 	CommandParser newParse;
@@ -24,65 +32,43 @@ public class ParserHelper {
      */
 
     private double buildTree(String[] commandListInput) {
-    	//TO DO: check for errors?
     	System.out.println("started PARSERHELPER");
-    	
-    	
-    	
     	CommandParser newTreeParse = initTreeCreation();
-    	//head node of the tree for current command
 		System.out.println("right BEFORE tree is iniitalized");
 
-    	Node headNode = newTreeParse.initTreeRecurse(commandListInput);
     	ArrayList<Node> a = newTreeParse.getFinalArrayList();
-    	
     	//taking stuff from other and adding it here
     	for(int i =0; i< a.size(); i++){
     		finallist.add(a.get(i));
     	}
 		System.out.println("PARSERHELPER FINAL ARRAYLIST size " + finallist.size());
-
-    	
-    	
-		System.out.println("right aftter tree is iniitalized");
-		
 		System.out.println("geCommandListIndex is : " + newTreeParse.geCommandListIndex());
 		System.out.println("commandListInput length (sub 1 later) is:" + commandListInput.length );
 
 
 		while(newTreeParse.geCommandListIndex() < commandListInput.length - 1){
-			//we need to do this for all commands
 			newTreeParse.incrCommandListIndex();
-			//go to next one and redo
 			int newstart = newTreeParse.geCommandListIndex();
 			System.out.println("newTreeParse index start   " + newstart);
-			
 			int j = newstart;
-
-			System.out.println("loop starts at    " + j);
-			System.out.println("commandListInput.length    " + commandListInput.length);
-
 			int acount= 0;
 	        String[] abcd = new String[commandListInput.length-j];
 			System.out.println("new string is size " + abcd.length);
 
 			for(int i = j; i < commandListInput.length; i++){
-				System.out.println("entering in the loop " );
-				System.out.println("i is " + i);
-				System.out.println("commandListInput[i] is  " + commandListInput[i]);
 				abcd[acount] = commandListInput[i];
 				acount++;
 			}
-			
+			//print out each item of abcd
 			for (int i = 0; i< abcd.length; i++){
 				System.out.println("abcd[i] is  " + abcd[i]);
 			}
 			if(abcd.length == 1){
+				System.out.println("BREAK IINTIALIZED" );
+
 				return 0.0;
 			}
-			
 			System.out.println("this should work recurse");
-					
 			buildTree(abcd);
 
 		}
@@ -108,13 +94,8 @@ public class ParserHelper {
         return buildTree(commands);
     }
     
-
-	/**
-	 * Create List of commands (String) based on input
-	 * @param raw command line String input 
-	 * @return list of Strings 
-	 * NOTE: Integer/Double values will be Strings
-	 */    
+    
+	//for testing
 	public double parserhelperparsecommand(String commandLineInput) {
     	System.out.println("parserhelperparsecommand ");
 		String[] inputtedCommandsList = commandLineInput.split(" ");
