@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
-import turtle.Command;
+import command.Command;
 
 /**
  * Getting the correct command object

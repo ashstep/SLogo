@@ -1,9 +1,9 @@
 package turtlecommands;
 
+import command.OneArg;
 import parser.Node;
-import turtle.Command;
 
-public abstract class TurtleCommand extends Command {
+public abstract class TurtleCommand extends OneArg {
 	
 	@Override
 	public double findReturnVal(Node n) {
