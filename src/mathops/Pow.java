@@ -22,6 +22,7 @@ public class Pow extends TwoArgs {
 		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
 		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
 		setReturnVal(Math.pow(arg0, arg1));
+		System.out.println("pow return val: " + getReturnVal());
 		return getReturnVal();
 	}
 }
