@@ -2,8 +2,6 @@ package parser;
 
 import java.util.ArrayList;
 
-//recursievly call command parser and create trees and execute ocmmands as you go 
-
 public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
 	CommandParser newParse;
@@ -110,8 +108,13 @@ public class ParserHelper {
         return buildTree(commands);
     }
     
-    
-	//for testing
+
+	/**
+	 * Create List of commands (String) based on input
+	 * @param raw command line String input 
+	 * @return list of Strings 
+	 * NOTE: Integer/Double values will be Strings
+	 */    
 	public double parserhelperparsecommand(String commandLineInput) {
     	System.out.println("parserhelperparsecommand ");
 		String[] inputtedCommandsList = commandLineInput.split(" ");
