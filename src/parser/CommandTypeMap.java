@@ -37,10 +37,12 @@ public class CommandTypeMap{
 	 * Default constructor
 	 * @param String for input
 	 */
-	public CommandTypeMap(String lang) {
+	public CommandTypeMap(String lang, boolean set) {
 		mySymbols = new ArrayList<>();
-		addResourceBundlez(LANG + lang);
-		addResourceBundlez(SYNTAX);
+		if (set == true){
+			addResourceBundlez(LANG + lang);
+			addResourceBundlez(SYNTAX);
+		}
 	}
 	/**
 	 * Using reflection properties to get command object
@@ -48,7 +50,15 @@ public class CommandTypeMap{
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {
-		System.out.println("getCommandObj");
+		System.out.println("getCommandObj before: " + command);
+		
+		//hardcoded to make it work rn
+		if (command.equals("Constant")){
+			System.out.println("its a Constatnt" );
+			command = "turtlecommands." + command;
+			
+		}
+		System.out.println("getCommandObj after: " + command);
 
 		//added to chekc for contsantt
 	    ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
@@ -64,10 +74,7 @@ public class CommandTypeMap{
 		try {
 			System.out.println("CommandTypeMap: command being called for class is:  " + command);
 			System.out.println("before class called");
-
-
-
-			
+		
 			//previous
 			//Class<?> commandObjectClazz = Class.forName(command); 
 		
@@ -157,7 +164,4 @@ public class CommandTypeMap{
 	private boolean match(String command, Pattern regex) {
 		return regex.matcher(command).matches();
 	}
-
-
-
 }

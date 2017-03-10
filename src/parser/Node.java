@@ -1,7 +1,6 @@
 package parser;
 
 import java.util.ArrayList;
-
 import command.Command;
 
 /**
@@ -12,6 +11,7 @@ import command.Command;
 public class Node {
 	String myNodeCommandString;
 	ArrayList<Node> children;
+	//Node[] children;
 	int numChildren;
 	Command commandObject;	
 	Boolean isCommand = true;

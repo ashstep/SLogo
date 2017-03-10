@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 
 import parser.CommandParser;
 import parser.Node;
+import parser.ParserHelper;
 import turtle.Turtle;
 import turtle.TurtleState;
 import visuals.SplashPage;
@@ -47,6 +48,7 @@ public class Controller extends AlertDisplayer {
 	private static Turtle turtle;
 	private File myImageFile;
 	private SplashPage splash;
+	private ParserHelper parserhelper;
 	
 	private String DEFAULT_LANGUAGE_FILE = "src/resources/languages/Languages.properties";
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
@@ -56,6 +58,7 @@ public class Controller extends AlertDisplayer {
 		theStage = s;
 		parser = new CommandParser();
 		turtle = new Turtle();
+		parserhelper = new ParserHelper();
 
 		myImageFile = new File(DEFAULT_IMAGE); 
 
@@ -206,19 +209,32 @@ public class Controller extends AlertDisplayer {
 	 */
 	private void parseCommands(String cmd){
 
-		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
-		Command command = starting.getCommandObject();
-
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
-				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
-
+		System.out.println("(in controller) command line input to be parsed: " +cmd);
 		try {
-			command.treeArgs(starting);
-			turtle.process(command);
-		}
+			parserhelper.parserhelperparsecommand(cmd);
+            System.out.println("this is printing the list " + parser.getFinalArrayList());
+			
+			for(Node each : parserhelper.getFinalArrayList()){
+	            System.out.println("each node Command string ***** " + each.getCommand());
+				Command command = each.getCommandObject();
+	            for(int i = 0; i < command.getNumArgs(); i++ ){
+		            command.addArg(Double.parseDouble(each.getSpecificChild(0).getCommand()));
+	            }
+				command.treeArgs(each);
+	            System.out.println("gets here 2" );
+				turtle.process(command);
+	            System.out.println("gets here 4" );
+			}
+			//yo
+			parserhelper.resetArrayList();
+
+		} 
 		catch (ArgumentNumberException e) {
 			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));
 		}
+		
+		
+		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
 
 		theView.updateTurtle(turtle.getState());
 		
