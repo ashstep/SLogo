@@ -57,6 +57,8 @@ public class View extends AlertDisplayer {
 
 		inputView = new InputView();
 		turtleView = new TurtleView();
+		myHistory = new History();
+		
 		this.myResourceBundle = myResourceBundle;
 		turtleCanvas = turtleView.initializeGraphicContent(WIDTH, HEIGHT);
 		
@@ -102,21 +104,10 @@ public class View extends AlertDisplayer {
 	 * @return Menu
 	 */
 	private TabPane initializeControlTabs(Button submit, Button clear){
-
-		TabPane Menu = new TabPane();
-		Tab controlTab = new Tab();
-		controlTab.setText(myResourceBundle.getString("Control"));
-		controlTab.setContent(initializeRightMenu(submit, clear));
 		
-		Tab historyTab = new Tab();
-		historyTab.setText(myResourceBundle.getString("History"));
-		myHistory = new History();
-		historyTab.setContent(myHistory.getMyContents());
-
-		Menu.getTabs().addAll(controlTab , historyTab);
-		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		return Menu;
-
+		VBox rightMenu = initializeRightMenu(submit, clear);
+		TurtleTabs menu = new TurtleTabs(submit, clear, myResourceBundle, rightMenu, (History)myHistory);
+		return menu.getMyTabs();
 	}
 
 	/**
@@ -128,7 +119,6 @@ public class View extends AlertDisplayer {
 
 		Label backgroundLabel = new Label(myResourceBundle.getString("BackgroundColorPrompt"));
 		Label lineColorLabel = new Label (myResourceBundle.getString("LineColorPrompt"));
-
 
 		backgroundColorChooser = inputView.initializeColorPicker();
 		strokeColorChooser = inputView.initializeColorPicker();	
@@ -145,36 +135,12 @@ public class View extends AlertDisplayer {
 			}
 		});
 
-		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), penWidthBox, backgroundLabel, 
-				backgroundColorChooser, lineColorLabel, strokeColorChooser, clear);
-		RightMenu.setAlignment(Pos.CENTER);
+		RightMenu.getChildren().addAll(inputView.initializeTextArea(submit, myResourceBundle), clear, penWidthBox, backgroundLabel, 
+				backgroundColorChooser, lineColorLabel, strokeColorChooser);
+
 		return RightMenu;
 	}
 
-	/**
-	 * Create the Tab-menu and set the content for the tabs
-	 * @param submit
-	 * @return Menu
-	 */
-	private TabPane initializeControlTabs(Button submit, Button clear){
-
-		TabPane Menu = new TabPane();
-		Tab controlTab = new Tab();
-		controlTab.setText("Controls");
-		controlTab.setContent(initializeRightMenu(submit, clear));
-		
-		
-		Tab historyTab = new Tab();
-		historyTab.setText("History");
-
-		myHistory = new History();
-		historyTab.setContent(myHistory.getMyContents());
-
-		Menu.getTabs().addAll(controlTab , historyTab);
-		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		return Menu;
-
-	}
 
 	/**
 	 * Clears the TurtleView screen (left side of the GUI)
@@ -192,56 +158,11 @@ public class View extends AlertDisplayer {
 	 * @return a MenuBar with control buttons
 	 */
 	private MenuBar createMenu(){
-		MenuBar menuBar = new MenuBar();
-
-		Menu menuFile = new Menu(myResourceBundle.getString("FilePrompt"));
-
-		MenuItem menuItemExit = new MenuItem(myResourceBundle.getString("ExitPrompt"));
-		menuItemExit.setOnAction(e ->{
-			System.exit(0);
-		});
-
-		MenuItem menuItemNew = new MenuItem(myResourceBundle.getString("NewPrompt"));
-		menuItemNew.setOnAction(e ->{
-			Stage newStage = new Stage();
-			new Controller(newStage);
-		});
-
-		Menu menuHelp = new Menu (myResourceBundle.getString("HelpPrompt"));
-
-		MenuItem menuItemHelp = new MenuItem(myResourceBundle.getString("DocumentationPrompt"));
-		menuItemHelp.setOnAction(e -> {
-			displayHelpPage();
-		});
-
-		menuFile.getItems().addAll(menuItemExit, menuItemNew);
-		menuHelp.getItems().add(menuItemHelp);
-		menuBar.getMenus().addAll(menuFile, menuHelp);
-
-		return menuBar;
+		TurtleMenu menu = new TurtleMenu(myResourceBundle);
+		MenuBar turtleMenuBar = menu.getMenu();
+		return turtleMenuBar;
 	}
 	
-	/**
-	 * Opens up the help page in a web browser. If there are errors, display error message.
-	 */
-	private void displayHelpPage(){
-		URL url = getClass().getResource("help.html");
-		try {
-			Desktop.getDesktop().browse(url.toURI());
-		} catch(Exception e) {
-			createErrorMessage("Help page not found");
-		}
-	}
-	
-	/**
-	 * Clears the TurtleView screen (left side of the GUI)
-	 * 
-	 */
-	public void clearScreen(){
-		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
-		turtleCanvas.getGraphicsContext2D().beginPath();
-		//turtleCanvas = turtleView.initializeGraphicContent();
-	}
 
 	/**
 	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
@@ -264,7 +185,7 @@ public class View extends AlertDisplayer {
 	}
 	
 	public History getMyHistory(){
-		return (History) myHistory;
+		return (History)myHistory;
 	}
 	
 	public Canvas getTurtleCanvas(){

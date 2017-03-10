@@ -48,8 +48,6 @@ public class InputView implements IInputView {
 	
 		Menu.getChildren().addAll(userInput, submit);
 
-		Menu.setAlignment(Pos.CENTER);
-
 		return Menu;
 	}
 

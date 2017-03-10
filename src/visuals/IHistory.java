@@ -17,23 +17,23 @@ interface IHistory {
 	 * command Button
 	 * @param command the Button with a command String
 	 */
-	public void addButtonToHistory(Button command);
+	void addButtonToHistory(Button command);
 	
 	/**
 	 * updates the History class when a command is input
 	 * @param userInput user-input String
 	 */
-	public void updateHistory(String userInput);
+	void updateHistory(String userInput);
 	
 	/**
 	 * Getter for History command buttons
 	 * @return a Node representing the Contents of a History VBox
 	 */
-	public Node getMyContents();
+	Node getMyContents();
 	
 	/**
 	 * 
 	 * @return the Collection of Buttons representing History commands
 	 */
-	public List<Button> getMyButtons();
+	List<Button> getMyButtons();
 }
