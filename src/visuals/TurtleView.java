@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import processing.Controller;
 import turtle.TurtleState;
 
 
@@ -53,6 +54,7 @@ public class TurtleView implements ITurtleView{
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 		
+		updateTurtle(Controller.getTurtleState());
 		return myTurtle;
 	}
 	
