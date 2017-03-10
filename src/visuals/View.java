@@ -1,8 +1,7 @@
 package visuals;
+
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -23,9 +22,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import processing.AlertDisplayer;
 import processing.Controller;
 import turtle.TurtleState;
-import processing.ErrorDisplayer;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
@@ -34,7 +34,7 @@ import processing.ErrorDisplayer;
  * @author Harry Liu, Christian Martindale
  **/
 
-public class View extends ErrorDisplayer {
+public class View extends AlertDisplayer {
 
 	private BorderPane BP;
 	private StackPane SP;
@@ -57,21 +57,66 @@ public class View extends ErrorDisplayer {
 
 		inputView = new InputView();
 		turtleView = new TurtleView();
-		SP = new StackPane();
-		BP = new BorderPane();
 		this.myResourceBundle = myResourceBundle;
-
 		turtleCanvas = turtleView.initializeGraphicContent(WIDTH, HEIGHT);
-		SP.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile, WIDTH, HEIGHT));
-
-		BP.setLeft(SP);
-		BP.setRight(initializeControlTabs(submit, clear));
-		BP.setTop(createMenu());	
+		
+		SP = createStackPane(myImageFile);
+		BP = createBorderPane(submit, clear);
 		inputView.setBackground(backgroundColorChooser, BP);
 		inputView.setStroke(strokeColorChooser, turtleCanvas.getGraphicsContext2D());
 
 		theScene = new Scene(BP, WIDTH, HEIGHT);
 		theScene.getStylesheets().add(View.class.getResource("styles.css").toExternalForm());
+	}
+	
+	/**
+	 * Creates the <code>StackPane</code> that holds the turtle's image and its <code>Canvas</code>
+	 * @param myImageFile Turtle image
+	 * @return The <code>StackPane</code> that holds the turtle's image and its <code>Canvas</code>
+	 */
+	private StackPane createStackPane(File myImageFile){
+		
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
+		return pane;
+	}
+	
+	/**
+	 * Creates a <code>BorderPane</code> containing the submit and clear buttons
+	 * @param submit Submit button
+	 * @param clear Clear button
+	 * @return A <code>BorderPane</code> containing the submit and clear buttons
+	 */
+	private BorderPane createBorderPane(Button submit, Button clear){
+		
+		BorderPane pane = new BorderPane();
+		pane.setLeft(SP);
+		pane.setRight(initializeControlTabs(submit, clear));
+		pane.setTop(createMenu());	
+		return pane;
+	}
+	
+	/**
+	 * Create the Tab-menu and set the content for the tabs
+	 * @param submit
+	 * @return Menu
+	 */
+	private TabPane initializeControlTabs(Button submit, Button clear){
+
+		TabPane Menu = new TabPane();
+		Tab controlTab = new Tab();
+		controlTab.setText(myResourceBundle.getString("Control"));
+		controlTab.setContent(initializeRightMenu(submit, clear));
+		
+		Tab historyTab = new Tab();
+		historyTab.setText(myResourceBundle.getString("History"));
+		myHistory = new History();
+		historyTab.setContent(myHistory.getMyContents());
+
+		Menu.getTabs().addAll(controlTab , historyTab);
+		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		return Menu;
+
 	}
 
 	/**
@@ -95,7 +140,7 @@ public class View extends ErrorDisplayer {
 					turtleCanvas.getGraphicsContext2D().setLineWidth(Double.parseDouble(penWidthBox.getText()));
 				}
 				catch(Exception fail){
-					createErrorMessage("Please input a valid double.");
+					createErrorMessage(myResourceBundle.getString("ValidDoublePrompt"));
 				}
 			}
 		});
@@ -175,7 +220,7 @@ public class View extends ErrorDisplayer {
 
 		return menuBar;
 	}
-
+	
 	/**
 	 * Opens up the help page in a web browser. If there are errors, display error message.
 	 */
@@ -183,9 +228,19 @@ public class View extends ErrorDisplayer {
 		URL url = getClass().getResource("help.html");
 		try {
 			Desktop.getDesktop().browse(url.toURI());
-		} catch (IOException e) {
-		} catch (URISyntaxException e) {
+		} catch(Exception e) {
+			createErrorMessage("Help page not found");
 		}
+	}
+	
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 * 
+	 */
+	public void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+		//turtleCanvas = turtleView.initializeGraphicContent();
 	}
 
 	/**

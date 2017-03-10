@@ -62,10 +62,6 @@
 	-fx-padding: 10.0px;
 }
 
-.scroll-pane > .viewport {
-   -fx-background-color: transparent;
-}
-
 .text-area{
 	-fx-background-color:
    	linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),

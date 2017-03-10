@@ -25,34 +25,38 @@ import javafx.scene.text.Text;
 public class SplashPage {
 	
 	private Scene theScene;
-	private Button start;
-	private Text title;
-	private BorderPane root;
 	private String BACKGROUND = "sLogo.jpg";
 	private int WIDTH = 800;
 	private int HEIGHT = 600;
 	private int SPACING = 10;
 	
-	public SplashPage(Button startButton, Button uploadImage, ComboBox<String> languageSelector){
-		start = startButton;
-		title = new Text ("sLogo");
+	public SplashPage(Button startButton, Button uploadImage, ComboBox<String> languageSelector){		
+		
+		BorderPane root = new BorderPane();
+		VBox vbox = new VBox(SPACING);
+		Text title = new Text ("sLogo");
 		title.setId("title");
 		
-		VBox vbox = new VBox(SPACING);
-		vbox.getChildren().addAll(title, languageSelector, uploadImage, start);
+		vbox.getChildren().addAll(title, languageSelector, uploadImage, startButton);
 		vbox.setAlignment(Pos.CENTER);
 		
+		root.setCenter(vbox);
+		root.setBackground(buildBackground());
+		
+		theScene = new Scene(root, WIDTH, HEIGHT);
+		theScene.getStylesheets().add(SplashPage.class.getResource("styles.css").toExternalForm());
+	}
+
+	/**
+	 * Creates the background of the <code>SplashPage</code>
+	 * @return The <code>Background</code> of the <code>SplashPage</code>
+	 */
+	private Background buildBackground(){
 		Image image = new Image(getClass().getResourceAsStream(BACKGROUND));
 		BackgroundImage bgimg = new BackgroundImage(image, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		Background bg = new Background (bgimg);
-		
-		root = new BorderPane();
-		root.setCenter(vbox);
-		root.setBackground(bg);
-		
-		theScene = new Scene(root, WIDTH, HEIGHT);
-		theScene.getStylesheets().add(SplashPage.class.getResource("styles.css").toExternalForm());
+		return bg;
 	}
 	
 	/**
@@ -62,5 +66,4 @@ public class SplashPage {
 	public Scene getScene(){
 		return theScene;
 	}
-	
 }

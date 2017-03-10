@@ -17,12 +17,10 @@ interface ITurtleView {
 	/**
 	 * 
 	 * @param myImageFile the image selected by the user (Turtle)
-	 * @param width the width of the turtleView
-	 * @param height the height of the turtleView
 	 * @return an ImageView representing the turtle
 	 */
-	ImageView initializeTurtle(File myImageFile, int width, int height);
-
+	ImageView initializeTurtle(File myImageFile);
+	
 	/**
 	 * Draws the turtle's path as it moves on the Canvas
 	 * @param x the x-coordinate the turtle moves to

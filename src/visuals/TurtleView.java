@@ -24,16 +24,19 @@ public class TurtleView implements ITurtleView{
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
-
+	
+	public static int WIDTH;
+	public static int HEIGHT;
 
 	/** 
 	 * @see visuals.IITurtleView#initializeGraphicContent()
 	 */
 	@Override
 	public Canvas initializeGraphicContent(int width, int height) {
-		TurtleView = new Canvas (width*0.5, height);
+		WIDTH = width/2;
+		HEIGHT = height;
+		TurtleView = new Canvas(WIDTH, HEIGHT);
 		myTurtleDrawer = TurtleView.getGraphicsContext2D();
-
 		return TurtleView;
 	}
 	
@@ -41,15 +44,14 @@ public class TurtleView implements ITurtleView{
 	 * @see visuals.IITurtleView#initializeTurtle(java.io.File)
 	 */
 	@Override
-	public ImageView initializeTurtle(File myImageFile, int width, int height){
-		turtleXPos = width/4;
-		turtleYPos = height/2;
-		turtleAngle = 0;
-				
+	public ImageView initializeTurtle(File myImageFile){
+		
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
-		
 
+		turtleXPos = WIDTH/2;
+		turtleYPos = HEIGHT/2;
+		turtleAngle = 0;
 		
 		return myTurtle;
 	}
@@ -83,12 +85,10 @@ public class TurtleView implements ITurtleView{
 	@Override
 	public void updateTurtle(TurtleState newTurtle){
 
-		
 		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
-		turtleXPos = newTurtle.getX();
-		turtleYPos = newTurtle.getY();
-
+		turtleXPos = newTurtle.getX() + WIDTH/2;
+		turtleYPos = HEIGHT/2 - newTurtle.getY() + myTurtle.getBoundsInLocal().getHeight();
 		turtleAngle = newTurtle.getAngle();
 		
 		//setting our turtle info
@@ -97,11 +97,8 @@ public class TurtleView implements ITurtleView{
 		
 		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
-		
 		myTurtle.setRotate(turtleAngle); 
 	
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
-
 	}
-	
 }
