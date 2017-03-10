@@ -2,12 +2,12 @@ package mathops;
 
 import java.util.List;
 
+import command.ArgumentNumberException;
+import command.OneArg;
 import parser.Node;
-import turtle.ArgumentNumberException;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class ATan extends Command {
+public class ATan extends OneArg {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -15,11 +15,6 @@ public class ATan extends Command {
 		List<Double> args = getArgs();
 		setReturnVal(Math.atan(args.get(0)));
 		return state;
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 1;
 	}
 
 	@Override

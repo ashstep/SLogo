@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import command.ArgumentNumberException;
+import command.Command;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -21,8 +24,6 @@ import javafx.stage.Stage;
 
 import parser.CommandParser;
 import parser.Node;
-import turtle.ArgumentNumberException;
-import turtle.Command;
 import turtle.Turtle;
 import turtle.TurtleState;
 import visuals.SplashPage;

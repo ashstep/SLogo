@@ -1,7 +1,8 @@
 package parser;
 
 import java.util.ArrayList;
-import turtle.Command;
+
+import command.Command;
 
 /**
  * Node class will be used to hold parsed commands.

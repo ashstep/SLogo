@@ -1,6 +1,5 @@
 package turtlecommands;
-//to delete??
-import turtle.ArgumentNumberException;
+import command.ArgumentNumberException;
 import turtle.TurtleState;
 
 public class Constant extends TurtleCommand {

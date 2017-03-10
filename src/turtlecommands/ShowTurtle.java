@@ -1,21 +1,16 @@
 package turtlecommands;
 
+import command.ArgumentNumberException;
+import command.ZeroArgs;
 import parser.Node;
-import turtle.ArgumentNumberException;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class ShowTurtle extends Command {
+public class ShowTurtle extends ZeroArgs {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		return new TurtleState(state.getX(), state.getY(), state.getAngle(), state.isPenDown(), true);
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 0;
 	}
 
 	@Override

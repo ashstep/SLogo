@@ -2,12 +2,12 @@ package booleans;
 
 import java.util.List;
 
+import command.ArgumentNumberException;
+import command.TwoArgs;
 import parser.Node;
-import turtle.ArgumentNumberException;
-import turtle.Command;
 import turtle.TurtleState;
 
-public class EqualP extends Command {
+public class EqualP extends TwoArgs {
 
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -15,12 +15,6 @@ public class EqualP extends Command {
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0) == args.get(1) ? 1 : 0);
 		return state;
-	}
-
-	@Override
-	public int getNumArgs() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
