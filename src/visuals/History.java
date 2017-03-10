@@ -40,6 +40,7 @@ public class History implements IHistory{
 	/**
 	 * @see visuals.IHistory#addButtonToHistory(Button)
 	 */
+	@Override
 	public void addButtonToHistory(Button command){
 		myContents.getChildren().add(command);
 		myHistory.setContent(myContents);
@@ -60,6 +61,7 @@ public class History implements IHistory{
 	 * 
 	 * @see visuals.IHistory#updateHistory(String)
 	 */
+	@Override
 	public void updateHistory(String userInput){
 		Button newCommand = createHistoryButton(userInput);
 		myCommandButtons.add(newCommand);
@@ -70,6 +72,7 @@ public class History implements IHistory{
 	/**
 	 * @see visuals.IHistory#getMyContents()
 	 */
+	@Override
 	public Node getMyContents(){
 		return myContents;
 	}
@@ -77,6 +80,7 @@ public class History implements IHistory{
 	/**
 	 * @see visuals.IHistory#getMyButtons()
 	 */
+	@Override
 	public List<Button> getMyButtons(){
 		return myCommandButtons;
 	}

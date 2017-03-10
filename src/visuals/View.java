@@ -42,7 +42,7 @@ public class View extends AlertDisplayer {
 	private ResourceBundle myResourceBundle;
 	private IInputView inputView;
 	private ITurtleView turtleView;
-	private History myHistory;
+	private IHistory myHistory;
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -152,6 +152,41 @@ public class View extends AlertDisplayer {
 	}
 
 	/**
+	 * Create the Tab-menu and set the content for the tabs
+	 * @param submit
+	 * @return Menu
+	 */
+	private TabPane initializeControlTabs(Button submit, Button clear){
+
+		TabPane Menu = new TabPane();
+		Tab controlTab = new Tab();
+		controlTab.setText("Controls");
+		controlTab.setContent(initializeRightMenu(submit, clear));
+		
+		
+		Tab historyTab = new Tab();
+		historyTab.setText("History");
+
+		myHistory = new History();
+		historyTab.setContent(myHistory.getMyContents());
+
+		Menu.getTabs().addAll(controlTab , historyTab);
+		Menu.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		return Menu;
+
+	}
+
+	/**
+	 * Clears the TurtleView screen (left side of the GUI)
+	 * 
+	 */
+	public void clearScreen(){
+		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
+		turtleCanvas.getGraphicsContext2D().beginPath();
+
+	}
+
+	/**
 	 * Create Menu located at the top of the BorderPane. Contains options for opening a new window, closing the program,
 	 * and accessing the help page.
 	 * @return a MenuBar with control buttons
@@ -227,11 +262,11 @@ public class View extends AlertDisplayer {
 	public void updateTurtle(TurtleState newTurtle){
 		turtleView.updateTurtle(newTurtle);
 	}
-
+	
 	public History getMyHistory(){
-		return myHistory;
+		return (History) myHistory;
 	}
-
+	
 	public Canvas getTurtleCanvas(){
 		return turtleCanvas;
 	}
