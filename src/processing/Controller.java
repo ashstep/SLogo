@@ -206,7 +206,7 @@ public class Controller extends AlertDisplayer {
 	 */
 	private void parseCommands(String cmd){
 		try {
-			parserhelper.parserhelperparsecommand(cmd);
+			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
 	            //System.out.println("each node Command string ***** " + each.getCommand());
 				Command command = each.getCommandObject();
@@ -219,7 +219,7 @@ public class Controller extends AlertDisplayer {
 				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
 						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 			}
-			parserhelper.resetArrayList();
+			parserhelper.getFinalArrayList().clear();
 		} 
 		catch (ArgumentNumberException e) {
 			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));

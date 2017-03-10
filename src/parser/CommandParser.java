@@ -11,13 +11,20 @@ import command.Command;
  * @author Ashka Stephen
  */
 public class CommandParser {
-	private String language = "English";
+	
+	public CommandParser(String langu) {
+		super();
+		this.language = langu;
+	}
+
 	CommandTypeMap theCommandMapObject;
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 	private int commandIndex;
 	private static String[] myCommandsList;
+	private String language;
 	ArrayList<Node> finallist = new ArrayList<Node>();
 
+	
 
 	/**
 	 * Build tree recursively from the list of commands
@@ -73,9 +80,6 @@ public class CommandParser {
      */
     public Node initTreeRecurse(String[] commandList) {    	
     	myCommandsList = commandList;
-    	for(int i=0; i< myCommandsList.length; i++){
-    		System.out.println("in initreeRecurse myCommandsList[i] " + myCommandsList[i]);
-    	}
     	commandIndex = 0; 
     	return buildTree2();
     }
@@ -88,8 +92,10 @@ public class CommandParser {
     protected Node initNodeforTree2(String nodeString) {
     	CommandTypeMap theCommand = new CommandTypeMap(language);
     	Node created = new Node(nodeString);
+    	System.out.println(nodeString);
     	created.setCommand(nodeString);
     	String a = theCommand.getCommandString(nodeString);
+    	System.out.println("a");
     	Command c = theCommand.getCommandObj(a);
     	created.setCommandObject(c);
     	return created;
@@ -163,6 +169,7 @@ public class CommandParser {
 	 * @param variableNameWithColon String to which Double given needs to be saved
 	 */
 	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
+		System.out.println("a variable has been saved!");
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 		}

@@ -22,6 +22,7 @@ public class LessP extends TwoArgs {
 		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
 		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
 		setReturnVal(arg0 < arg1 ? 1 : 0);
+		System.out.println("for less than:" + getReturnVal());
 		return getReturnVal();
 	}
 }
