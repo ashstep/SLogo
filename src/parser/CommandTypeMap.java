@@ -64,9 +64,6 @@ public class CommandTypeMap{
 		try {
 			System.out.println("CommandTypeMap: command being called for class is:  " + command);
 			System.out.println("before class called");
-
-
-
 			
 			//previous
 			//Class<?> commandObjectClazz = Class.forName(command); 
@@ -91,11 +88,9 @@ public class CommandTypeMap{
 			} catch(Exception e) {
 				System.out.println("CommandTypeMap: constructor or obj  NOT found");
 
-				e.printStackTrace();
 			}
 		} catch(Exception e) {
 			System.out.println("Class NOT found");
-			e.printStackTrace();
 		}
 		return null;
 	}

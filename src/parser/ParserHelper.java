@@ -49,7 +49,6 @@ public class ParserHelper {
             		//.getCommandObj().executeCommand(parseTree);
     	} catch (IndexOutOfBoundsException e) { // not enough args given for a command
     		System.out.println("error in PARTSERHELPER execution");
-    		e.printStackTrace();
 
     	}
     	return 0.0; 
