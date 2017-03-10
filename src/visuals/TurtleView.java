@@ -3,6 +3,7 @@ package visuals;
 import java.io.File;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import processing.Controller;
@@ -50,8 +51,11 @@ public class TurtleView implements ITurtleView{
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 
+
+		
 		turtleXPos = WIDTH/2;
 		turtleYPos = HEIGHT/2;
+		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
 		turtleAngle = 0;
 		
 		updateTurtle(Controller.getTurtleState());
@@ -100,7 +104,10 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setTranslateX(turtleXPos - 200);
 		myTurtle.setTranslateY(turtleYPos - 400);
 		myTurtle.setRotate(turtleAngle); 
-	
+		
+		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
+		
+		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 	}
 }
