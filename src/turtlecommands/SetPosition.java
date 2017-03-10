@@ -1,14 +1,14 @@
 package turtlecommands;
 
-import turtle.ArgumentNumberException;
 import java.util.List;
 
+import command.ArgumentNumberException;
+import command.TwoArgs;
 import parser.Node;
 import processing.Controller;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class SetPosition extends Command {
+public class SetPosition extends TwoArgs {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
@@ -20,11 +20,6 @@ public class SetPosition extends Command {
 		setReturnVal(dist);
 		return new TurtleState(args.get(0), args.get(1), 
 				state.getAngle(), state.isPenDown(), state.isVisible());
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 2;
 	}
 
 	@Override

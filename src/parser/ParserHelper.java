@@ -1,67 +1,80 @@
 package parser;
 
-import turtle.Command;
-//recursievly call command parser and create trees and execute ocmmands as you go 
+import java.util.ArrayList;
 
+/**
+ *  Recursively call command parser and create trees and execute Commands as you go
+ * 
+ * @author Ashka Stephen
+ */
 public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
-	String lang;
+	CommandParser newParse;
+	ArrayList<Node> finalparserlist = new ArrayList<Node>();
 
-	//constructor??
-	
-	
-    /**
-     * Initializes a new command parsing builder
-     *
-     * @return the newly initialized ParseTreeBuilder
-     */
-    private CommandParser initTreeCreation() {
-    	CommandParser newParse = new CommandParser();
-    	return newParse;
-    	}
+	/**
+	 * Initializes a new command parsing builder
+	 */
+	private CommandParser initTreeCreation(String language) {
+		CommandParser newParse = new CommandParser(language);
+		return newParse;
+	}
+
+	/**
+	 * Creates a list to parse 
+	 * @param String raw command line input 
+	 */
+	public double parseCommand(String commandLineInput, String language) {
+		String[] newCommands = commandLineInput.split(" ");
+		return buildTree(newCommands, language );
+	}
+
+	/**
+	 * Builds a tree to be parse with commands
+	 * @param commands String array representing commands
+	 * @return Double for result of each execution
+	 */
+	private double buildTree(String[] commandListInput, String language) {
+		CommandParser newParse = initTreeCreation(language);
+		newParse.initTreeRecurse(commandListInput);
+		updateHeadNodeList(newParse);
+		if(newParse.geCommandListIndex() < commandListInput.length-1){
+			newParse.incrCommandListIndex();
+			String[] trimmedParse = trimCommands(commandListInput, newParse.geCommandListIndex());
+			
+			//debug: remove printing the vals of ABCD
+			for (int i = 0; i< trimmedParse.length; i++){
+				System.out.println("abcd[i] is  " + trimmedParse[i]);
+			}
+			
+			buildTree(trimmedParse, language);
+		}
+		//System.out.println(theCommandMapObject.getCommandObj(headNode.getCommand()).findReturnVal(headNode));
+		//theCommandMapObject.getCommandObj(headNode.getCommand()).findReturnVal(headNode);
+		return 0.0;
+	}
+
+	private String[] trimCommands(String[] originalCommandList, int start) {
+		int trimCount = 0;
+		String[] trimmed = new String[originalCommandList.length - start];
+		for(int i = start; i < originalCommandList.length; i++){
+			trimmed[trimCount] = originalCommandList[i];
+			trimCount++;
+		}
+		return trimmed;
+	}
 
 
+	private void updateHeadNodeList(CommandParser newParse) {
+		ArrayList<Node> a = newParse.getCurrentList();
+		for(int i =0; i< a.size(); i++){
+			finalparserlist.add(a.get(i));
+		}
+		System.out.println("PARSERHELPER FINAL ARRAYLIST size " + finalparserlist.size());
+	}
 
-    /**
-     * Builds a tree to be parse with commands
-     * @param commands String array representing commands
-     * @return Double for result of each execution
-     */
-
-    private double buildTree(String[] commandListInput) {
-    	//TO DO: check for errors?
-    	System.out.println("started PARSERHELPER");
-    	//initialize tree building
-    	CommandParser newTreeParse = initTreeCreation();
-    	//head node of the tree for current command
-    	Node headNode = newTreeParse.initTreeRecurse(commandListInput);
-    	try { 
-    		System.out.println("PARSERHELPER the string of headnode: "+ headNode.getCommand());
-            //returning this:   (if pass in a node) headNode.getCommandObject().executeCommand(headNode);
-
-    		CommandTypeMap theCommand = new CommandTypeMap(lang);
-    		String headCommand = headNode.getCommand();
-
-    		Command c =  theCommand.getCommandObj(headCommand);
-    		Double d = c.getReturnVal();
-            return d;
-            		//headNode.getCommandObject().valuesForSequentialCommandExecution(headNode);
-            		//.getCommandObj().executeCommand(parseTree);
-    	} catch (IndexOutOfBoundsException e) { // not enough args given for a command
-    		System.out.println("error in PARTSERHELPER execution");
-
-    	}
-    	return 0.0; 
-    }
-
-    
-    /**
-     * Executes the TOTAL actions for all commands
-     *
-     * @param commands a String array containing the commands issued from the editor
-     * @return an List of doubles containing the results from executing the commands
-     */
-    public double valuesForSequentialCommandExecution(String[] commands) {
-        return buildTree(commands);
-    }
+	public ArrayList<Node> getFinalArrayList () {
+		System.out.println("PARSERHELPER FINAL ARRAYLIST size " + finalparserlist.size());
+		return finalparserlist;
+	}
 }

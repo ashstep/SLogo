@@ -1,22 +1,17 @@
 package turtlecommands;
 
+import command.ArgumentNumberException;
+import command.ZeroArgs;
 import parser.Node;
-import turtle.ArgumentNumberException;
 import turtle.TurtleState;
-import turtle.Command;
 
-public class PenUp extends Command {
+public class PenUp extends ZeroArgs {
 	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		setReturnVal(0);
 		return new TurtleState(state.getX(), state.getY(), state.getAngle(), false, state.isVisible());
-	}
-
-	@Override
-	public int getNumArgs() {
-		return 0;
 	}
 
 	@Override

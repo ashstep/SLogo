@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import command.ArgumentNumberException;
+import command.Command;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -19,10 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import parser.CommandParser;
 import parser.Node;
-import turtle.ArgumentNumberException;
-import turtle.Command;
+import parser.ParserHelper;
 import turtle.Turtle;
 import turtle.TurtleState;
 import visuals.SplashPage;
@@ -42,10 +43,10 @@ public class Controller extends AlertDisplayer {
 	private View theView;
 	private ResourceBundle myResourceBundle;
 	private String language = "English";
-	private CommandParser parser;
 	private static Turtle turtle;
 	private File myImageFile;
 	private SplashPage splash;
+	private ParserHelper parserhelper;
 	
 	private String DEFAULT_LANGUAGE_FILE = "src/resources/languages/Languages.properties";
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
@@ -53,8 +54,8 @@ public class Controller extends AlertDisplayer {
 
 	public Controller(Stage s){
 		theStage = s;
-		parser = new CommandParser();
 		turtle = new Turtle();
+		parserhelper = new ParserHelper();
 
 		myImageFile = new File(DEFAULT_IMAGE); 
 
@@ -204,25 +205,25 @@ public class Controller extends AlertDisplayer {
 	 * @param cmd Raw command <code>String</code> input by the user
 	 */
 	private void parseCommands(String cmd){
-
-		Node starting = parser.initTreeRecurse(parser.treeTwoParseCommand(cmd));
-		Command command = starting.getCommandObject();
-
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
-				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
-
 		try {
-			command.treeArgs(starting);
-			turtle.process(command);
-		}
+			parserhelper.parseCommand(cmd, language);
+			for(Node each : parserhelper.getFinalArrayList()){
+	            //System.out.println("each node Command string ***** " + each.getCommand());
+				Command command = each.getCommandObject();
+				for(int i = 0; i < command.getNumArgs(); i++ ){
+					command.addArg(Double.parseDouble(each.getSpecificChild(0).getCommand()));
+				}
+				command.treeArgs(each);
+				turtle.process(command);
+				theView.updateTurtle(turtle.getState());
+				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
+			}
+			parserhelper.getFinalArrayList().clear();
+		} 
 		catch (ArgumentNumberException e) {
 			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));
 		}
-
-		theView.updateTurtle(turtle.getState());
-		
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
-				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 	}
 
 	public static TurtleState getTurtleState(){

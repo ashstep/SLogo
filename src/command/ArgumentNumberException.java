@@ -1,4 +1,4 @@
-package turtle;
+package command;
 
 public class ArgumentNumberException extends Exception {
 

@@ -2,365 +2,147 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import command.Command;
 
 /**
- * Parses inputted commands and calls relevant commands
+ *  Creates a tree for each command sequence
  * 
  * @author Ashka Stephen
- * 
- * TODO
- * currently works for 1 command -> need to created multiple trees/checks?
- * 
  */
 public class CommandParser {
+	
+	public CommandParser(String langu) {
+		super();
+		this.language = langu;
+	}
 
-//	private List<String> commandList;
-	private int indexofCommand = 0;
-	private int starting = 0;
-
-	private Boolean indexhasbeenset = false;
-
-	private String language = "English";
-
-	//detect commands:
 	CommandTypeMap theCommandMapObject;
-	// adding different variables and storing them with values
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
-
-	// TODO EXTRACT THIS to another class
-	private HashMap<String, Integer> validCommands = new HashMap<>();
-
-	// in case of a loop statement:
-
-	// in case of a conditional statement :
-	//private Boolean isConditional;
-
-
-	// map of the variables created to the values made with
-	private HashMap<String, Double> variable = new HashMap<>();
-	
-	private List<String>  commandList = new ArrayList<String>();
-	
+	private int commandIndex;
+	private static String[] myCommandsList;
+	private String language;
+	ArrayList<Node> finallist = new ArrayList<Node>();
 
 	
-	
-	
-	
-	//these are for testing the second tree 
-	private int indexintree2;
-    private static String[] myCommandsList;
-    private static String[] inputtedCommandsList;
-
-	
-	
-	/**
-	 * Create List of commands (String) based on input
-	 * @param raw command line String input 
-	 * @return list of Strings 
-	 * NOTE: Integer/Double values will be Strings
-	 */
-	public List<String> parseInputtedCommand(String commandLineInput) {
-		//resetCommand(); //added
-		//commandList = new ArrayList<String>();
-		String[] split = commandLineInput.split(" ");
-		for (int i = 0; i < split.length; i++) {
-			commandList.add(split[i]);
-		}
-		System.out.println("the command list is:");
-		System.out.println(commandList);
-		return commandList;
-	}
-	
-	private void resetCommand() {
-		//commandList.clear();
-		}
-	
-	//for testing new tree added -> changed to string array not arraylist
-	public String[] treeTwoParseCommand(String commandLineInput) {
-		String[] inputtedCommandsList = commandLineInput.split(" ");
-		return inputtedCommandsList;
-	}
-
 
 	/**
-	 * Get Nth value from list of commands
-	 * @param commandList of Strings and value n 
-	 * @return specified item on the inputted list of commands 
+	 * Build tree recursively from the list of commands
+	 * 
+	 * @return Node root of the new tree
 	 */
-	private String nthItemOfList(List<String> currCommandList, int n) {
-		return currCommandList.get(n);
+	public Node buildTree2() {
+        System.out.println("buildTree2 starting");
+        String theCurrentCommand = myCommandsList[commandIndex];
+        Node addedNode = initNodeforTree2(theCurrentCommand);
+        System.out.println("indexintree2  " + commandIndex );
+        System.out.println("added node to build tree 2 -----------");
+        //Base case
+        if (addedNode.getNumberofChildren() == 0 ) {
+            System.out.println("node has zero children  -> RETURN!!!!");
+            System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
+            if(!isValidDouble(addedNode.getCommand())){
+                System.out.println("its not a constant -> arraylist");
+                addtoFinalArrayList(addedNode);
+            }
+            return addedNode;	
+        }
+        for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
+        	commandIndex++;
+            System.out.println(commandIndex);
+            addedNode.addChild(buildTree2());
+        }
+        addtoFinalArrayList(addedNode);
+        return addedNode;
+	}
+	
+	private void addtoFinalArrayList(Node n){
+		finallist.add(n);
+        System.out.println("added a node to the final list. length == " + finallist.size());
+        Node last = finallist.get(finallist.size()-1);
+        String printtocheck = last.getCommand();
+        System.out.println("node added to finalarray: " + printtocheck);
 	}
 
+	/**
+	 * Creates an ArrayList of Nodes for the final compilation of commands to execute
+	 * @return ArrayList of Nodes 
+	 */
+    public ArrayList<Node> getCurrentList() {
+        System.out.println("getFinalArrayList of size " + finallist.size());
+        return finallist;
+    }
 
-
-
-
+    /**
+     * Initializes the recursion of the tree
+     * @param pass in the command list that has been split to initalize tree recurse on that
+     * @return Node
+     */
+    public Node initTreeRecurse(String[] commandList) {    	
+    	myCommandsList = commandList;
+    	commandIndex = 0; 
+    	return buildTree2();
+    }
 
 	/**
 	 * Initialize a new node
 	 * @param command String for the new Node
 	 * @return newly created Node
 	 */
-	protected Node initNewNode(String commandString) {
-		System.out.println("initNewNode for: "+ commandString);
-		CommandTypeMap theCommand = new CommandTypeMap(language);
-		Node created = new Node(commandString);
-		created.setCommand(commandString);
-		String a = theCommand.getCommandString(commandString);
-		System.out.println("String for getting command string: "+ a);
-
-		//theCommand.getCommandObj(a);
-		
-		created.setCommandObject(theCommand.getCommandObj(a));
-		System.out.println("created new node");
-
-		//created.setCommandObject(theCommand.getCommandObj(commandString));
-		return created;
-
-		
-		
-		
-		
-		
-		
-/*		System.out.println("initNewNode for: "+ commandString);
-
-		CommandTypeMap theCommand = new CommandTypeMap(language);
-		Node created = new Node(commandString);
-		System.out.println("initNewNode nodejust initlaized: ");
-
-		created.setCommand(commandString);
-		System.out.println("created.setCommand(commandString) ");
-
-		//String a = theCommand.getCommandString(commandString);
-		//this worked
-
-		//theCommand.getCommandObj(a);
-		//created.setCommandObject(theCommand.getCommandObj(a));
-		//created.setCommandObject(theCommand.getCommandObj(commandString));
-		System.out.println("commandString passed in was : "+commandString);
-		
-		System.out.println("theCommandMapObject.getCommandObj(commandString):  " + theCommandMapObject.getCommandObj(commandString));
-		created.setCommandObject(theCommandMapObject.getCommandObj(commandString));
-//        newNode.setCommandObj(myDetector.getCommandObj(currCommand));
-		System.out.println("created new noode  " );
-
-		return created;*/
-	}
-	
-	
-	
-	
-	protected Node initNewArgumentNode(String value) {
-		CommandTypeMap theCommand = new CommandTypeMap(language);
-		Node created = new Node(value);
-		created.setisNOTaCommand(); ///makes is have a false tag
-		return created;
-	}
-
-	
-	//toget the current index -> check if its equal to the end
-    public int geCommandListIndex() {
-        return indexintree2;
-    }
-	
-	
-	//test this
-    //this handles EACH SEPARATE COMMAND -> returns the action as you go 
-	public Node buildTree2() {
-        System.out.println("buildTree2 starting");
-        String theCurrentCommand = myCommandsList[indexintree2];
-        Node addedNode = initNodeforTree2(theCurrentCommand);
-        System.out.println("added node to build tree 2 -----------");
-
-
-        //baes case
-        if (addedNode.getNumberofChildren() == 0) {
-        	//another chekc? addedNode.checkifCommand() == false 
-            System.out.println("node has zero children or is not a command -> return");
-        	return addedNode;	
-        }
-        
-        
-        //else it has children ->iterate throgh
-        //for each of the children ->incrememt the index
-        for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
-        	//incrememt the index as u go -> since you are going through the list 
-            System.out.println("adding a child");
-        	indexintree2++;
-            System.out.println("index of list is -");
-            System.out.println(indexintree2);
-        	addedNode.addChild(buildTree2());
-        }
-        
-        //need to see how to clear???
-        //myMethodCaller.clearMethodBeingDefined(); // no longer defining method
-        return addedNode;
-	}
-	
-	//pass in the command list that has been split 
-    public Node initTreeRecurse(String[] commandList) {
-    	myCommandsList = commandList;
-    	System.out.println("initTreeRecurse starting for commandlist: " + myCommandsList);
-    	// index of current command
-    	indexintree2 = 0; 
-    	//create the tree
-    	return buildTree2();
-    }
-
     protected Node initNodeforTree2(String nodeString) {
-    	System.out.println("initNewNode for tree 2: "+ nodeString);
     	CommandTypeMap theCommand = new CommandTypeMap(language);
     	Node created = new Node(nodeString);
-    	if(isValidDouble(nodeString)){
-    		created.setisNOTaCommand(); ///makes is have a false tag
-    		System.out.println("arguemnt node -> tag set to false");
-
-    	}
-    	else{
-    		created.setCommand(nodeString);
-    		String a = theCommand.getCommandString(nodeString);
-    		System.out.println("back to initnode with comand string: "+ a);
-
-    		created.setCommandObject(theCommand.getCommandObj(a));
-    	}
-    	System.out.println("created new node");
-		return created;
+    	System.out.println(nodeString);
+    	created.setCommand(nodeString);
+    	String a = theCommand.getCommandString(nodeString);
+    	System.out.println("a");
+    	Command c = theCommand.getCommandObj(a);
+    	created.setCommandObject(c);
+    	return created;
     }
 
-
-
-
-
-
-	//need another class
-	//given a string -> __.get object (string)
-	//returns the command object
+    /**
+     * Checks if a String is a Double
+     * @param String to check validity of
+     * @return Boolean indicating whether String is a valid Double
+     */
+    private boolean isValidDouble(String string) {
+    	boolean isValid = true;
+    	try{
+    		double d = Double.parseDouble(string);
+    		isValid = true;
+    	}
+    	catch(NumberFormatException nfe){
+    		isValid = false;
+    	}
+    	return isValid;
+    }
+    
+    
 	/**
-	 * Build tree from the list of commands
-	 * 
-	 * @return root of the new tree
+	 * Getter for the command index 
 	 */
-	public Node buildTree() {
-		
-		
-		String currCommand = commandList.get(starting);
-		System.out.println("current string command for node (build tree):");
-		System.out.println(currCommand);
-		System.out.println("starting index is : ");
-		System.out.println(starting);
-
-
-		//Node rootNodeofTree = initNewNode(currCommand);
-
-		// CASE1: if the word is MAKE or SET
-		if (currCommand.toLowerCase().equals("set") || currCommand.toLowerCase().equals("make")) {
-			starting++;
-
-			String newVariable = commandList.get(starting);
-			starting++;
-			Double valuetoAdd = Double.parseDouble(commandList.get(starting));
-			// check if its a variable and that it's NOT in map -> add it
-			if ((isVariable(newVariable))) {
-				if (!isVariableinMap(newVariable)) {
-					addVariableToHashmap(newVariable, valuetoAdd);
-				}
-			}
-		}
-		
-		System.out.println("BULDTREE: passes initial for loop, about ot initialize ");
-		// DEFAULT CASE:
-		Node currCommandNode = initNewNode(currCommand);
-		System.out.println("node initialized");
-
-		
-		if ((currCommandNode.getCommandObject().getNumArgs()!= 0) && (indexhasbeenset==false)){
-			indexofCommand = currCommandNode.getCommandObject().getNumArgs();
-			System.out.println("indexhasbeenset as:");
-			System.out.println(indexofCommand);
-			indexhasbeenset=true;
-		}
-
-		// Base case for this command
-		if (indexofCommand == 0) {
-			System.out.println("base case of tree  -> indexofCommand is 0");
-			return currCommandNode;
-		}
-		
-		for(int i = 0; i < currCommandNode.getCommandObject().getNumArgs(); i++) {
-			System.out.println("has at least 1 child");
-			System.out.println("i IS");
-			System.out.println(i);
-
-			//get the children items -> add to child list
-			String toAdd = commandList.get(i+1);
-
-			
-			//if double, make node
-			if(isValidDouble(toAdd)){
-				Node doubleChild = initNewArgumentNode(toAdd);
-				currCommandNode.addChild(doubleChild);
-				starting++;
-				System.out.println("was valid double, child node added:");
-				System.out.println(doubleChild.getCommand());
-
-				
-
-			}
-			else{
-				Node argChild = initNewNode(toAdd);
-				currCommandNode.addChild(argChild);
-				starting++;
-				System.out.println("was a command , child node added with argument:" + argChild.getCommand());
-			}
-			
-			starting++;
-			System.out.println("starting is now:");
-			System.out.println(starting);
-
-
-			
-			
-			//a aommand arg has been dealt with, can decrease
-			indexofCommand--;
-			System.out.println("indexofCommand-- >> now:");
-			System.out.println(indexofCommand);
-			
-			//check if its end of list or out of bounds
-			if (starting > commandList.size()-1){
-				System.out.println("return currCommandNode bcs end of list reached: ");
-				System.out.println(currCommandNode.getCommand());
-
-				return currCommandNode;
-			}
-			
-			//otherwise keep going
-			currCommandNode.addChild(buildTree());
-
-
-
-		}
-		return null;	
-	}
-
-
-	private boolean isValidDouble(String string) {
-		boolean isValid = true;
-		try{
-			double d = Double.parseDouble(string);
-			isValid = true;
-		}
-		catch(NumberFormatException nfe){
-			//do something here if the string is bad
-			isValid = false;
-		}
-		return isValid;
-	}
-
-	
+    public int geCommandListIndex() {
+        return commandIndex;
+    }
+    
 	/**
+	 * Setter for the command index 
+	 */
+    public void setCommandListIndex(int n) {
+    	commandIndex = n;
+    }
+    
+	/**
+	 * Increases the command index 
+	 */
+    public void incrCommandListIndex() {
+    	commandIndex++;
+    }
+	
+    
+
+    /**
 	 * Checks if String command is a variable
 	 * @param String command input
 	 * @return: Boolean saying if variable
@@ -369,6 +151,11 @@ public class CommandParser {
 		return string.startsWith(":");
 	}
 
+	/**
+	 * Checks if a Variable is already saved
+	 * @param String indicating variable
+	 * @return Boolean indicating whether String has been mapped
+	 */
 	private boolean isVariableinMap(String string) {
 		if (variablesinCurrentCommand.get(string) != null) {
 			return true;
@@ -377,80 +164,16 @@ public class CommandParser {
 	}
 
 	/**
-	 * input: two arraylist indexes -> string name (including the colon) and
-	 * INTEGER value to be added NOTE: Must convert the value to an integer
-	 * before its able to be added by this function output: T/F depending on
-	 * whether its a variable name or not overall process: check if its a
-	 * variable if TRUE check if in map if TRUE return value if FALSE add to map
-	 * 
-	 * if its not there -> added if its there -> go to the method that returns
-	 * the value
+	 * Adds variable given to map, thus saving the value of the variable for future use
+	 * @param valuetobeAdded Double value to be mapped to t
+	 * @param variableNameWithColon String to which Double given needs to be saved
 	 */
 	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
+		System.out.println("a variable has been saved!");
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
-			// would we need to have a way to update the variable holding? check
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 		}
 	}
 
-	// TODO: implement fully in the tree
-	private Double returnStoredVal(String string) {
-		return variablesinCurrentCommand.get(string);
-	}
 
-	// everything below this point is currently not implemented
-	// sad life
-	/**
-	 * Traverses command/node tree returns most nested node
-	 * 
-	 * @return Node
-	 */
-	// in execution
-	/*
-	 * private Node getDeepestNode() { Node current = treeNode; while (current
-	 * != null) {
-	 * 
-	 * //if its a leaf node -> return itself if (current.isLeafNode()){ return
-	 * current; }
-	 * 
-	 * //if it has two children, but first a leaf node and second is not -> go
-	 * to second else if ((current.numChildren() == 2) &&
-	 * (current.getChild1().isLeafNode()) &&
-	 * (!current.getChild2().isLeafNode())){ current = current.getChild2(); }
-	 * 
-	 * //if it has one child which is the second-> move to that child //would
-	 * this even ever happen? else if ((current.numChildren() == 1) &&
-	 * (current.hasChildTwo())){ current = current.getChild2(); } // DEFAULT
-	 * CASE -> go to the leftmost node else{ current = current.getChild1(); } }
-	 * return null; }````````````````````````````````````
-	 * 
-	 */
-
-	//not sure if i need to delete
-	/*	*//**
-	 * Set Language -> how to detect in the first place??
-	 *//*
-	public void setLanguage(String lang) {
-		//language = lang;
-		setTranslationMap();
-	}
-	  *//**
-	  * Creating a translation mapping in case other language is inputted
-	  *//*
-	private void setTranslationMap() {
-		getLang = ResourceBundle.getBundle("resources.languages/" + language);
-		commandLang = new CommandTypeMap(insertlangstring);
-	}*/
-	/**
-	 * NOTES:
-	 * 
-	 * 
-	 * in case recursive implementation of the tree does not work
-	 * 
-	 * 		// keeping in case recursive method implementation fails:
-		/*
-	 * if(validCommands.containsKey(currCommand)){ i++; 
-	 * Node nextCommandNode = initNewNode(commandList.get(i));
-	 * currCommandNode.addChild(nextCommandNode); } i++;
-	 */
 }
