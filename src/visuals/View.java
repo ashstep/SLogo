@@ -71,7 +71,12 @@ public class View extends AlertDisplayer {
 	private StackPane createStackPane(File myImageFile){
 		
 		StackPane pane = new StackPane();
-		pane.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
+		try{
+			pane.getChildren().addAll(turtleCanvas, turtleView.initializeTurtle(myImageFile));
+		}
+		catch (Exception e){
+			createErrorMessage(myResourceBundle.getString("SelectPrompt"));
+		}
 		return pane;
 	}
 	
