@@ -3,12 +3,12 @@ package mathops;
 import java.util.List;
 
 import command.ArgumentNumberException;
-import command.OneArg;
+import command.TwoArgs;
 import parser.Node;
 import turtle.TurtleState;
 
-public class Sum extends OneArg {
-
+public class Sum extends TwoArgs {
+	
 	@Override
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
@@ -19,13 +19,8 @@ public class Sum extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
-		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
-		System.out.println("first is " + arg0);
-		System.out.println("second is " + arg1);
-		double sum = arg1 + arg0;
-		System.out.println("SUM " + sum);
-
+		double arg0 = Double.parseDouble(n.getSpecificChild(0).getCommand());
+		double arg1 = Double.parseDouble(n.getSpecificChild(1).getCommand());
 		setReturnVal(arg0 + arg1);
 		return getReturnVal();
 	}

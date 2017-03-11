@@ -19,7 +19,7 @@ public class Cos extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(Math.cos(n.getSpecificChild(0).getCommandObject().getReturnVal()));
+		setReturnVal(Math.cos(Double.parseDouble(n.getSpecificChild(0).getCommand())));
 		return getReturnVal();
 	}
 }

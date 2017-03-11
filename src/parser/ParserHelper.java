@@ -40,17 +40,9 @@ public class ParserHelper {
 		updateHeadNodeList(newParse);
 		if(newParse.geCommandListIndex() < commandListInput.length-1){
 			newParse.incrCommandListIndex();
-			String[] trimmedParse = trimCommands(commandListInput, newParse.geCommandListIndex());
-			
-			//debug: remove printing the vals of ABCD
-			for (int i = 0; i< trimmedParse.length; i++){
-				//System.out.println("abcd[i] is  " + trimmedParse[i]);
-			}
-			
+			String[] trimmedParse = trimCommands(commandListInput, newParse.geCommandListIndex());			
 			buildTree(trimmedParse, language);
 		}
-		//System.out.println(theCommandMapObject.getCommandObj(headNode.getCommand()).findReturnVal(headNode));
-		//theCommandMapObject.getCommandObj(headNode.getCommand()).findReturnVal(headNode);
 		return 0.0;
 	}
 
@@ -70,11 +62,9 @@ public class ParserHelper {
 		for(int i =0; i< a.size(); i++){
 			finalparserlist.add(a.get(i));
 		}
-		//System.out.println("PARSERHELPER FINAL ARRAYLIST size " + finalparserlist.size());
 	}
 
 	public ArrayList<Node> getFinalArrayList () {
-		//System.out.println("PARSERHELPER FINAL ARRAYLIST size " + finalparserlist.size());
 		return finalparserlist;
 	}
 }

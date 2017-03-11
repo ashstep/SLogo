@@ -14,12 +14,14 @@ public class Minus extends OneArg {
 		checkArgs();
 		List<Double> args = getArgs();
 		setReturnVal(-1*args.get(0));
+		System.out.println("val is for minus" + -1*args.get(0));
+
 		return state;
 	}
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(-1*n.getSpecificChild(0).getCommandObject().getReturnVal());
+		setReturnVal(-1*Double.parseDouble(n.getSpecificChild(0).getCommand()));
 		return getReturnVal();
 	}
 }

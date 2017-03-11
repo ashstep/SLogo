@@ -19,8 +19,8 @@ public class Difference extends TwoArgs {
 	
 	@Override
 	public double findReturnVal(Node n) {
-		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
-		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
+		double arg0 = Double.parseDouble(n.getSpecificChild(0).getCommand());
+		double arg1 = Double.parseDouble(n.getSpecificChild(1).getCommand());
 		setReturnVal(arg0 - arg1);
 		return getReturnVal();
 	}

@@ -14,13 +14,14 @@ public class Or extends TwoArgs {
 		checkArgs();
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0) != 0 || args.get(1) != 0 ? 1 : 0);
+		
 		return state;
 	}
 
 	@Override
 	public double findReturnVal(Node n) {
-		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
-		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
+		double arg0 = Double.parseDouble(n.getSpecificChild(0).getCommand());
+		double arg1 = Double.parseDouble(n.getSpecificChild(1).getCommand());
 		setReturnVal((arg0 != 0 || arg1 != 0) ? 1 : 0);
 		return getReturnVal();
 	}

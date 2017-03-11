@@ -19,7 +19,7 @@ public class TurtleRandom extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(Math.random()*n.getSpecificChild(0).getCommandObject().getReturnVal());
+		setReturnVal(Math.random()*Double.parseDouble(n.getSpecificChild(1).getCommand()));
 		return getReturnVal();
 	}
 }

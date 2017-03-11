@@ -32,24 +32,20 @@ public class CommandParser {
 	 * @return Node root of the new tree
 	 */
 	public Node buildTree2() {
-        System.out.println("buildTree2 starting");
+		boolean addedallchildren = false;
         String theCurrentCommand = myCommandsList[commandIndex];
         Node addedNode = initNodeforTree2(theCurrentCommand);
-        System.out.println("indexintree2  " + commandIndex );
-        System.out.println("added node to build tree 2 -----------");
         //Base case
-        if (addedNode.getNumberofChildren() == 0 ) {
-            System.out.println("node has zero children  -> RETURN!!!!");
-            System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
+        if (addedNode.getNumberofChildren() == 0 && addedallchildren) {
             if(!isValidDouble(addedNode.getCommand())){
-                System.out.println("its not a constant -> arraylist");
                 addtoFinalArrayList(addedNode);
             }
             return addedNode;	
         }
         for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
         	commandIndex++;
-            System.out.println(commandIndex);
+            if(i == addedNode.getCommandObject().getNumArgs() - 1){
+            	addedallchildren = true;}
             addedNode.addChild(buildTree2());
         }
         addtoFinalArrayList(addedNode);
@@ -57,19 +53,13 @@ public class CommandParser {
 	}
 	
 	private void addtoFinalArrayList(Node n){
-		finallist.add(n);
-        System.out.println("added a node to the final list. length == " + finallist.size());
-        Node last = finallist.get(finallist.size()-1);
-        String printtocheck = last.getCommand();
-        System.out.println("node added to finalarray: " + printtocheck);
-	}
+		finallist.add(n);}
 
 	/**
 	 * Creates an ArrayList of Nodes for the final compilation of commands to execute
 	 * @return ArrayList of Nodes 
 	 */
     public ArrayList<Node> getCurrentList() {
-        System.out.println("getFinalArrayList of size " + finallist.size());
         return finallist;
     }
 
@@ -92,10 +82,8 @@ public class CommandParser {
     protected Node initNodeforTree2(String nodeString) {
     	CommandTypeMap theCommand = new CommandTypeMap(language);
     	Node created = new Node(nodeString);
-    	System.out.println(nodeString);
     	created.setCommand(nodeString);
     	String a = theCommand.getCommandString(nodeString);
-    	System.out.println("a");
     	Command c = theCommand.getCommandObj(a);
     	created.setCommandObject(c);
     	return created;
@@ -169,7 +157,6 @@ public class CommandParser {
 	 * @param variableNameWithColon String to which Double given needs to be saved
 	 */
 	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
-		System.out.println("a variable has been saved!");
 		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
 			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
 		}

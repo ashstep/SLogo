@@ -19,7 +19,7 @@ public class Tan extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(Math.tan(n.getSpecificChild(0).getCommandObject().getReturnVal()));
+		setReturnVal(Math.tan(Double.parseDouble(n.getSpecificChild(1).getCommand())));
 		return getReturnVal();
 	}
 }

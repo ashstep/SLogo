@@ -19,7 +19,7 @@ public class Log extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(Math.log(n.getSpecificChild(0).getCommandObject().getReturnVal()));
+		setReturnVal(Math.log(Double.parseDouble(n.getSpecificChild(0).getCommand())));
 		return getReturnVal();
 	}
 }
