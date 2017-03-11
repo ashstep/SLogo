@@ -208,29 +208,17 @@ public class Controller extends AlertDisplayer {
 		try {
 			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
-				//System.out.println("current command **** " + each.getCommand());
-				Command command = each.getCommandObject();
-				for(int i = 0; i < command.getNumArgs(); i++ ){
-					//System.out.println("adding arguments for children : " + each.getSpecificChild(i).getCommand());
-			    	try{
-						//System.out.println("adding arguments for children : " + each.getSpecificChild(i).getCommand());
-						command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
-			    	}
-			    	catch(NumberFormatException nfe){
-			    		//System.out.println("in here");
-			    		Node sumnode = each.getSpecificChild(0);
-			    		//System.out.println("child node -> " + sumnode.getCommand());
-			    		double retval = sumnode.getCommandObject().findReturnVal(sumnode);
-			    		//System.out.println("retur as child: " + retval);
-			    		command.addArg(retval);
-			    	}
-				}
-				//System.out.println("reaches herree!! ");
-
-				command.treeArgs(each);
-				turtle.process(command);
+				Command currCommand = each.getCommandObject();
+				for(int i = 0; i < currCommand.getNumArgs(); i++ ){
+					try{
+						currCommand.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));}
+					catch(NumberFormatException nfe){
+						Node childCommandNode = each.getSpecificChild(i);
+						currCommand.addArg(childCommandNode.getCommandObject().findReturnVal(childCommandNode));}}
+				currCommand.treeArgs(each);
+				turtle.process(currCommand);
 				theView.updateTurtle(turtle.getState());
-				 System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
 						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 			}
 			parserhelper.getFinalArrayList().clear();
