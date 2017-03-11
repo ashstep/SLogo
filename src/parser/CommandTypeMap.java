@@ -12,9 +12,11 @@ import java.util.regex.Pattern;
 import command.Command;
 
 /**
- * Getting the correct command object no matter the sytax, such as languages and regex, through the use of reflections.
- * Passed in any String and calls the correct Command object
  * @author Ashka Stephen
+ * 
+ * This class retrieves the correct Command object no matter the syntax, such as languages and Regular Expressions.
+ * Through the use of reflections, the class is able to map each raw inputed command to the correct class it must call to execute the command
+ * Passed in any String and calls the correct Command object
  */
 
 public class CommandTypeMap{
@@ -24,16 +26,19 @@ public class CommandTypeMap{
 
 	/**
 	 * Default constructor
-	 * @param String for input
+	 * 
+	 * @param String for input language
 	 */
 	public CommandTypeMap(String lang) {
 		mySymbols = new ArrayList<>();
-			addResourceBundlez(LANG + lang);
-			addResourceBundlez(SYNTAX);
+		addResourceBundlez(LANG + lang);
+		addResourceBundlez(SYNTAX);
 	}
+	
 	/**
-	 * Using reflection properties to get command object
-	 * @param command String to m
+	 * Use reflection properties to get Command object
+	 * 
+	 * @param command String to get class
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {		
@@ -49,12 +54,12 @@ public class CommandTypeMap{
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Adds the given resource file to this language's recognized types
 	 *
 	 * @param String for the path of the properties file to add
-	 * Resource: In class, Duvall
+	 * Resource: Duvall
 	 */
 	public void addResourceBundlez(String filecalled) {
 		ResourceBundle resources = ResourceBundle.getBundle(filecalled);
@@ -65,10 +70,10 @@ public class CommandTypeMap{
 			mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
 		}
 	}
-	
-	
+
 	/**
-	 * @param can take any language String
+	 * Translates various languages and maps to given Command object
+	 * @param String in any language
 	 * @return the language's type associated with the given text if one exists
 	 */
 	public String getCommandString(String command) {
@@ -80,9 +85,10 @@ public class CommandTypeMap{
 		}
 		return ERROR;
 	}
-	
+
 	/**
-	 * Regular Expressions
+	 * Regular Expression translation
+	 * 
 	 * @return true if the given text matches the given regular expression pattern
 	 */
 	private boolean match(String command, Pattern regex) {
