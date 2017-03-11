@@ -19,7 +19,7 @@ public class Sin extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		setReturnVal(Math.sin(n.getSpecificChild(0).getCommandObject().getReturnVal()));
+		setReturnVal(Math.sin(Double.parseDouble(n.getSpecificChild(1).getCommand())));
 		return getReturnVal();
 	}
 }

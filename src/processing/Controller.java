@@ -160,7 +160,6 @@ public class Controller extends AlertDisplayer {
 		}
 		catch(Exception e){
 			createErrorMessage(myResourceBundle.getString("ErrorPrompt"));
-			e.printStackTrace();
 		}
 	}
 
@@ -209,10 +208,25 @@ public class Controller extends AlertDisplayer {
 		try {
 			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
+				//System.out.println("current command **** " + each.getCommand());
 				Command command = each.getCommandObject();
 				for(int i = 0; i < command.getNumArgs(); i++ ){
-					command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
+					//System.out.println("adding arguments for children : " + each.getSpecificChild(i).getCommand());
+			    	try{
+						//System.out.println("adding arguments for children : " + each.getSpecificChild(i).getCommand());
+						command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
+			    	}
+			    	catch(NumberFormatException nfe){
+			    		//System.out.println("in here");
+			    		Node sumnode = each.getSpecificChild(0);
+			    		//System.out.println("child node -> " + sumnode.getCommand());
+			    		double retval = sumnode.getCommandObject().findReturnVal(sumnode);
+			    		//System.out.println("retur as child: " + retval);
+			    		command.addArg(retval);
+			    	}
 				}
+				//System.out.println("reaches herree!! ");
+
 				command.treeArgs(each);
 				turtle.process(command);
 				theView.updateTurtle(turtle.getState());

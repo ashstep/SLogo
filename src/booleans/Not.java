@@ -19,7 +19,7 @@ public class Not extends OneArg {
 
 	@Override
 	public double findReturnVal(Node n) {
-		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
+		double arg0 = Double.parseDouble(n.getSpecificChild(0).getCommand());
 		setReturnVal(arg0 == 0 ? 1 : 0);
 		return getReturnVal();
 	}
