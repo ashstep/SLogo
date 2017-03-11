@@ -37,12 +37,6 @@ public class CommandTypeMap{
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {		
-		//hardcoded remove
-		//System.out.println("looking for class named: " + command);
-		//hardcoded remove
-		/*if (command.equals("Constant")){
-			command = "turtlecommands." + command;
-		}*/
 		ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
 		try {
 
