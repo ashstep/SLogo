@@ -24,10 +24,10 @@ public class TurtleView implements ITurtleView{
 	
 	private double turtleXPos;
 	private double turtleYPos;
-	private double turtleAngle;
+	private double turtleAngle = 0;
 	
-	public static int WIDTH;
-	public static int HEIGHT;
+	private static int WIDTH;
+	private static int HEIGHT;
 
 	/** 
 	 * @see visuals.IITurtleView#initializeGraphicContent()
@@ -53,7 +53,6 @@ public class TurtleView implements ITurtleView{
 		turtleXPos = WIDTH/2;
 		turtleYPos = HEIGHT/2;
 		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
-		turtleAngle = 0;
 		
 		myTurtle.setX(turtleXPos);
 		myTurtle.setY(turtleYPos);
@@ -103,10 +102,20 @@ public class TurtleView implements ITurtleView{
 		
 		myTurtle.setTranslateX(turtleXPos - WIDTH/2);
 		myTurtle.setTranslateY(turtleYPos - HEIGHT/2);
+		
 		myTurtle.setRotate(turtleAngle); 
 		
 		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
 			
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 	}
+
+	public static int getWIDTH() {
+		return WIDTH;
+	}
+
+	public static int getHEIGHT() {
+		return HEIGHT;
+	}
+	
 }
