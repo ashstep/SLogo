@@ -1,19 +1,11 @@
 package queries;
 
-import command.ArgumentNumberException;
 import command.ZeroArgs;
 import parser.Node;
 import processing.Controller;
 import turtle.TurtleState;
 
 public class XCor extends ZeroArgs {
-
-	@Override
-	public TurtleState run(TurtleState state) throws ArgumentNumberException {
-		checkArgs();
-		setReturnVal(state.getX());
-		return state;
-	}
 
 	@Override
 	public double findReturnVal(Node n) {

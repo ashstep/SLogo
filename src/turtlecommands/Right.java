@@ -11,7 +11,6 @@ public class Right extends TurtleCommand {
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		setReturnVal(args.get(0));
 		double angle = state.getAngle() - args.get(0);
 		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
 	}

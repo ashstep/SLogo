@@ -14,7 +14,6 @@ public class SetHeading extends OneArg {
 	public TurtleState run(TurtleState state) throws ArgumentNumberException {
 		checkArgs();
 		List<Double> args = getArgs();
-		setReturnVal(args.get(0) - state.getAngle());
 		return new TurtleState(state.getX(), state.getY(), args.get(0), state.isPenDown(), state.isVisible());
 	}
 	

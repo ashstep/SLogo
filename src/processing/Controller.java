@@ -228,6 +228,10 @@ public class Controller extends AlertDisplayer {
 		}
 	}
 
+	/**
+	 * Gets the current state of the <code>Turtle</code>
+	 * @return The current state of the <code>Turtle</code>
+	 */
 	public static TurtleState getTurtleState(){
 		return turtle.getState();
 	}

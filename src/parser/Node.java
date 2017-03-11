@@ -1,6 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.List;
 import command.Command;
 
 /**
@@ -59,7 +60,7 @@ public class Node {
 	/**
 	 * @return returning an ArrayList of the Node's subtrees (or children)
 	 */
-	public ArrayList<Node> getChildren(){
+	public List<Node> getChildren(){
 		return children;
 	}
 

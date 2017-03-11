@@ -1,7 +1,6 @@
 package parser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import command.Command;
 
@@ -12,19 +11,16 @@ import command.Command;
  */
 public class CommandParser {
 	
-	public CommandParser(String langu) {
-		super();
-		this.language = langu;
-	}
-
 	CommandTypeMap theCommandMapObject;
-	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 	private int commandIndex;
 	private static String[] myCommandsList;
 	private String language;
 	ArrayList<Node> finallist = new ArrayList<Node>();
-
 	
+	public CommandParser(String langu) {
+		super();
+		this.language = langu;
+	}
 
 	/**
 	 * Build tree recursively from the list of commands
@@ -38,7 +34,7 @@ public class CommandParser {
         //Base case
         if (addedNode.getNumberofChildren() == 0 && addedallchildren) {
             if(!isValidDouble(addedNode.getCommand())){
-                addtoFinalArrayList(addedNode);
+                addtoFinalList(addedNode);
             }
             return addedNode;	
         }
@@ -48,11 +44,15 @@ public class CommandParser {
             	addedallchildren = true;}
             addedNode.addChild(buildTree2());
         }
-        addtoFinalArrayList(addedNode);
+        addtoFinalList(addedNode);
         return addedNode;
 	}
 	
-	private void addtoFinalArrayList(Node n){
+	/**
+	 * Adds a node to the final list of nodes
+	 * @param n Node to add
+	 */
+	private void addtoFinalList(Node n){
 		finallist.add(n);}
 
 	/**
@@ -97,7 +97,7 @@ public class CommandParser {
     private boolean isValidDouble(String string) {
     	boolean isValid = true;
     	try{
-    		double d = Double.parseDouble(string);
+    		Double.parseDouble(string);
     		isValid = true;
     	}
     	catch(NumberFormatException nfe){
@@ -127,40 +127,4 @@ public class CommandParser {
     public void incrCommandListIndex() {
     	commandIndex++;
     }
-	
-    
-
-    /**
-	 * Checks if String command is a variable
-	 * @param String command input
-	 * @return: Boolean saying if variable
-	 */
-	private boolean isVariable(String string) {
-		return string.startsWith(":");
-	}
-
-	/**
-	 * Checks if a Variable is already saved
-	 * @param String indicating variable
-	 * @return Boolean indicating whether String has been mapped
-	 */
-	private boolean isVariableinMap(String string) {
-		if (variablesinCurrentCommand.get(string) != null) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Adds variable given to map, thus saving the value of the variable for future use
-	 * @param valuetobeAdded Double value to be mapped to t
-	 * @param variableNameWithColon String to which Double given needs to be saved
-	 */
-	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
-		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
-			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
-		}
-	}
-
-
 }
