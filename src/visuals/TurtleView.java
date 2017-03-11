@@ -1,8 +1,10 @@
 package visuals;
 
 import java.io.File;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import processing.Controller;
@@ -25,6 +27,8 @@ public class TurtleView implements ITurtleView{
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
+	private double formerStateX =0;
+	private double formerStateY =0;
 	
 	public static int WIDTH;
 	public static int HEIGHT;
@@ -54,7 +58,11 @@ public class TurtleView implements ITurtleView{
 		turtleYPos = HEIGHT/2;
 		turtleAngle = 0;
 		
+		myTurtle.setX(turtleXPos);
+		myTurtle.setY(turtleYPos);
+		
 		updateTurtle(Controller.getTurtleState());
+		
 		return myTurtle;
 	}
 	
@@ -62,11 +70,11 @@ public class TurtleView implements ITurtleView{
 	 * @see visuals.IITurtleView#drawTurtlePath(double, double, boolean)
 	 */
 	@Override
-	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){		
+	public void drawTurtlePath(double xPosition, double yPosition, boolean pen){
 		if(pen) {
 			myTurtleDrawer.lineTo(xPosition, yPosition);	
 			myTurtleDrawer.stroke();
-		}		
+		}
 		myTurtleDrawer.moveTo(xPosition,yPosition);
 	}
 	
@@ -86,8 +94,7 @@ public class TurtleView implements ITurtleView{
 	 */
 	@Override
 	public void updateTurtle(TurtleState newTurtle){
-
-		turtleInvisCloak(myTurtle, newTurtle.isVisible());
+turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
 		turtleXPos = newTurtle.getX() + WIDTH/2;
 		turtleYPos = HEIGHT/2 - newTurtle.getY() + myTurtle.getBoundsInLocal().getHeight();
@@ -97,10 +104,13 @@ public class TurtleView implements ITurtleView{
 		myTurtle.setX(turtleXPos);
 		myTurtle.setY(turtleYPos);
 		
-		myTurtle.setTranslateX(turtleXPos - 200);
-		myTurtle.setTranslateY(turtleYPos - 400);
+		myTurtle.setTranslateX(turtleXPos - WIDTH/2);
+		myTurtle.setTranslateY(turtleYPos - HEIGHT/2);
 		myTurtle.setRotate(turtleAngle); 
-	
+		
+		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
+		
+		
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 	}
 }
