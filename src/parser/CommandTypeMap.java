@@ -38,23 +38,22 @@ public class CommandTypeMap{
 	 */  
 	public Command getCommandObj(String command) {		
 		//hardcoded remove
-		System.out.println("looking for class named: " + command);
+		//System.out.println("looking for class named: " + command);
 		//hardcoded remove
 		if (command.equals("Constant")){
 			command = "turtlecommands." + command;
 		}
 		ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
 		try {
+
 			Class<?> commandObjectClazz = (command == "Constant") ? Class.forName(constant.getString(command)) : Class.forName(command);
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); 
 				Object commandObject = commandObjConstructor.newInstance(); 
 				return (Command) commandObject;
 			} catch(Exception e) {
-				e.printStackTrace();
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
