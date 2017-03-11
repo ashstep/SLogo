@@ -5,9 +5,11 @@ import java.util.List;
 import command.Command;
 
 /**
- * Node class will be used to hold Command Strings, Command Objects, and references to children.
+ * The Node class will be used to hold Command Strings, Command Objects, and references to children.
+ * This is the data structure used to create the recursive tree of commands. 
+ * This structure was chosen because of the flexibility it has in terms of referencing and connecting nodes in a sequence and unpacking values.
+ * 
  * @author Ashka Stephen
- *
  */
 public class Node {
 	String myNodeCommandString;
@@ -55,7 +57,6 @@ public class Node {
 		commandObject = newCommandObject;
 		numChildren = commandObject.getNumArgs();
 	}
-
 	
 	/**
 	 * @return returning an ArrayList of the Node's subtrees (or children)
