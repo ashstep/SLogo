@@ -32,14 +32,15 @@ public class CommandParser {
 	 * @return Node root of the new tree
 	 */
 	public Node buildTree2() {
+		boolean allchildrennodes = false;
         System.out.println("buildTree2 starting");
         String theCurrentCommand = myCommandsList[commandIndex];
         Node addedNode = initNodeforTree2(theCurrentCommand);
         System.out.println("indexintree2  " + commandIndex );
         System.out.println("added node to build tree 2 -----------");
         //Base case
-        if (addedNode.getNumberofChildren() == 0 ) {
-            System.out.println("node has zero children  -> RETURN!!!!");
+        if (addedNode.getNumberofChildren() == 0 && allchildrennodes) {
+            System.out.println("node has zero children OR all children nodes reached");
             System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
             if(!isValidDouble(addedNode.getCommand())){
                 System.out.println("its not a constant -> arraylist");
@@ -49,8 +50,19 @@ public class CommandParser {
         }
         for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
         	commandIndex++;
-            System.out.println(commandIndex);
+        	//move out???
+            System.out.println("command index is " + commandIndex);
+            System.out.println("addedNode.getNumArgs() " + addedNode.getCommandObject().getNumArgs());
+            int num = addedNode.getCommandObject().getNumArgs()-1 ;
+            System.out.println("num is " + num);
+            System.out.println("i is " + i);
+
             addedNode.addChild(buildTree2());
+            if(i == addedNode.getCommandObject().getNumArgs()-1 ){
+                System.out.println("all children addressed " + commandIndex);
+                allchildrennodes = true;
+            	
+            }
         }
         addtoFinalArrayList(addedNode);
         return addedNode;
@@ -95,7 +107,7 @@ public class CommandParser {
     	System.out.println(nodeString);
     	created.setCommand(nodeString);
     	String a = theCommand.getCommandString(nodeString);
-    	System.out.println("a");
+    	System.out.println("node created for: " + nodeString);
     	Command c = theCommand.getCommandObj(a);
     	created.setCommandObject(c);
     	return created;

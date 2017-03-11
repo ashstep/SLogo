@@ -41,7 +41,6 @@ public class CommandTypeMap{
 		System.out.println("looking for class named: " + command);
 		//hardcoded remove
 		if (command.equals("Constant")){
-			System.out.println("its a Constatnt" );
 			command = "turtlecommands." + command;
 		}
 		ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
