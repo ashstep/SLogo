@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  Recursively call command parser and create trees and execute Commands as you go
+ *  This class recursively calls the Command Parser and create trees as the raw input goes. 
+ *  The helper serves a unique function in that it helps with basic value propagation, which helps in the execution of more complex commands.
+ * 	Thus, ParserHelper created one large tree for recursion by values while CommandParser deals with the specifics of execution.
  * 
  * @author Ashka Stephen
  */
@@ -14,7 +16,9 @@ public class ParserHelper {
 	ArrayList<Node> finalparserlist = new ArrayList<Node>();
 
 	/**
-	 * Initializes a new command parsing builder
+	 * Initializes a new command parsing builder (and thus new tree creation)
+	 * 
+	 * @param language in which commands are to be executed or expected
 	 */
 	private CommandParser initTreeCreation(String language) {
 		CommandParser newParse = new CommandParser(language);
@@ -22,7 +26,8 @@ public class ParserHelper {
 	}
 
 	/**
-	 * Creates a list to parse 
+	 * Creates a list to parse.
+	 * 
 	 * @param String raw command line input 
 	 */
 	public double parseCommand(String commandLineInput, String language) {
@@ -31,7 +36,8 @@ public class ParserHelper {
 	}
 
 	/**
-	 * Builds a tree to be parse with commands
+	 * Builds a tree to be parse with commands in relation to numerical values, specifically.
+	 * 
 	 * @param commands String array representing commands
 	 * @return Double for result of each execution
 	 */
@@ -49,6 +55,7 @@ public class ParserHelper {
 
 	/**
 	 * Trims commands off from index <code>start</code>
+	 * 
 	 * @param originalCommandList Original list of command inputs
 	 * @param start Where to start trimming
 	 * @return Trimmed commands list
@@ -65,6 +72,7 @@ public class ParserHelper {
 
 	/**
 	 * Update the list of the head node
+	 * 
 	 * @param newParse New command parser
 	 */
 	private void updateHeadNodeList(CommandParser newParse) {
@@ -75,8 +83,8 @@ public class ParserHelper {
 	}
 
 	/**
-	 * Get the final list of nodes to return out
-	 * @return
+	 * Get the final list of nodes to run
+	 * @return List<Node> of final execution sequence
 	 */
 	public List<Node> getFinalArrayList () {
 		return finalparserlist;

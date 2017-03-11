@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
 import command.Command;
 
 /**
- * @author Ashka Stephen
- * 
  * This class retrieves the correct Command object no matter the syntax, such as languages and Regular Expressions.
  * Through the use of reflections, the class is able to map each raw inputed command to the correct class it must call to execute the command
- * Passed in any String and calls the correct Command object
+ * Passed in any String and calls the correct Command object.
+ * 
+ * @author Ashka Stephen
  */
 
 public class CommandTypeMap{
