@@ -216,7 +216,7 @@ public class Controller extends AlertDisplayer {
 				command.treeArgs(each);
 				turtle.process(command);
 				theView.updateTurtle(turtle.getState());
-				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+				 System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
 						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 			}
 			parserhelper.getFinalArrayList().clear();
