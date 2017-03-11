@@ -15,7 +15,6 @@ public class SetPosition extends TwoArgs {
 		checkArgs();
 		List<Double> args = getArgs();
 		
-		//Oh dearie me
 		System.out.println("args x is" + args.get(0));
 		System.out.println("args y is" + args.get(1));
 		double x = state.getX() - args.get(0);

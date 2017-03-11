@@ -208,10 +208,9 @@ public class Controller extends AlertDisplayer {
 		try {
 			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
-	            //System.out.println("each node Command string ***** " + each.getCommand());
 				Command command = each.getCommandObject();
 				for(int i = 0; i < command.getNumArgs(); i++ ){
-					command.addArg(Double.parseDouble(each.getSpecificChild(0).getCommand()));
+					command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
 				}
 				command.treeArgs(each);
 				turtle.process(command);

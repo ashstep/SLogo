@@ -32,24 +32,24 @@ public class CommandParser {
 	 * @return Node root of the new tree
 	 */
 	public Node buildTree2() {
-       // System.out.println("buildTree2 starting");
+        System.out.println("buildTree2 starting");
         String theCurrentCommand = myCommandsList[commandIndex];
         Node addedNode = initNodeforTree2(theCurrentCommand);
-       // System.out.println("indexintree2  " + commandIndex );
-       // System.out.println("added node to build tree 2 -----------");
+        System.out.println("indexintree2  " + commandIndex );
+        System.out.println("added node to build tree 2 -----------");
         //Base case
         if (addedNode.getNumberofChildren() == 0 ) {
-          //  System.out.println("node has zero children  -> RETURN!!!!");
-         //   System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
+            System.out.println("node has zero children  -> RETURN!!!!");
+            System.out.println("what iz dizzz " + isValidDouble(addedNode.getCommand()) );
             if(!isValidDouble(addedNode.getCommand())){
-            //    System.out.println("its not a constant -> arraylist");
+                System.out.println("its not a constant -> arraylist");
                 addtoFinalArrayList(addedNode);
             }
             return addedNode;	
         }
         for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
         	commandIndex++;
-         //   System.out.println(commandIndex);
+            System.out.println(commandIndex);
             addedNode.addChild(buildTree2());
         }
         addtoFinalArrayList(addedNode);
@@ -58,7 +58,7 @@ public class CommandParser {
 	
 	private void addtoFinalArrayList(Node n){
 		finallist.add(n);
-       // System.out.println("added a node to the final list. length == " + finallist.size());
+        System.out.println("added a node to the final list. length == " + finallist.size());
         Node last = finallist.get(finallist.size()-1);
         String printtocheck = last.getCommand();
         System.out.println("node added to finalarray: " + printtocheck);
@@ -69,7 +69,7 @@ public class CommandParser {
 	 * @return ArrayList of Nodes 
 	 */
     public ArrayList<Node> getCurrentList() {
-      //  System.out.println("getFinalArrayList of size " + finallist.size());
+        System.out.println("getFinalArrayList of size " + finallist.size());
         return finallist;
     }
 
@@ -92,10 +92,10 @@ public class CommandParser {
     protected Node initNodeforTree2(String nodeString) {
     	CommandTypeMap theCommand = new CommandTypeMap(language);
     	Node created = new Node(nodeString);
-    	//System.out.println(nodeString);
+    	System.out.println(nodeString);
     	created.setCommand(nodeString);
     	String a = theCommand.getCommandString(nodeString);
-    	//System.out.println("a");
+    	System.out.println("a");
     	Command c = theCommand.getCommandObj(a);
     	created.setCommandObject(c);
     	return created;
