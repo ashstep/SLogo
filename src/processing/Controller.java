@@ -22,7 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import parser.CommandParser;
 import parser.Node;
 import parser.ParserHelper;
 import turtle.Turtle;
@@ -44,7 +43,6 @@ public class Controller extends AlertDisplayer {
 	private View theView;
 	private ResourceBundle myResourceBundle;
 	private String language = "English";
-	private CommandParser parser;
 	private static Turtle turtle;
 	private File myImageFile;
 	private SplashPage splash;
@@ -56,7 +54,6 @@ public class Controller extends AlertDisplayer {
 
 	public Controller(Stage s){
 		theStage = s;
-		parser = new CommandParser();
 		turtle = new Turtle();
 		parserhelper = new ParserHelper();
 
@@ -208,38 +205,35 @@ public class Controller extends AlertDisplayer {
 	 * @param cmd Raw command <code>String</code> input by the user
 	 */
 	private void parseCommands(String cmd){
-
-		System.out.println("(in controller) command line input to be parsed: " +cmd);
 		try {
-			parserhelper.parserhelperparsecommand(cmd);
-            System.out.println("this is printing the list " + parser.getFinalArrayList());
-			
+			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
-	            System.out.println("each node Command string ***** " + each.getCommand());
-				Command command = each.getCommandObject();
-	            for(int i = 0; i < command.getNumArgs(); i++ ){
-		            command.addArg(Double.parseDouble(each.getSpecificChild(0).getCommand()));
+	            //System.out.println("each node Command string ***** " + each.getCommand());
+	            //System.out.println("each node Command num children ***** " + each.getNumberofChildren());
+	            //dubugging check to delete
+	            //for each chld print
+/*	            int count = 0;
+	            for(Node n: each.getChildren()){
+		            System.out.println("printing each children-- num is :" + count);
+		            System.out.println("ith child command stiring: " + n.getCommand());
+	            	count++;
 	            }
+*/	            
+				Command command = each.getCommandObject();
+				for(int i = 0; i < command.getNumArgs(); i++ ){
+					command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
+				}
 				command.treeArgs(each);
-	            System.out.println("gets here 2" );
 				turtle.process(command);
-	            System.out.println("gets here 4" );
+				theView.updateTurtle(turtle.getState());
+				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
+						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 			}
-			//yo
-			parserhelper.resetArrayList();
-
+			parserhelper.getFinalArrayList().clear();
 		} 
 		catch (ArgumentNumberException e) {
 			createErrorMessage(myResourceBundle.getString("InvalidNumPrompt"));
 		}
-		
-		
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + turtle.getState().getY());
-
-		theView.updateTurtle(turtle.getState());
-		
-		System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
-				turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 	}
 
 	public static TurtleState getTurtleState(){

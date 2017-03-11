@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import command.Command;
 
 /**
- * Node class will be used to hold parsed commands.
+ * Node class will be used to hold Command Strings, Command Objects, and references to children.
  * @author Ashka Stephen
  *
  */
 public class Node {
 	String myNodeCommandString;
 	ArrayList<Node> children;
-	//Node[] children;
 	int numChildren;
 	Command commandObject;	
 	Boolean isCommand = true;
@@ -28,29 +27,28 @@ public class Node {
 	}
 
 	/**
-	 * Value setter
+	 * Command String Setter
 	 */
 	public void setCommand(String s) {
 		myNodeCommandString = s;
 	}
 
 	/**
-	 * Value getter
+	 * Command String Getter
 	 */
 	public String getCommand() {
 		return myNodeCommandString;
 	}
 
 	/**
-	 * NOTE will return error until the correct class is named
+	 * @return the Command Object associated with the Node
 	 */
 	public Command getCommandObject(){
 		return commandObject;
 	}
 
 	/**
-	 * NOTE will return error until the correct command class and methods are named
-	 * also sets the number of children that the command has
+	 * Command object and number of children associated with that object Setter
 	 */
 	public void setCommandObject(Command newCommandObject){
 		commandObject = newCommandObject;
@@ -59,7 +57,7 @@ public class Node {
 
 	
 	/**
-	 * @return returning an arraylist of the nodes subtrees 
+	 * @return returning an ArrayList of the Node's subtrees (or children)
 	 */
 	public ArrayList<Node> getChildren(){
 		return children;
@@ -68,27 +66,16 @@ public class Node {
 	/**
 	 * @return 
 	 */
-	public void setisNOTaCommand(){
-		isCommand = false;
-	}
-
-	
-	
-	/**
-	 * @return 
-	 */
 	public boolean checkifCommand(){
 		return isCommand;
 	}
 	
 	/**
-	 * @return number of children a command has
+	 * @return Number of children a command has
 	 */
 	public int getNumberofChildren(){
 		return numChildren;
 	}
-	
-	
 	
 	/**
 	 * @return getting the child Node at a specific part of the ArrayList
@@ -99,16 +86,7 @@ public class Node {
 	}
 
 	/**
-	 * Setting children ArrayList for a Node
-	 */
-	public void setChildren(ArrayList<Node> settingChildren){
-		for (int i = 0; i < settingChildren.size(); i++){
-			children.add(i, settingChildren.get(i));
-		}
-	}
-
-	/**
-	 * @return adding a child node to the ArrayList
+	 * Adding a child Node to the current parent Node
 	 */
 	public void addChild(Node newChild) {
 		children.add(newChild);

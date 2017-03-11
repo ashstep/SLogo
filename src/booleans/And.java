@@ -22,6 +22,8 @@ public class And extends TwoArgs {
 		double arg0 = n.getSpecificChild(0).getCommandObject().getReturnVal();
 		double arg1 = n.getSpecificChild(1).getCommandObject().getReturnVal();
 		setReturnVal((arg0 != 0 && arg1 != 0) ? 1 : 0);
+		System.out.println("get ret val" + getReturnVal());
+
 		return getReturnVal();
 	}
 }
