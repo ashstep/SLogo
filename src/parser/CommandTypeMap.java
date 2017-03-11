@@ -37,7 +37,6 @@ public class CommandTypeMap{
 	 * @return Command object mapped to the command string input
 	 */  
 	public Command getCommandObj(String command) {		
-		ResourceBundle constant = ResourceBundle.getBundle("classinformation/ClassLocations");
 		try {
 
 			Class<?> commandObjectClazz = Class.forName(command);

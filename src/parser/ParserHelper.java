@@ -38,9 +38,9 @@ public class ParserHelper {
 		CommandParser newParse = initTreeCreation(language);
 		newParse.initTreeRecurse(commandListInput);
 		updateHeadNodeList(newParse);
-		if(newParse.geCommandListIndex() < commandListInput.length-1){
+		if(newParse.getCommandListIndex() < commandListInput.length-1){
 			newParse.incrCommandListIndex();
-			String[] trimmedParse = trimCommands(commandListInput, newParse.geCommandListIndex());			
+			String[] trimmedParse = trimCommands(commandListInput, newParse.getCommandListIndex());			
 			buildTree(trimmedParse, language);
 		}
 		return 0.0;
