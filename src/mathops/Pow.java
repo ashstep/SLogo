@@ -10,7 +10,6 @@ public class Pow extends TwoArgs {
 		double arg0 = Double.parseDouble(n.getSpecificChild(0).getCommand());
 		double arg1 = Double.parseDouble(n.getSpecificChild(1).getCommand());
 		setReturnVal(Math.pow(arg0, arg1));
-		System.out.println("pow return val: " + getReturnVal());
 		return getReturnVal();
 	}
 }
