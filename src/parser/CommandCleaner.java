@@ -10,16 +10,17 @@ import java.util.ResourceBundle;
 public class CommandCleaner {
     private static final String SETTINGS_PATH = "resources/internal/Settings";
 
-    
-    
+    /**
+     * Cleans out extra spaces from commands
+     * @param commands Commands to remove spaces from
+     * @return Commands list with spaces removed
+     */
     public String[] clean(String[] commands) {
     	ResourceBundle settings = ResourceBundle.getBundle(SETTINGS_PATH);
     	ArrayList<String> cleanedCommands = new ArrayList<String>();
 
     	cleanedCommands.add("["); 
     	for (String c : commands) {
-    		System.out.println("c is :" + c);
-    		//not empty line
     		if (!c.trim().equals("")) { 
     			// if first char isnt a hash -> not a comment 
     			if (!(c.trim().charAt(0) == '#')) { 

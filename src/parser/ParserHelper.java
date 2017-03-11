@@ -1,6 +1,7 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Recursively call command parser and create trees and execute Commands as you go
@@ -46,6 +47,12 @@ public class ParserHelper {
 		return 0.0;
 	}
 
+	/**
+	 * Trims commands off from index <code>start</code>
+	 * @param originalCommandList Original list of command inputs
+	 * @param start Where to start trimming
+	 * @return Trimmed commands list
+	 */
 	private String[] trimCommands(String[] originalCommandList, int start) {
 		int trimCount = 0;
 		String[] trimmed = new String[originalCommandList.length - start];
@@ -56,15 +63,22 @@ public class ParserHelper {
 		return trimmed;
 	}
 
-
+	/**
+	 * Update the list of the head node
+	 * @param newParse New command parser
+	 */
 	private void updateHeadNodeList(CommandParser newParse) {
-		ArrayList<Node> a = newParse.getCurrentList();
-		for(int i =0; i< a.size(); i++){
-			finalparserlist.add(a.get(i));
+		ArrayList<Node> list = newParse.getCurrentList();
+		for(int i =0; i< list.size(); i++){
+			finalparserlist.add(list.get(i));
 		}
 	}
 
-	public ArrayList<Node> getFinalArrayList () {
+	/**
+	 * Get the final list of nodes to return out
+	 * @return
+	 */
+	public List<Node> getFinalArrayList () {
 		return finalparserlist;
 	}
 }

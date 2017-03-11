@@ -38,7 +38,6 @@ public class CommandTypeMap{
 	 */  
 	public Command getCommandObj(String command) {		
 		try {
-
 			Class<?> commandObjectClazz = Class.forName(command);
 			try {
 				Constructor<?> commandObjConstructor = commandObjectClazz.getDeclaredConstructor(); 

@@ -28,7 +28,6 @@ public class Towards extends TwoArgs {
 		} else if (y < 0) {
 			angle = state.getAngle() + 90;
 		}
-		setReturnVal(angle - state.getAngle());
 		return new TurtleState(state.getX(), state.getY(), angle, state.isPenDown(), state.isVisible());
 	}
 

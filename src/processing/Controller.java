@@ -170,7 +170,6 @@ public class Controller extends AlertDisplayer {
 	private void clickActions(MouseEvent e){
 		Double clickXCoord = e.getX();
 		Double clickYCoord = e.getY();
-		System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
 		parseCommands("setxy" + " " + (clickXCoord - TurtleView.getWIDTH()/2)
 				+ " " + (TurtleView.getHEIGHT()/2 - clickYCoord));
 	}
@@ -218,8 +217,6 @@ public class Controller extends AlertDisplayer {
 				currCommand.treeArgs(each);
 				turtle.process(currCommand);
 				theView.updateTurtle(turtle.getState());
-				System.out.println("Turtle is at " + turtle.getState().getX() + ", " + 
-						turtle.getState().getY() + " heading at " + turtle.getState().getAngle());
 			}
 			parserhelper.getFinalArrayList().clear();
 		} 
@@ -228,6 +225,10 @@ public class Controller extends AlertDisplayer {
 		}
 	}
 
+	/**
+	 * Gets the current state of the <code>Turtle</code>
+	 * @return The current state of the <code>Turtle</code>
+	 */
 	public static TurtleState getTurtleState(){
 		return turtle.getState();
 	}

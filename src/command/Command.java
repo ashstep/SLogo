@@ -21,7 +21,10 @@ public abstract class Command {
 	 * @param state The current state of the <code>Turtle</code>
 	 * @return The next state of the <code>Turtle</code>
 	 */
-	public abstract TurtleState run(TurtleState state) throws ArgumentNumberException;
+	public TurtleState run(TurtleState state) throws ArgumentNumberException {
+		checkArgs();
+		return state;
+	}
 	
 	/**
 	 * Checks if the allowed number of arguments is supplied
@@ -46,7 +49,7 @@ public abstract class Command {
 	}
 	
 	public void treeArgs(Node node){
-		ArrayList<Node> children = node.getChildren();
+		ArrayList<Node> children = (ArrayList<Node>) node.getChildren();
 		for(Node n : children){
 			if(!n.checkifCommand()){
 				node.getCommandObject().addArg(Double.parseDouble(n.getCommand()));
@@ -74,7 +77,7 @@ public abstract class Command {
 	 * Sets the return value of the command
 	 * @param val Return value to set
 	 */
-	protected void setReturnVal(double val){
+	public void setReturnVal(double val){
 		returnVal = val;
 	}
 	
