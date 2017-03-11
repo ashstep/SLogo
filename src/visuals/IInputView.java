@@ -10,6 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Interface for dealing with the InputView Panel (deals with buttons, text-fields, etc)
+ * @author Harry Liu
+ *
+ */
 interface IInputView {
 
 	/**

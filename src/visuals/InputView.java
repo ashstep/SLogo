@@ -19,7 +19,7 @@ import javafx.scene.paint.Paint;
 
 /**
  * This is the class that creates the panel that involves input or selection
- * (TextArea, Submit Button, ComboBoxes)
+ * (TextArea, Submit Button, ComboBoxes, etc)
  * 
  * @author Harry Liu, Christian Martindale
  */

@@ -11,7 +11,6 @@ import processing.Controller;
 import turtle.TurtleState;
 
 /**
- * 
  * @author Harry Liu and Christian Martindale
  * The Canvas on which a SLogo turtle moves and displays
  * its path. Part of a View.

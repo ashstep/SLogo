@@ -1,35 +1,26 @@
 package visuals;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import processing.AlertDisplayer;
-import processing.Controller;
 import turtle.TurtleState;
 
 /**
  * This is the class which controls the display of the GUI. It puts together all
- * the components that make up the screen.
+ * the components that make up the screen. This allows for flexibility for which panes are featured and
+ * where they are placed.
  * 
  * @author Harry Liu, Christian Martindale
  **/
@@ -39,10 +30,11 @@ public class View extends AlertDisplayer {
 	private BorderPane BP;
 	private StackPane SP;
 	private Scene theScene;
-	private ResourceBundle myResourceBundle;
+	
 	private IInputView inputView;
 	private ITurtleView turtleView;
 	private IHistory myHistory;
+	private ResourceBundle myResourceBundle;
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -144,7 +136,6 @@ public class View extends AlertDisplayer {
 
 	/**
 	 * Clears the TurtleView screen (left side of the GUI)
-	 * 
 	 */
 	public void clearScreen(){
 		turtleCanvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
@@ -179,14 +170,26 @@ public class View extends AlertDisplayer {
 		return inputView.getCommandString();
 	}
 
+	/**
+	 * Calls updateTurtle method in the turtle view to handle all changes in the turtle
+	 * @param newTurtle
+	 */
 	public void updateTurtle(TurtleState newTurtle){
 		turtleView.updateTurtle(newTurtle);
 	}
 	
+	/**
+	 * Returns a History, which can be used to access past methods
+	 * @return
+	 */
 	public History getMyHistory(){
 		return (History)myHistory;
 	}
 	
+	/**
+	 * Getter for the canvas which the lines are drawn on
+	 * @return turtleCanvas
+	 */
 	public Canvas getTurtleCanvas(){
 		return turtleCanvas;
 	}
