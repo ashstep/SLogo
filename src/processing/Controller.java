@@ -208,8 +208,12 @@ public class Controller extends AlertDisplayer {
 		try {
 			parserhelper.parseCommand(cmd, language);
 			for(Node each : parserhelper.getFinalArrayList()){
+				System.out.println("current command **** " + each.getCommand());
+
 				Command command = each.getCommandObject();
 				for(int i = 0; i < command.getNumArgs(); i++ ){
+					
+					System.out.println("adding arguments for children : " + each.getSpecificChild(i).getCommand());
 					command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
 				}
 				command.treeArgs(each);
