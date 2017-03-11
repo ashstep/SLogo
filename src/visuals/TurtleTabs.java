@@ -8,6 +8,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 
+/**
+ * Creates the tabs that are found in the menu
+ */
 public class TurtleTabs {
 
 	private TabPane myTabBar;
@@ -30,6 +33,10 @@ public class TurtleTabs {
 
 	}
 	
+	/**
+	 * Getter for Tabs
+	 * @return myTabBar
+	 */
 	public TabPane getMyTabs(){
 		return myTabBar;
 	}

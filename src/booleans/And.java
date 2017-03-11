@@ -14,6 +14,7 @@ public class And extends TwoArgs {
 		checkArgs();
 		List<Double> args = getArgs();
 		setReturnVal(args.get(0) != 0 && args.get(1) != 0 ? 1 : 0);
+		System.out.println(getReturnVal());
 		return state;
 	}
 

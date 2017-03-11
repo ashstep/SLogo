@@ -171,8 +171,8 @@ public class Controller extends AlertDisplayer {
 		Double clickXCoord = e.getX();
 		Double clickYCoord = e.getY();
 		System.out.println("Clicked " + clickXCoord + ", " + clickYCoord);
-		parseCommands("setxy" + " " + (clickXCoord - TurtleView.WIDTH/2)
-				+ " " + (TurtleView.HEIGHT/2 - clickYCoord));
+		parseCommands("setxy" + " " + (clickXCoord - TurtleView.getWIDTH()/2)
+				+ " " + (TurtleView.getHEIGHT()/2 - clickYCoord));
 	}
 	
 	/**
