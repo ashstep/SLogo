@@ -163,7 +163,6 @@ public class View extends AlertDisplayer {
 		return turtleMenuBar;
 	}
 	
-
 	/**
 	 * Gets the <code>Scene</code> for use in the <code>Stage</code>
 	 * @return The <code>Scene</code> for the <code>View</code>

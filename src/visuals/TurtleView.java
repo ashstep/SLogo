@@ -54,8 +54,11 @@ public class TurtleView implements ITurtleView{
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 
+
+		
 		turtleXPos = WIDTH/2;
 		turtleYPos = HEIGHT/2;
+		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
 		turtleAngle = 0;
 		
 		myTurtle.setX(turtleXPos);
