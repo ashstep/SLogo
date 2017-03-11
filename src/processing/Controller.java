@@ -210,7 +210,6 @@ public class Controller extends AlertDisplayer {
 			for(Node each : parserhelper.getFinalArrayList()){
 	            //System.out.println("each node Command string ***** " + each.getCommand());
 	            //System.out.println("each node Command num children ***** " + each.getNumberofChildren());
-
 	            //dubugging check to delete
 	            //for each chld print
 /*	            int count = 0;
@@ -221,10 +220,8 @@ public class Controller extends AlertDisplayer {
 	            }
 */	            
 				Command command = each.getCommandObject();
-				int numarg = 0;
 				for(int i = 0; i < command.getNumArgs(); i++ ){
-					command.addArg(Double.parseDouble(each.getSpecificChild(numarg).getCommand()));
-					numarg++;
+					command.addArg(Double.parseDouble(each.getSpecificChild(i).getCommand()));
 				}
 				command.treeArgs(each);
 				turtle.process(command);
