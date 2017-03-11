@@ -11,10 +11,13 @@ import javafx.stage.Stage;
 import processing.AlertDisplayer;
 import processing.Controller;
 
+/**
+ * This class deals with the creation of the menu that is found on the right side
+ * of the GUI
+ */
 public class TurtleMenu extends AlertDisplayer{
 
 	private MenuBar myTurtleMenu;
-	
 	
 	public TurtleMenu(ResourceBundle languageBundle){
 		MenuBar menuBar = new MenuBar();
@@ -59,7 +62,7 @@ public class TurtleMenu extends AlertDisplayer{
 	}
 	
 	/**
-	 * 
+	 * Getter for the MenuBar
 	 * @return the MenuBar for Turtle control
 	 */
 	public MenuBar getMenu(){
