@@ -160,6 +160,7 @@ public class Controller extends AlertDisplayer {
 		}
 		catch(Exception e){
 			createErrorMessage(myResourceBundle.getString("ErrorPrompt"));
+			e.printStackTrace();
 		}
 	}
 
