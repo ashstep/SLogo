@@ -3,7 +3,6 @@ package visuals;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -31,7 +30,6 @@ public class InputView implements IInputView {
 	private ColorPicker colorPicker;
 	private Background background;
 	private String initialColor = "#F0F0F0";
-
 	private int SPACING = 10;
 
 	/**
@@ -83,8 +81,7 @@ public class InputView implements IInputView {
 	 * @see visuals.IInputView#setBackground(javafx.scene.control.ColorPicker, javafx.scene.layout.Pane)
 	 */
 	@Override
-	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {
-		
+	public void setBackground(ColorPicker backgroundColorChooser, Pane root) {	
 		backgroundColorChooser.setOnAction(e -> {
 			Paint fill = backgroundColorChooser.getValue();
 			BackgroundFill backgroundFill = new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY);
@@ -97,8 +94,7 @@ public class InputView implements IInputView {
 	 * @see visuals.IInputView#setStroke(javafx.scene.control.ColorPicker, javafx.scene.canvas.GraphicsContext)
 	 */
 	@Override
-	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {
-		
+	public void setStroke(ColorPicker strokeColorChooser, GraphicsContext gc) {	
 		strokeColorChooser.setOnAction(e -> {
 			Paint fill = strokeColorChooser.getValue();
 			gc.setStroke(fill);
@@ -109,8 +105,7 @@ public class InputView implements IInputView {
 	/**
 	 * @see visuals.IInputView#clearScreen(Canvas, int, int)
 	 */
-	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){
-		
+	public void clearScreen(Canvas canvas, int WIDTH, int HEIGHT){		
 		canvas.getGraphicsContext2D().clearRect(0, 0, WIDTH, HEIGHT);
 		canvas.getGraphicsContext2D().beginPath();
 	}

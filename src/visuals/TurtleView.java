@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import processing.Controller;
 import turtle.TurtleState;
 
-
 /**
  * 
  * @author Harry Liu and Christian Martindale
@@ -27,8 +26,6 @@ public class TurtleView implements ITurtleView{
 	private double turtleXPos;
 	private double turtleYPos;
 	private double turtleAngle;
-	private double formerStateX =0;
-	private double formerStateY =0;
 	
 	public static int WIDTH;
 	public static int HEIGHT;
@@ -54,8 +51,6 @@ public class TurtleView implements ITurtleView{
 		String imagepath = myImageFile.toURI().toString();
 		myTurtle = new ImageView(new Image(imagepath));
 
-
-		
 		turtleXPos = WIDTH/2;
 		turtleYPos = HEIGHT/2;
 		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
@@ -96,8 +91,8 @@ public class TurtleView implements ITurtleView{
 	 * @see visuals.IITurtleView#updateTurtle(turtle.TurtleState)
 	 */
 	@Override
-	public void updateTurtle(TurtleState newTurtle){
-turtleInvisCloak(myTurtle, newTurtle.isVisible());
+	public void updateTurtle(TurtleState newTurtle){		
+		turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		
 		turtleXPos = newTurtle.getX() + WIDTH/2;
 		turtleYPos = HEIGHT/2 - newTurtle.getY() + myTurtle.getBoundsInLocal().getHeight();
@@ -112,8 +107,7 @@ turtleInvisCloak(myTurtle, newTurtle.isVisible());
 		myTurtle.setRotate(turtleAngle); 
 		
 		Tooltip.install(myTurtle, new Tooltip("X-Pos = " + turtleXPos + " Y-Pos = " + turtleYPos));
-		
-		
+			
 		drawTurtlePath(turtleXPos, turtleYPos, newTurtle.isPenDown());
 	}
 }
