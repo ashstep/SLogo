@@ -15,8 +15,6 @@ import command.Command;
  * 
  */
 public class CommandParser {
-	//delete this:
-	CommandTypeMap theCommandMapObject;
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 	private int commandIndex;
 	private static String[] myCommandsList;
@@ -39,10 +37,10 @@ public class CommandParser {
 	 * This Node is added to the list which contains all the head nodes for execution.
 	 * Thus, although the heads are stored in a list format, this is another way of implementing trees in relation to each other.
 	 */
-	private Node buildTree2() {
+	private Node buildTree() {
 		boolean addedAllChildren = false;
 		String theCurrentCommand = myCommandsList[commandIndex];
-		Node addedNode = initNodeforTree2(theCurrentCommand);
+		Node addedNode = initNodeforTree(theCurrentCommand);
 		if (addedNode.getNumberofChildren()==0 && addedAllChildren) {
 			ifCommandAddArray(addedNode);
 			return addedNode;	
@@ -50,7 +48,7 @@ public class CommandParser {
 		for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
 			incrCommandListIndex();
 			checkAllChildrenAdded(addedNode, i);
-			addedNode.addChild(buildTree2());
+			addedNode.addChild(buildTree());
 		}
 		addtoFinalArrayList(addedNode);
 		return addedNode;
@@ -99,7 +97,7 @@ public class CommandParser {
 	public Node initTreeRecurse(String[] commandList) {    	
 		myCommandsList = commandList;
 		commandIndex = 0; 
-		return buildTree2();
+		return buildTree();
 	}
 
 	/**
@@ -107,7 +105,7 @@ public class CommandParser {
 	 * @param command String for the new Node
 	 * @return newly created Node
 	 */
-	protected Node initNodeforTree2(String nodeString) {
+	protected Node initNodeforTree(String nodeString) {
 		CommandTypeMap theCommand = new CommandTypeMap(language);
 		Node created = new Node(nodeString);
 		created.setCommand(nodeString);

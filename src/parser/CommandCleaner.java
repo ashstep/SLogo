@@ -22,9 +22,8 @@ public class CommandCleaner {
     	cleanedCommands.add("["); 
     	for (String c : commands) {
     		if (!c.trim().equals("")) { 
-    			// if first char isnt a hash -> not a comment 
     			if (!(c.trim().charAt(0) == '#')) { 
-    				String[] splitCommands = c.trim().split(settings.getString("Delimiter"));
+    				String[] splitCommands = c.trim().split(" ");
     				for (String s : splitCommands) {
     					if (s.equals("#")){
     						break;
