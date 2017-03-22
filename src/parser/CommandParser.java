@@ -15,6 +15,7 @@ import command.Command;
  * 
  */
 public class CommandParser {
+	//delete this:
 	CommandTypeMap theCommandMapObject;
 	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 	private int commandIndex;

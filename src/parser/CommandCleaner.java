@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
  */
 
 public class CommandCleaner {
-    private static final String SETTINGS_PATH = "resources/internal/Settings";
+    private static final String SETTINGS_PATH = "resources.languages/Settings";
 
     /**
      * Cleans out extra spaces from commands
@@ -24,9 +24,7 @@ public class CommandCleaner {
     		if (!c.trim().equals("")) { 
     			// if first char isnt a hash -> not a comment 
     			if (!(c.trim().charAt(0) == '#')) { 
-
     				String[] splitCommands = c.trim().split(settings.getString("Delimiter"));
-
     				for (String s : splitCommands) {
     					if (s.equals("#")){
     						break;

@@ -66,13 +66,13 @@ public abstract class Command {
 		}
 		args.add(input);
 	}
-	
+
 	/**
 	 * Returns the number of allowed arguments
 	 * @return The number of allowed arguments
 	 */
 	public abstract int getNumArgs();
-	
+
 	/**
 	 * Sets the return value of the command
 	 * @param val Return value to set
@@ -80,17 +80,15 @@ public abstract class Command {
 	public void setReturnVal(double val){
 		returnVal = val;
 	}
-	
+
 	/**
 	 * Gets the return value of the command	
 	 * @return The return value of the command
 	 */
-	
-	//	//	public double getReturnVal(Node n){
 	public double getReturnVal(){
 		return returnVal;
 	}
-	
+
 	/**
 	 * Sets the return value of the <code>Command</code> based on its node in the command tree
 	 * @param n Node containing this <code>Command</code>
