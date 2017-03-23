@@ -14,14 +14,14 @@ public class ParserHelper {
 	CommandTypeMap theCommandMapObject;
 	CommandParser newParse;
 	ArrayList<Node> finalparserlist = new ArrayList<Node>();
-
+	String[] newCommands;
 	/**
 	 * Initializes a new command parsing builder (and thus new tree creation)
 	 * 
 	 * @param language in which commands are to be executed or expected
 	 */
 	private CommandParser initTreeCreation(String language) {
-		CommandParser newParse = new CommandParser(language);
+		CommandParser newParse = new CommandParser(language, newCommands);
 		return newParse;
 	}
 
@@ -43,7 +43,7 @@ public class ParserHelper {
 	 */
 	private double buildTree(String[] commandListInput, String language) {
 		CommandParser newParse = initTreeCreation(language);
-		newParse.initTreeRecurse(commandListInput);
+		newParse.initTreeRecurse();
 		updateHeadNodeList(newParse);
 		if(newParse.getCommandListIndex() < commandListInput.length-1){
 			newParse.incrCommandListIndex();

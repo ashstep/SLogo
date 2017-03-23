@@ -1,67 +1,73 @@
 package parser;
+//This entire file is part of my masterpiece.
+//ASHKA STEPHEN (aas74)
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import command.Command;
 
 /**
  *  @author Ashka Stephen
  *  
- *  This class creates a tree for each command sequence. This is done with a recursive implementation of a tree structure, where each 
+ *  This class creates an expression tree for each command sequence. This is done with a recursive implementation of a tree structure, where each 
  *  element is a Node holding Command information, such as the String CommandType, Command object, etc. The tree breaks the input into 
- *  its subparts and recurses from there so the resulting tree can be executed in the proper sequence. Each Node on the tree is thus 
- *  an irreducable component, making parsing extendable to multiple command sequences
- * 
+ *  its subparts and recurses from there such that the resulting tree can be executed in sequence. Each Node on the tree is thus 
+ *  an irreducable component, making parsing extendable to multiple command sequences.
  */
 public class CommandParser {
-	private HashMap<String, Double> variablesinCurrentCommand = new HashMap<>();
 	private int commandIndex;
-	private static String[] myCommandsList;
+	private String[] myCommandsList;
 	private String language;
-	ArrayList<Node> finallist = new ArrayList<Node>();
+	private ArrayList<Node> finallist = new ArrayList<Node>();
+	private String doubles = "\\d+(\\.\\d+)?";
 
 	/**
 	 * Constructor
-	 * Sets the language for command translation to occur in
-	 * @param langu specifies the language to set the translation to 
+	 * Sets the language for command translation
+	 * @param langu specifies language to set the translation to 
 	 */
-	public CommandParser(String langu) {
+	public CommandParser(String langu, String[] commandList) {
 		super();
 		this.language = langu;
+		this.myCommandsList = commandList;
+	}
+
+	/**
+	 * Initializes the recursive build of the expression tree
+	 * @param pass in the command list to initalize tree recurse
+	 * @return head Node of full tree
+	 */
+	public Node initTreeRecurse() {    	
+		commandIndex = 0; 
+		return buildTree();
 	}
 
 	/**
 	 * Build tree recursively from the list of commands.
-	 * @return Node root of the new tree
+	 * @return Node root of the new subtree
 	 * This Node is added to the list which contains all the head nodes for execution.
 	 * Thus, although the heads are stored in a list format, this is another way of implementing trees in relation to each other.
 	 */
 	private Node buildTree() {
-		boolean addedAllChildren = false;
-		String theCurrentCommand = myCommandsList[commandIndex];
-		Node addedNode = initNodeforTree(theCurrentCommand);
-		if (addedNode.getNumberofChildren()==0 && addedAllChildren) {
-			ifCommandAddArray(addedNode);
-			return addedNode;	
-		}
-		for (int i = 0; i < addedNode.getCommandObject().getNumArgs(); i++) {
-			incrCommandListIndex();
-			checkAllChildrenAdded(addedNode, i);
-			addedNode.addChild(buildTree());
-		}
-		addtoFinalArrayList(addedNode);
+		Node addedNode = initTreeNode(myCommandsList[commandIndex]);
+
+		if (addedNode.getNumberofChildren()==0 && checkAllChildrenAdded(addedNode) && !isNumber(addedNode.getCommand())) {
+			addtoArray(addedNode);
+			return addedNode;}
+
+		forAllChildren(addedNode);	
+		addtoArray(addedNode);
 		return addedNode;
 	}
 
 	/**
-	 * Checks if the current Node is a Command or not (rather than a double value) 
-	 * and adds it to the final ArrayList if this is so.
-	 * @param Node that will be checked for validity and added to final ArrayList
+	 * Creates expression tree for all children nodes
+	 * @param parent Node
 	 */
-	private void ifCommandAddArray(Node addedNode) {
-		if(!isValidDouble(addedNode.getCommand())){
-			addtoFinalArrayList(addedNode);
+	private void forAllChildren(Node parent) {
+		while(getCommandListIndex() <= parent.getNumberofChildren()){
+			incrCommandListIndex();
+			parent.addChild(buildTree());
 		}
 	}
 
@@ -70,14 +76,41 @@ public class CommandParser {
 	 * @param currNumofChildren is the current number of children that have been added to the parent Node
 	 * @param addedNode is the new Node (parent) to which children are added
 	 */
-	private void checkAllChildrenAdded(Node addedNode, int currNumofChildren) {
-		boolean addedAllChildren;
-		if(currNumofChildren == addedNode.getCommandObject().getNumArgs()-1){
-			addedAllChildren = true;
-		}
+	private boolean checkAllChildrenAdded(Node addedNode) {
+		return (addedNode.getNumberofChildren() == addedNode.getCommandObject().getNumArgs()-1);
 	}
 
-	private void addtoFinalArrayList(Node n){
+	/**
+	 * Initialize new node
+	 * @param command String for the new Node
+	 * @return newly created Node with String and Command Obj
+	 */
+	protected Node initTreeNode(String nodeString) {
+		CommandTypeMap theCommand = new CommandTypeMap(language);
+		Node created = new Node(nodeString);
+
+		String genericString = theCommand.getCommandString(nodeString);
+		Command currCommand = theCommand.getCommandObj(genericString);
+
+		created.setCommand(genericString);
+		created.setCommandObject(currCommand);
+		return created;
+	}
+
+	/**
+	 * Checks if a String is a Double
+	 * @param String to check validity of
+	 * @return Boolean indicating whether String is a valid Double using regular expressions
+	 */
+	private boolean isNumber(String str) {
+		return str.matches(doubles);
+	}
+
+	/**
+	 * Adds node to the final array to be returned
+	 * @param Node to add
+	 */
+	private void addtoArray(Node n){
 		finallist.add(n);
 	}
 
@@ -90,57 +123,10 @@ public class CommandParser {
 	}
 
 	/**
-	 * Initializes the recursion of the tree
-	 * @param pass in the command list that has been split to initalize tree recurse on that
-	 * @return Node
-	 */
-	public Node initTreeRecurse(String[] commandList) {    	
-		myCommandsList = commandList;
-		commandIndex = 0; 
-		return buildTree();
-	}
-
-	/**
-	 * Initialize a new node
-	 * @param command String for the new Node
-	 * @return newly created Node
-	 */
-	protected Node initNodeforTree(String nodeString) {
-		CommandTypeMap theCommand = new CommandTypeMap(language);
-		Node created = new Node(nodeString);
-		created.setCommand(nodeString);
-		String mappedCommandString = theCommand.getCommandString(nodeString);
-		Command currCommand = theCommand.getCommandObj(mappedCommandString);
-		created.setCommandObject(currCommand);
-		return created;
-	}
-
-	/**
-	 * Checks if a String is a Double
-	 * @param String to check validity of
-	 * @return Boolean indicating whether String is a valid Double
-	 */
-	private boolean isValidDouble(String string) {
-		boolean isValid = true;
-		try{
-			double d = Double.parseDouble(string);
-			isValid = true;}
-		catch(NumberFormatException nfe){
-			isValid = false;}
-		return isValid;}
-
-	/**
 	 * Getter for the command index 
 	 */
 	public int getCommandListIndex() {
 		return commandIndex;
-	}
-
-	/**
-	 * Setter for the command index 
-	 */
-	public void setCommandListIndex(int n) {
-		commandIndex = n;
 	}
 
 	/**
@@ -150,35 +136,4 @@ public class CommandParser {
 		commandIndex++;
 	}
 
-	/**
-	 * Checks if String command is a variable
-	 * @param String command input
-	 * @return: Boolean saying if variable
-	 */
-	private boolean isVariable(String string) {
-		return string.startsWith(":");
-	}
-
-	/**
-	 * Checks if a Variable is already saved
-	 * @param String indicating variable
-	 * @return Boolean indicating whether String has been mapped
-	 */
-	private boolean isVariableinMap(String string) {
-		if (variablesinCurrentCommand.get(string) != null) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Adds variable given to map, thus saving the value of the variable for future use
-	 * @param valuetobeAdded Double value to be mapped to t
-	 * @param variableNameWithColon String to which Double given needs to be saved
-	 */
-	private void addVariableToHashmap(String variableNameWithColon, Double valuetobeAdded) {
-		if (!(variablesinCurrentCommand.containsKey(variableNameWithColon))) {
-			variablesinCurrentCommand.put(variableNameWithColon, valuetobeAdded);
-		}
-	}
 }
