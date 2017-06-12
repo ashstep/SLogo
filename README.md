@@ -24,4 +24,7 @@ On a broad scale, our design choices for the project follow a Model-View-Control
 
 ## High Level Design: Front-end and Back-end
 The front-end and back-end components only interact with the Controller.java class (the middleman). The backend controls the turtle, parses commands and updates the turtle state (in other words, the internal backend API). On the other hand, the external backend API deals with the retrieval of the commands from the front-end and returning the executed command (in terms of a changed turtle state) to the front-end. On the other side, the internal front-end API controlled visuals of the program, the command history, the help page, creation of new windows, etc. The external front-end API works with connecting the backend by passing commands to the back-end, listening for turtle state updates and command errors.
+
+
+
 ----------
