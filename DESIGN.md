@@ -1,5 +1,4 @@
 # Design
-> Vishnu Gottiparthy , Harry Liu, Christian Martindale, and Ashka Stephen
 
 ## Introduction
 This program will allow a user to control a turtle object through simple text commands. It will use a read-evaluate-display loop, like in the Logo language, to control the turtle and change its properties based on each user input. The Model-View-Controller design pattern will serve well for this program because it allows encapsulation of the functionality of the command parser and turtle properties, and only requires the user to deal with the text commands itself. 
@@ -131,7 +130,5 @@ We are assuming that the input will be in one of the languages specified (but ar
 
 ## Team Responsibilities
 Back-end developers: Ashka Stephen, Vishnu Gottiparthy
-
 Front-end Developers: Harry Liu, Christian Martindale
-
 Roles are not strictly defined and everyone will help each other out where needed. The back-end is a lot more work.
